@@ -1,0 +1,658 @@
+{
+  "sample_id": "KP-HS11286",
+  "species": "Klebsiella pneumoniae",
+  "generated_utc": "2026-07-18T20:44:02.978230+00:00",
+  "disclaimer": "Research prototype \u2014 every result must be confirmed by standard laboratory testing. Decision support only; not a medical device. Predicts and explains existing resistance only.",
+  "summary": {
+    "n_drugs": 12,
+    "n_likely_to_fail": 12,
+    "n_likely_to_work": 0,
+    "n_no_call": 0
+  },
+  "models_used": [
+    "AMRFinderPlus",
+    "Kleborate",
+    "WGS_to_AMR"
+  ],
+  "genome_features": {
+    "genes": [
+      "aac(3)-IId",
+      "aadA2",
+      "aph(3'')-Ib",
+      "aph(6)-Id",
+      "blaCTX-M-14",
+      "blaKPC-2",
+      "blaSHV-11",
+      "blaTEM-1",
+      "dfrA12",
+      "dfrA50",
+      "emrD",
+      "floR2",
+      "fosA",
+      "rmtB1",
+      "sul1",
+      "sul2",
+      "tet(G)"
+    ],
+    "point_mutations": [
+      "cirA_N467MfsTer15",
+      "gyrA_S83I",
+      "ompK35_G134AfsTer11",
+      "parC_S80I"
+    ],
+    "n_amr_elements": 21
+  },
+  "clinical_context": {},
+  "coverage": {
+    "species_covered": [
+      "Klebsiella pneumoniae"
+    ],
+    "not_covered": [
+      "other species",
+      "antibiotics outside the panel",
+      "sample\u2192genome steps",
+      "polymicrobial samples"
+    ]
+  },
+  "drugs": [
+    {
+      "drug": "amikacin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "aac(3)-IId",
+        "aadA2",
+        "aadA2^",
+        "aph(3'')-Ib",
+        "aph(6)-Id",
+        "rmtB",
+        "rmtB1",
+        "strA.v1^",
+        "strB.v1"
+      ],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "known resistance determinant detected; note: ML models predict susceptible (possible non-functional allele)",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.136438861489296,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "gentamicin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "aac(3)-IId",
+        "aadA2",
+        "aadA2^",
+        "aph(3'')-Ib",
+        "aph(6)-Id",
+        "rmtB",
+        "rmtB1",
+        "strA.v1^",
+        "strB.v1"
+      ],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.565628349781036,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "tobramycin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "aac(3)-IId",
+        "aadA2",
+        "aadA2^",
+        "aph(3'')-Ib",
+        "aph(6)-Id",
+        "rmtB",
+        "rmtB1",
+        "strA.v1^",
+        "strB.v1"
+      ],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.399455159902573,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "ciprofloxacin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.875,
+      "supporting_genes": [
+        "GyrA:p.Ser83Ile",
+        "ParC:p.Ser80Ile",
+        "gyrA_S83I",
+        "parC_S80I"
+      ],
+      "target_present": true,
+      "target_note": "DNA gyrase (gyrA) / topoisomerase IV (parC) present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.875182151794434,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "ceftazidime",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "CTX-M-14",
+        "KPC-2",
+        "blaCTX-M-14",
+        "blaKPC-2",
+        "blaSHV-11",
+        "blaTEM-1",
+        "cirA_N467MfsTer15",
+        "ompK35_G134AfsTer11"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.51460874080658,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+          "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+          "doi": "10.1101/2025.04.14.648765",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+        },
+        {
+          "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+          "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+          "doi": "10.1038/s41598-024-64992-8",
+          "year": 2024,
+          "score": 8,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+        }
+      ]
+    },
+    {
+      "drug": "cefepime",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.994,
+      "supporting_genes": [
+        "CTX-M-14",
+        "KPC-2",
+        "blaCTX-M-14",
+        "blaKPC-2",
+        "blaSHV-11",
+        "blaTEM-1",
+        "cirA_N467MfsTer15",
+        "ompK35_G134AfsTer11"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.994019031524658,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+          "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+          "doi": "10.1101/2025.04.14.648765",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+        },
+        {
+          "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+          "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+          "doi": "10.1038/s41598-024-64992-8",
+          "year": 2024,
+          "score": 8,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+        }
+      ]
+    },
+    {
+      "drug": "aztreonam",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.951,
+      "supporting_genes": [
+        "CTX-M-14",
+        "blaCTX-M-14",
+        "blaKPC-2",
+        "blaSHV-11",
+        "blaTEM-1",
+        "cirA_N467MfsTer15",
+        "ompK35_G134AfsTer11"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding protein 3 present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.950537323951721,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+          "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+          "doi": "10.1101/2025.04.14.648765",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+        },
+        {
+          "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+          "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+          "doi": "10.1038/s41598-024-64992-8",
+          "year": 2024,
+          "score": 8,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+        }
+      ]
+    },
+    {
+      "drug": "imipenem",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "KPC-2",
+        "blaCTX-M-14",
+        "blaKPC-2",
+        "blaSHV-11",
+        "blaTEM-1",
+        "cirA_N467MfsTer15",
+        "ompK35_G134AfsTer11"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.435676753520966,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+          "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+          "doi": "10.1101/2025.04.14.648765",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+        },
+        {
+          "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+          "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+          "doi": "10.1038/s41598-024-64992-8",
+          "year": 2024,
+          "score": 8,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+        }
+      ]
+    },
+    {
+      "drug": "meropenem",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "KPC-2",
+        "blaCTX-M-14",
+        "blaKPC-2",
+        "blaSHV-11",
+        "blaTEM-1",
+        "cirA_N467MfsTer15",
+        "ompK35_G134AfsTer11"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.535341024398804,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+          "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+          "doi": "10.1101/2025.04.14.648765",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+        },
+        {
+          "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+          "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+          "doi": "10.1038/s41598-024-64992-8",
+          "year": 2024,
+          "score": 8,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+        }
+      ]
+    },
+    {
+      "drug": "piperacillin/tazobactam",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.889,
+      "supporting_genes": [
+        "KPC-2",
+        "TEM-1",
+        "blaCTX-M-14",
+        "blaKPC-2",
+        "blaSHV-11",
+        "blaTEM-1",
+        "cirA_N467MfsTer15",
+        "ompK35_G134AfsTer11"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.888984501361847,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+          "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+          "doi": "10.1101/2025.04.14.648765",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+        },
+        {
+          "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+          "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+          "doi": "10.1038/s41598-024-64992-8",
+          "year": 2024,
+          "score": 8,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+        }
+      ]
+    },
+    {
+      "drug": "fosfomycin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "fosA"
+      ],
+      "target_present": true,
+      "target_note": "MurA (UDP-GlcNAc enolpyruvyl transferase) present (core gene assumed intact)",
+      "reason": "known resistance determinant detected",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.560140788555145,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "levofloxacin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.835,
+      "supporting_genes": [],
+      "target_present": true,
+      "target_note": "unknown target present (core gene assumed intact)",
+      "reason": "statistical association (no known determinant)",
+      "model_votes": [
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.834728837013245,
+          "evidence_type": "ml"
+        }
+      ],
+      "literature": []
+    }
+  ],
+  "literature": {
+    "query": "blaKPC-2 antimicrobial resistance Klebsiella pneumoniae",
+    "question": "How does blaKPC-2 confer antibiotic resistance in Klebsiella pneumoniae, and which antibiotics does it affect? Summarize the mechanism and clinical relevance.",
+    "answer": "The blaKPC-2 gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance in Klebsiella pneumoniae. This enzyme deactivates the antibiotic by breaking the \u03b2-lactam ring, a critical structure for the antibiotic's bactericidal activity (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The blaKPC-2 gene's expression and copy number can increase under antibiotic stress, further enhancing resistance levels (hamza2025emergingresistanceto pages 23-24). This gene is primarily associated with resistance to \u03b2-lactam antibiotics, including carbapenems and ceftazidime/avibactam, a combination that includes a \u03b2-lactamase inhibitor (hamza2025emergingresistanceto pages 23-24, hamza2025emergingresistanceto pages 20-22).\n\nClinically, the presence of blaKPC-2 in Klebsiella pneumoniae poses significant challenges in treating infections, as it limits the efficacy of critical antibiotics used in severe infections, particularly in healthcare settings where carbapenems are frequently employed (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The gene's ability to spread to other bacterial species, such as Kluyvera spp, Serratia marcescens, and Enterobacter cloacae, further complicates infection control and necessitates robust antimicrobial stewardship strategies (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The emergence of novel KPC variants, such as KPC-109 and KPC-31, which confer resistance to avibactam-based combinations, underscores the ongoing evolution of resistance mechanisms and the need for continuous surveillance and development of new therapeutic options (hamza2025emergingresistanceto pages 20-22).",
+    "n_pdfs": 3,
+    "citations": [
+      {
+        "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+        "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+        "doi": "10.1101/2025.04.14.648765",
+        "year": 2025,
+        "score": 9,
+        "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+      },
+      {
+        "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+        "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+        "doi": "10.1038/s41598-024-64992-8",
+        "year": 2024,
+        "score": 8,
+        "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+      }
+    ],
+    "determinant": "blaKPC-2"
+  }
+}

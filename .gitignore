@@ -2,3 +2,19 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# secrets — never commit API keys
+.env
+*.env
+
+# large / external artifacts (kept on scratch, not in git)
+external_models/
+*.fna
+*.fasta
+*.msh
+
+# scratch outputs
+data/smoke/*.fna
+
+# cached literature PDFs
+data/smoke/pdf_cache/
