@@ -12,7 +12,7 @@ if not st.session_state.get("authed") or not st.session_state.get("uploaded_file
     st.switch_page("app.py")
 
 DATA_PATH = Path(__file__).parent.parent / "data" / "mock_results.json"
-with open(DATA_PATH) as f:
+with open(DATA_PATH, encoding="utf-8") as f:
     DATA = json.load(f)
 
 antibiotics = DATA["antibiotics"]
@@ -67,6 +67,7 @@ st.markdown("""
 for a in antibiotics:
     meta = VERDICT_META[a["verdict"]]
     confidence_pct = round(a["confidence"] * 100)
+    lit_entries = a.get("literature", [])
     st.markdown(f"""
     <div class="drug-card">
       <div class="drug-card-top">
@@ -84,6 +85,28 @@ for a in antibiotics:
       <div class="drug-detail">{a['detail']}</div>
     </div>
     """, unsafe_allow_html=True)
+
+    lit_label = f"📖  View literature & clinical research ({len(lit_entries)})" if lit_entries else "📖  No literature attached"
+    with st.expander(lit_label, expanded=False):
+        if not lit_entries:
+            st.markdown(
+                "<div class='lit-empty'>No literature retrieved for this determinant in this mock dataset.</div>",
+                unsafe_allow_html=True,
+            )
+        else:
+            st.markdown(
+                "<div class='lit-note'>Evidence retrieved by paper-qa for the detected determinant × drug. Citations are illustrative in this mock.</div>",
+                unsafe_allow_html=True,
+            )
+            for ref in lit_entries:
+                st.markdown(f"""
+                <div class="lit-ref">
+                  <div class="lit-ref-title">{ref['title']}<span class="lit-tag">{ref['tag']}</span></div>
+                  <div class="lit-meta">{ref['source']} · {ref['year']} · PMID {ref['pmid']}</div>
+                  <div class="lit-quote">&ldquo;{ref['quote']}&rdquo;</div>
+                  <a class="lit-link" href="{ref['url']}" target="_blank" rel="noopener">View source ↗</a>
+                </div>
+                """, unsafe_allow_html=True)
 
 # ---- Model performance (collapsible, secondary) ----
 with st.expander("Model performance on held-out test data"):

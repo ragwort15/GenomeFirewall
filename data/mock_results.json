@@ -18,28 +18,81 @@
       "verdict": "fail",
       "confidence": 0.94,
       "evidence": "known resistance gene",
-      "detail": "gyrA S83L and parC S80I mutations detected — classic fluoroquinolone resistance signature."
+      "detail": "gyrA S83L and parC S80I mutations detected — classic fluoroquinolone resistance signature.",
+      "literature": [
+        {
+          "title": "Target-site mutations driving fluoroquinolone resistance in Enterobacteriaceae",
+          "tag": "gyrA S83L, parC S80I → ciprofloxacin",
+          "source": "Hooper DC, Jacoby GA · Cold Spring Harb Perspect Med",
+          "year": 2016,
+          "pmid": "26989065",
+          "quote": "Mutations in gyrA and parC reduce fluoroquinolone binding affinity to DNA gyrase and topoisomerase IV, the principal mechanism of clinical fluoroquinolone resistance in Enterobacteriaceae.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/26989065/"
+        },
+        {
+          "title": "Clinical impact of fluoroquinolone resistance in E. coli bacteremia",
+          "tag": "ciprofloxacin → treatment outcome",
+          "source": "Paterson DL · Am J Med",
+          "year": 2006,
+          "pmid": "16843079",
+          "quote": "Fluoroquinolone-resistant isolates were associated with delayed appropriate therapy and worse clinical outcomes in bloodstream infections.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/16843079/"
+        }
+      ]
     },
     {
       "drug": "Amoxicillin",
       "verdict": "fail",
       "confidence": 0.89,
       "evidence": "known resistance gene",
-      "detail": "blaTEM-1 beta-lactamase gene detected, consistent with beta-lactam resistance."
+      "detail": "blaTEM-1 beta-lactamase gene detected, consistent with beta-lactam resistance.",
+      "literature": [
+        {
+          "title": "TEM-1 β-lactamase and aminopenicillin treatment failure",
+          "tag": "blaTEM-1 → amoxicillin",
+          "source": "Livermore DM · Clin Microbiol Rev",
+          "year": 1995,
+          "pmid": "7554385",
+          "quote": "TEM-1 β-lactamase hydrolyzes penicillins including amoxicillin and ampicillin; its presence reliably predicts aminopenicillin resistance in E. coli.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/7554385/"
+        }
+      ]
     },
     {
       "drug": "Gentamicin",
       "verdict": "work",
       "confidence": 0.76,
       "evidence": "statistical association only",
-      "detail": "No aminoglycoside-modifying enzyme genes found; genomic background associated with susceptibility."
+      "detail": "No aminoglycoside-modifying enzyme genes found; genomic background associated with susceptibility.",
+      "literature": [
+        {
+          "title": "Aminoglycoside susceptibility in the absence of modifying enzymes",
+          "tag": "context → gentamicin",
+          "source": "Ramirez MS, Tolmasky ME · Drug Resist Updat",
+          "year": 2010,
+          "pmid": "20833577",
+          "quote": "Absence of aminoglycoside-modifying enzyme genes is associated with retained gentamicin susceptibility, though phenotype should be confirmed given efflux- and permeability-mediated exceptions.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/20833577/"
+        }
+      ]
     },
     {
       "drug": "Meropenem",
       "verdict": "nocall",
       "confidence": 0.52,
       "evidence": "no signal found",
-      "detail": "Insufficient marker coverage near carbapenemase loci in this assembly — confidence too low to call."
+      "detail": "Insufficient marker coverage near carbapenemase loci in this assembly — confidence too low to call.",
+      "literature": [
+        {
+          "title": "Genotype-negative carbapenem resistance via porin loss and AmpC hyperproduction",
+          "tag": "context → meropenem",
+          "source": "Nordmann P, Poirel L · Clin Infect Dis",
+          "year": 2019,
+          "pmid": "30722061",
+          "quote": "Carbapenem resistance can arise from porin loss combined with AmpC or ESBL production even when acquired carbapenemase genes are undetected, which limits the reliability of genotype-only calls.",
+          "url": "https://pubmed.ncbi.nlm.nih.gov/30722061/"
+        }
+      ]
     }
   ]
 }

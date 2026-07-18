@@ -151,10 +151,51 @@ GLOBAL_CSS = """
 
   div[data-testid="stExpander"] {
     background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(127,220,255,0.15);
+    border: 1px solid rgba(127,220,255,0.2);
     border-radius: 14px;
+    margin-top: -0.7rem;
+    margin-bottom: 1.1rem;
   }
-  div[data-testid="stExpander"] summary { color:#8fb3c4 !important; font-size:0.88rem; }
+  div[data-testid="stExpander"] summary {
+    background-color: transparent !important;
+    color:#7fdcff !important;
+    font-weight: 600;
+    font-size: 0.82rem;
+    letter-spacing: 0.02em;
+  }
+  div[data-testid="stExpander"] summary:hover {
+    background-color: rgba(0,229,255,0.05) !important;
+  }
+  div[data-testid="stExpander"] summary p {
+    color:#7fdcff !important;
+  }
+  div[data-testid="stExpander"] details {
+    background-color: transparent !important;
+  }
+  .lit-note {
+    color:#6b8a99; font-size:0.78rem; margin: 0 0 0.85rem 0; line-height:1.5;
+  }
+  .lit-ref {
+    background: rgba(0,229,255,0.03);
+    border: 1px solid rgba(127,220,255,0.15);
+    border-left: 3px solid rgba(0,229,255,0.5);
+    border-radius: 0 10px 10px 0;
+    padding: 0.75rem 1rem;
+    margin-bottom: 0.75rem;
+  }
+  .lit-ref:last-child { margin-bottom: 0; }
+  .lit-ref-title { color:#e8f6ff; font-weight:600; font-size:0.92rem; line-height:1.4; }
+  .lit-tag {
+    display: inline-block; margin-left: 0.5rem; margin-top: 0.15rem;
+    font-size: 0.63rem; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    color:#7fdcff; background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.3);
+    border-radius: 6px; padding: 0.15rem 0.5rem; vertical-align: middle; white-space: nowrap;
+  }
+  .lit-meta { color:#8fb3c4; font-size:0.76rem; margin: 0.3rem 0 0.5rem 0; }
+  .lit-quote { color:#b8d4e3; font-size:0.85rem; font-style: italic; line-height:1.55; margin-bottom:0.5rem; }
+  .lit-link { color:#7fdcff; font-size:0.8rem; text-decoration:none; font-weight:600; }
+  .lit-link:hover { text-decoration: underline; }
+  .lit-empty { color:#6b8a99; font-size:0.85rem; padding: 0.25rem 0; }
 </style>
 """
 
