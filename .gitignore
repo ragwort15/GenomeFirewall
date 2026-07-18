@@ -16,5 +16,3 @@ external_models/
 # scratch outputs
 data/smoke/*.fna
 
-# cached literature PDFs
-data/smoke/pdf_cache/
