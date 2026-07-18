@@ -149,6 +149,22 @@ GLOBAL_CSS = """
   .perf-metric .val { color:#a8c8d8; font-size:1.05rem; font-weight:700; }
   .perf-metric .lbl { color:#5c7a89; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.06em; margin-top:0.25rem; }
 
+  /* ---- patient summary bar (shown on upload step) ---- */
+  .patient-summary-bar {
+    background: rgba(0,229,255,0.05);
+    border: 1px solid rgba(127,220,255,0.25);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    color: #b8d4e3;
+    margin: 0.5rem 0;
+  }
+  .patient-summary-bar .ps-label {
+    color: #7fdcff; font-weight: 700; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.15em; margin-right: 0.5rem;
+  }
+  .patient-summary-bar .ps-value { color: #ffffff; }
+
   /* ---- patient / clinical context card ---- */
   .patient-card {
     background: rgba(255,255,255,0.04);

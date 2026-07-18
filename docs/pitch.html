@@ -1,0 +1,842 @@
+<title>Genome Firewall — An AI Defense Against Superbugs</title>
+<style>
+  :root {
+    --parchment: #F2EEE4;
+    --parchment-2: #EAE4D5;
+    --ink: #12211C;
+    --ink-2: #2A3934;
+    --muted: #7A7268;
+    --coral: #C64A2C;
+    --coral-2: #A63B1F;
+    --highlight: #E8B84A;
+    --green: #2E6B4F;
+    --rule: rgba(18,33,28,0.14);
+
+    --bg: var(--parchment);
+    --bg-alt: var(--parchment-2);
+    --fg: var(--ink);
+    --fg-soft: var(--ink-2);
+    --fg-quiet: var(--muted);
+    --line: var(--rule);
+
+    --measure: 62ch;
+    --display: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+    --body: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0E1512;
+      --bg-alt: #131C18;
+      --fg: #E8E6DE;
+      --fg-soft: #C7C4B8;
+      --fg-quiet: #8A8578;
+      --line: rgba(232,230,222,0.14);
+      --coral: #E76A48;
+      --highlight: #F1C868;
+      --green: #6BA383;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0E1512;
+    --bg-alt: #131C18;
+    --fg: #E8E6DE;
+    --fg-soft: #C7C4B8;
+    --fg-quiet: #8A8578;
+    --line: rgba(232,230,222,0.14);
+    --coral: #E76A48;
+    --highlight: #F1C868;
+    --green: #6BA383;
+  }
+  :root[data-theme="light"] {
+    --bg: #F2EEE4;
+    --bg-alt: #EAE4D5;
+    --fg: #12211C;
+    --fg-soft: #2A3934;
+    --fg-quiet: #7A7268;
+    --line: rgba(18,33,28,0.14);
+    --coral: #C64A2C;
+    --highlight: #E8B84A;
+    --green: #2E6B4F;
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--fg);
+    font-family: var(--body);
+    font-size: 18px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+  ::selection { background: var(--highlight); color: var(--ink); }
+
+  .wrap {
+    width: min(100% - 2.5rem, 960px);
+    margin: 0 auto;
+  }
+
+  /* ------- Top bar ------- */
+  .topbar {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-quiet);
+  }
+  .brand {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: var(--fg);
+    font-weight: 700;
+  }
+  .brand-mark {
+    width: 18px; height: 18px; border-radius: 3px;
+    background: var(--coral);
+    display: inline-block;
+    box-shadow: 3px 3px 0 var(--highlight);
+  }
+  .theme-toggle {
+    background: transparent; border: 1px solid var(--line);
+    color: var(--fg-quiet);
+    padding: 0.35rem 0.7rem; border-radius: 999px;
+    font-family: var(--mono); font-size: 0.7rem; letter-spacing: 0.12em;
+    cursor: pointer;
+  }
+  .theme-toggle:hover { color: var(--fg); border-color: var(--fg-quiet); }
+  .theme-toggle:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+
+  .top-actions { display: flex; align-items: center; gap: 0.65rem; }
+  .cta-demo {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: var(--coral); color: #FFF8EF;
+    text-decoration: none;
+    padding: 0.4rem 0.9rem; border-radius: 999px;
+    font-family: var(--mono); font-size: 0.7rem;
+    letter-spacing: 0.14em; font-weight: 700;
+    border: 1px solid var(--coral);
+    transition: filter 0.15s ease, transform 0.15s ease;
+  }
+  .cta-demo:hover { filter: brightness(1.08); transform: translateY(-1px); }
+  .cta-demo:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+  .cta-demo .arrow {
+    display: inline-block; transition: transform 0.15s ease;
+  }
+  .cta-demo:hover .arrow { transform: translateX(2px); }
+
+  /* ------- Hero ------- */
+  .hero {
+    position: relative;
+    padding: 5.5rem 0 5rem 0;
+    border-bottom: 1px solid var(--line);
+    overflow: hidden;
+  }
+  .helix {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    z-index: 0; opacity: 0.9;
+    pointer-events: none;
+  }
+  .hero-inner { position: relative; z-index: 1; }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--coral);
+    display: flex; align-items: center; gap: 0.6rem;
+    margin-bottom: 1.75rem;
+  }
+  .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--coral);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.7); }
+  }
+
+  h1.title {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: clamp(2.6rem, 6.5vw, 5rem);
+    line-height: 0.98;
+    letter-spacing: -0.025em;
+    margin: 0 0 1.5rem 0;
+    max-width: 14ch;
+    text-wrap: balance;
+    color: var(--fg);
+  }
+  h1.title em {
+    font-style: normal;
+    background: linear-gradient(180deg, transparent 62%, var(--highlight) 62%, var(--highlight) 92%, transparent 92%);
+    padding: 0 0.05em;
+  }
+
+  .lede {
+    max-width: 52ch;
+    font-size: 1.2rem;
+    line-height: 1.55;
+    color: var(--fg-soft);
+    margin: 0 0 2.5rem 0;
+  }
+
+  .meta {
+    display: flex; flex-wrap: wrap; gap: 1.75rem 2.5rem;
+    padding-top: 1.75rem;
+    border-top: 1px solid var(--line);
+    font-family: var(--mono); font-size: 0.72rem;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-quiet);
+  }
+  .meta b { color: var(--fg); font-weight: 700; }
+
+  /* ------- Section skeleton ------- */
+  section.section {
+    padding: 5.5rem 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .section-grid {
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+  @media (max-width: 720px) {
+    .section-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+  }
+  .marker {
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg-quiet);
+    position: sticky; top: 1.5rem;
+  }
+  .marker .num {
+    display: block;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 3.25rem;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--coral);
+    margin-bottom: 0.5rem;
+  }
+  h2.section-title {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: clamp(1.85rem, 3.6vw, 2.8rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0 0 1.5rem 0;
+    max-width: 20ch;
+    text-wrap: balance;
+    color: var(--fg);
+  }
+  .section-body { max-width: var(--measure); }
+  .section-body p {
+    margin: 0 0 1.15rem 0;
+    color: var(--fg-soft);
+  }
+  .section-body p:last-child { margin-bottom: 0; }
+
+  .pull {
+    font-family: var(--display);
+    font-weight: 600;
+    font-size: 1.4rem;
+    line-height: 1.35;
+    color: var(--fg);
+    border-left: 3px solid var(--coral);
+    padding: 0.15rem 0 0.15rem 1.25rem;
+    margin: 2rem 0 2rem 0;
+    max-width: 42ch;
+  }
+
+  /* Stats row for the problem */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin: 2rem 0 0.5rem 0;
+  }
+  @media (max-width: 640px) { .stats { grid-template-columns: 1fr; } }
+  .stat {
+    padding: 1.25rem 0;
+    border-top: 2px solid var(--fg);
+  }
+  .stat .n {
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 2.4rem;
+    line-height: 1;
+    letter-spacing: -0.02em;
+    color: var(--coral);
+  }
+  .stat .l {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--fg-quiet);
+    margin-top: 0.6rem;
+    max-width: 24ch;
+  }
+
+  /* Pipeline for the solution */
+  .flow {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    margin: 2rem 0 1rem 0;
+    border-top: 1px solid var(--line);
+  }
+  .flow-step {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    gap: 1.25rem;
+    padding: 1.25rem 0;
+    border-bottom: 1px solid var(--line);
+    align-items: baseline;
+  }
+  .flow-step .step-n {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    color: var(--coral);
+  }
+  .flow-step .step-t {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--fg);
+  }
+  .flow-step .step-d {
+    grid-column: 2;
+    color: var(--fg-soft);
+    font-size: 0.98rem;
+    line-height: 1.55;
+    margin-top: 0.35rem;
+  }
+
+  /* Tech chips */
+  .chips {
+    display: flex; flex-wrap: wrap; gap: 0.5rem;
+    margin: 1.25rem 0 1.75rem 0;
+  }
+  .chip {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 0.35rem 0.75rem;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    color: var(--fg-soft);
+    background: var(--bg-alt);
+  }
+  .chip.on { border-color: var(--coral); color: var(--coral); }
+
+  /* Card row for "what's new" */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  @media (max-width: 640px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    border: 1px solid var(--line);
+    padding: 1.25rem 1.25rem 1.35rem 1.25rem;
+    background: var(--bg-alt);
+    border-radius: 6px;
+  }
+  .card h4 {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+    color: var(--fg);
+    margin: 0 0 0.4rem 0;
+  }
+  .card p {
+    margin: 0;
+    color: var(--fg-soft);
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  .card .tag {
+    font-family: var(--mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  /* Challenges list */
+  .challenges {
+    list-style: none; padding: 0; margin: 1.75rem 0 0 0;
+  }
+  .challenges li {
+    padding: 1.1rem 0;
+    border-top: 1px solid var(--line);
+    display: grid;
+    grid-template-columns: minmax(9rem, 12rem) 1fr;
+    gap: 1.5rem;
+    align-items: baseline;
+  }
+  .challenges li:last-child { border-bottom: 1px solid var(--line); }
+  .challenges .label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--coral);
+  }
+  .challenges .desc {
+    color: var(--fg-soft);
+    font-size: 1rem;
+    line-height: 1.55;
+  }
+  @media (max-width: 640px) {
+    .challenges li { grid-template-columns: 1fr; gap: 0.35rem; }
+  }
+
+  /* Sequence strip */
+  .seq {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.18em;
+    color: var(--fg-quiet);
+    padding: 1rem 0 0 0;
+    word-break: break-all;
+    line-height: 1.6;
+  }
+  .seq b { color: var(--coral); font-weight: 700; }
+
+  /* Footer */
+  footer {
+    padding: 3rem 0 4rem 0;
+    color: var(--fg-quiet);
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex; flex-wrap: wrap; gap: 1rem 2rem;
+    justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--line);
+  }
+  footer .disc {
+    max-width: 52ch;
+    text-transform: none;
+    letter-spacing: 0.04em;
+    color: var(--fg-quiet);
+    font-size: 0.75rem;
+  }
+
+  /* Reveal on scroll */
+  .reveal {
+    opacity: 0; transform: translateY(14px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.in { opacity: 1; transform: none; }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { opacity: 1; transform: none; transition: none; }
+    .helix { display: none; }
+    .eyebrow .dot { animation: none; }
+    html { scroll-behavior: auto; }
+  }
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand"><span class="brand-mark" aria-hidden="true"></span>Genome Firewall</div>
+    <div class="top-actions">
+      <a class="cta-demo" href="http://localhost:8501" target="_blank" rel="noopener">
+        Watch Demo <span class="arrow" aria-hidden="true">→</span>
+      </a>
+      <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">Theme</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <canvas class="helix" id="helix" aria-hidden="true"></canvas>
+  <div class="wrap hero-inner">
+    <div class="eyebrow"><span class="dot" aria-hidden="true"></span>Challenge 06 · Biosecurity · Defensive AI</div>
+    <h1 class="title">An AI defense system against the <em>rise of superbugs</em>.</h1>
+    <p class="lede">
+      Predict which antibiotics will work — from a bacterial genome, in minutes.
+      Not in three days. Genome Firewall turns a reconstructed FASTA into a
+      per-drug antibiotic-response report, with calibrated confidence, an honest
+      no-call option, and evidence a clinician can audit.
+    </p>
+    <div class="meta">
+      <div>Species · <b>K. pneumoniae</b></div>
+      <div>Sequenced → Prediction · <b>&lt; 5 min</b></div>
+      <div>Stance · <b>Strictly defensive</b></div>
+    </div>
+    <div class="seq" aria-hidden="true">
+      ATG&nbsp;CGA&nbsp;<b>AAG&nbsp;CCC</b>&nbsp;TTG&nbsp;GAC&nbsp;<b>CTG&nbsp;TGC</b>&nbsp;AAT&nbsp;GGA&nbsp;CTA&nbsp;<b>ATT&nbsp;GAA</b>&nbsp;CGT&nbsp;TCA&nbsp;GTC&nbsp;GAA&nbsp;AAC&nbsp;TGG&nbsp;<b>bla</b>KPC&#8209;2&nbsp;TGA&nbsp;GCA&nbsp;ATC&nbsp;GCC&nbsp;TTA
+    </div>
+  </div>
+</header>
+
+<section class="section" id="problem">
+  <div class="wrap section-grid reveal">
+    <div class="marker"><span class="num">01</span>The Problem</div>
+    <div>
+      <h2 class="section-title">The lab is too slow. The bug isn't.</h2>
+      <div class="section-body">
+        <p>
+          Antibiotic susceptibility testing takes one to three days. During that
+          window, clinicians treat blind — best-guess broad-spectrum coverage
+          against a bacterium whose resistance profile they cannot yet see.
+        </p>
+        <p>
+          Every ineffective dose costs the patient time and gives resistant
+          strains another chance to outrun the drug. The system that keeps modern
+          medicine possible — routine surgery, transplants, chemotherapy — depends
+          on antibiotics still working. That guarantee is failing.
+        </p>
+        <p class="pull">
+          Resistance is written into the genome long before the culture plate reveals it.
+        </p>
+        <div class="stats">
+          <div class="stat"><div class="n">4.7M</div><div class="l">Deaths per year associated with AMR</div></div>
+          <div class="stat"><div class="n">1–3d</div><div class="l">Standard AST wait time</div></div>
+          <div class="stat"><div class="n">1M+</div><div class="l">Deaths directly from failed antibiotics</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="solution">
+  <div class="wrap section-grid reveal">
+    <div class="marker"><span class="num">02</span>The Solution</div>
+    <div>
+      <h2 class="section-title">Read the genome. Return an audited call.</h2>
+      <div class="section-body">
+        <p>
+          Once a bacterial isolate has been sequenced and assembled, Genome
+          Firewall reads the reconstructed FASTA and produces, for each
+          antibiotic on its panel: <b>likely to work</b>, <b>likely to fail</b>,
+          or an explicit <b>no-call</b>.
+        </p>
+        <p>
+          Every result carries a calibrated confidence score and an evidence
+          category — a known resistance gene, a statistical association, or no
+          signal found. The report is decision support, not a treatment
+          decision, and it says so on every page.
+        </p>
+
+        <div class="flow" role="list">
+          <div class="flow-step" role="listitem">
+            <div class="step-n">A</div>
+            <div class="step-t">Genome Reader</div>
+            <div class="step-d">Assembled FASTA → feature matrix. AMRFinderPlus + Kleborate detect known AMR genes and resistance-associated mutations.</div>
+          </div>
+          <div class="flow-step" role="listitem">
+            <div class="step-n">B</div>
+            <div class="step-t">Predictor</div>
+            <div class="step-d">Per-drug classifier (WGS_to_AMR) outputs a calibrated probability. A deterministic <em>target-presence gate</em> can override the model when the drug has no target to bind.</div>
+          </div>
+          <div class="flow-step" role="listitem">
+            <div class="step-n">C</div>
+            <div class="step-t">Decision Report</div>
+            <div class="step-d">Verdict, confidence, evidence type, and supporting genes — plus a mandatory “confirm with standard lab testing” banner.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="safety">
+  <div class="wrap section-grid reveal">
+    <div class="marker"><span class="num">03</span>The Safety Layer</div>
+    <div>
+      <h2 class="section-title">Two rules the model isn't allowed to break.</h2>
+      <div class="section-body">
+        <p>
+          The classifier decides — but it decides <em>under supervision</em>. Two
+          deterministic rules sit above the probability and can veto it. Both
+          exist because the failure modes they prevent are the ones a clinician
+          cannot afford.
+        </p>
+
+        <div class="flow" role="list" style="margin-top:1.5rem;">
+          <div class="flow-step" role="listitem">
+            <div class="step-n">·</div>
+            <div class="step-t">The drug's molecular target</div>
+            <div class="step-d">Every antibiotic works by binding to a specific bacterial component — the <b>target</b>. Ciprofloxacin binds DNA gyrase. Vancomycin binds a peptide terminus in the cell wall. If the target isn't encoded in the genome, the drug has nothing to attack, regardless of what resistance genes are or aren't present.</div>
+          </div>
+          <div class="flow-step" role="listitem">
+            <div class="step-n">I</div>
+            <div class="step-t">Target-presence gate</div>
+            <div class="step-d">Before the probability is trusted, the pipeline confirms the drug's target is present in the assembly. Missing target → the verdict is forced to <b>likely to fail</b>. This blocks a specific false-positive: the model returning “likely to work” simply because it saw no resistance markers, when in truth the drug has nothing to bind.</div>
+          </div>
+          <div class="flow-step" role="listitem">
+            <div class="step-n">II</div>
+            <div class="step-t">No-call threshold</div>
+            <div class="step-d">Predictions whose calibrated probability sits inside a band of low confidence — near a coin flip, or in a region where the model's calibration curve is unreliable — are returned as <b>no-call</b> instead of a verdict. The threshold is fit on a held-out calibration set, not chosen by feel. Abstaining is a feature, not a failure: a shaky answer in a treatment decision is worse than an honest “wait for the lab.”</div>
+          </div>
+        </div>
+
+        <p class="pull">
+          The gate stops the model from being fooled. The threshold stops the model from pretending to know.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="tech">
+  <div class="wrap section-grid reveal">
+    <div class="marker"><span class="num">04</span>The Stack</div>
+    <div>
+      <h2 class="section-title">Boring, auditable, defensible.</h2>
+      <div class="section-body">
+        <p>
+          Three annotation tools and one classifier, plus a small Streamlit
+          front-end for clinicians. The pipeline is CPU-runnable end-to-end.
+        </p>
+        <div class="chips" aria-label="Technology stack">
+          <span class="chip on">AMRFinderPlus 3.12</span>
+          <span class="chip on">Kleborate</span>
+          <span class="chip on">WGS_to_AMR</span>
+          <span class="chip">Streamlit</span>
+          <span class="chip">Python 3</span>
+          <span class="chip">BV-BRC dataset</span>
+          <span class="chip">Grouped homology split</span>
+          <span class="chip">Brier / reliability calibration</span>
+        </div>
+        <p>
+          Data comes from BV-BRC (ex-PATRIC): reconstructed <i>K. pneumoniae</i>
+          genomes paired with laboratory-measured susceptibility outcomes.
+          Training uses a sequence-homology-based dedup so the model can't
+          memorize near-duplicate assemblies. Held-out test set is grouped by
+          genetic relatedness — no siblings straddling the split.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="new">
+  <div class="wrap section-grid reveal">
+    <div class="marker"><span class="num">05</span>What's New</div>
+    <div>
+      <h2 class="section-title">Where we go beyond the baseline.</h2>
+      <div class="section-body">
+        <p>
+          A regularized logistic regression on gene presence-absence is the
+          reference baseline. We keep it as a control — and add four things a
+          bare classifier doesn't give a clinician.
+        </p>
+        <div class="cards">
+          <div class="card">
+            <span class="tag">01 · Target-presence gate</span>
+            <h4>The model can't fake a “works.”</h4>
+            <p>If the drug's molecular target is absent from the genome, the deterministic gate forces <b>likely to fail</b> — a class of false-positive the classifier alone can't rule out.</p>
+          </div>
+          <div class="card">
+            <span class="tag">02 · Honest no-call</span>
+            <h4>Refuse when the evidence is thin.</h4>
+            <p>Predictions below the calibration-set threshold return <b>no-call</b> instead of a coin-flip verdict. The clinician learns exactly when to wait for the culture plate.</p>
+          </div>
+          <div class="card">
+            <span class="tag">03 · Evidence categories</span>
+            <h4>Separate mechanism from correlation.</h4>
+            <p>Each call is tagged as either a known resistance gene, a statistical association, or no signal — so a SHAP score is never mistaken for a biological cause.</p>
+          </div>
+          <div class="card">
+            <span class="tag">04 · Clinician-first UI</span>
+            <h4>A report, not a probability dump.</h4>
+            <p>Patient context, per-drug cards with calibrated confidence bars, and a persistent lab-confirmation banner — designed for the moment of a treatment decision, not a model dashboard.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="challenges">
+  <div class="wrap section-grid reveal">
+    <div class="marker"><span class="num">06</span>The Hard Parts</div>
+    <div>
+      <h2 class="section-title">What we're fighting.</h2>
+      <div class="section-body">
+        <p>
+          The challenge isn't training a classifier. It's making one that a
+          clinician should be allowed to see.
+        </p>
+        <ul class="challenges">
+          <li>
+            <div class="label">Data leakage</div>
+            <div class="desc">Near-identical genomes across train and test inflate every score. We split by sequence homology and report metrics only on held-out groups the model has never seen.</div>
+          </li>
+          <li>
+            <div class="label">Class imbalance</div>
+            <div class="desc">Some drugs have far more resistant than susceptible isolates (and vice versa). Balanced accuracy, per-class recall, and PR-AUC per drug — not a single headline number — are what we report.</div>
+          </li>
+          <li>
+            <div class="label">Calibration</div>
+            <div class="desc">A 0.9 probability must mean roughly 90% correct across the dataset. We check with Brier scores and reliability plots, and tune the no-call threshold on a held-out calibration set.</div>
+          </li>
+          <li>
+            <div class="label">Honest attribution</div>
+            <div class="desc">A high SHAP value doesn't prove causation. We split “known mechanism detected” from “model saw a statistical pattern” so the evidence never overstates itself.</div>
+          </li>
+          <li>
+            <div class="label">Dual-use guardrails</div>
+            <div class="desc">The system only predicts and explains resistance that already exists. It cannot design, modify, or optimize an organism — by construction, not by policy.</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <div>Hack-Nation · Challenge 06 · Research prototype</div>
+  <div class="disc">Every antibiotic-response report must be confirmed with standard laboratory testing before any treatment decision.</div>
+</footer>
+
+<script>
+  // Theme toggle — writes data-theme so both media-query and toggle wins are respected.
+  (function () {
+    const root = document.documentElement;
+    const btn = document.getElementById('theme-toggle');
+    const stored = localStorage.getItem('gf-theme');
+    if (stored) root.setAttribute('data-theme', stored);
+    btn.addEventListener('click', function () {
+      const cur = root.getAttribute('data-theme');
+      const sysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const isDark = cur ? cur === 'dark' : sysDark;
+      const next = isDark ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      localStorage.setItem('gf-theme', next);
+    });
+  })();
+
+  // Scroll reveal
+  (function () {
+    const els = document.querySelectorAll('.reveal');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(e => e.classList.add('in'));
+      return;
+    }
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold: 0.15 });
+    els.forEach(e => io.observe(e));
+  })();
+
+  // Ambient DNA helix — quiet, slow, subject-appropriate.
+  (function () {
+    const canvas = document.getElementById('helix');
+    if (!canvas) return;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce) return;
+    const ctx = canvas.getContext('2d');
+    let w, h, dpr;
+
+    function resize() {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const parent = canvas.parentElement;
+      w = parent.offsetWidth;
+      h = parent.offsetHeight;
+      canvas.width = w * dpr;
+      canvas.height = h * dpr;
+      canvas.style.width = w + 'px';
+      canvas.style.height = h + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    window.addEventListener('resize', resize);
+    resize();
+
+    function themeColors() {
+      const cs = getComputedStyle(document.documentElement);
+      return {
+        coral: cs.getPropertyValue('--coral').trim() || '#C64A2C',
+        ink:   cs.getPropertyValue('--fg-soft').trim() || '#2A3934',
+        quiet: cs.getPropertyValue('--fg-quiet').trim() || '#7A7268',
+      };
+    }
+
+    const rungs = 46;
+    let t0 = performance.now();
+    function frame(now) {
+      const t = (now - t0) / 1000;
+      ctx.clearRect(0, 0, w, h);
+      const c = themeColors();
+
+      // Two intertwined strands running along a diagonal.
+      const originX = w * 0.72;
+      const originY = -60;
+      const length = Math.hypot(w, h) * 0.9;
+      const dx = Math.cos(Math.PI * 0.62);
+      const dy = Math.sin(Math.PI * 0.62);
+      const nx = -dy, ny = dx;
+      const amp = Math.min(120, w * 0.11);
+      const wavelen = 220;
+
+      // Rungs first (behind strands).
+      ctx.globalAlpha = 0.13;
+      ctx.lineWidth = 1;
+      for (let i = 0; i < rungs; i++) {
+        const s = (i / (rungs - 1)) * length;
+        const phase = (s / wavelen) * Math.PI * 2 + t * 0.6;
+        const ox = Math.sin(phase) * amp;
+        const cx = originX + dx * s;
+        const cy = originY + dy * s;
+        const ax = cx + nx * ox;
+        const ay = cy + ny * ox;
+        const bx = cx - nx * ox;
+        const by = cy - ny * ox;
+        // Emphasize a few rungs with the coral to feel like flagged sites.
+        const flagged = (i % 11 === 3);
+        ctx.strokeStyle = flagged ? c.coral : c.quiet;
+        ctx.globalAlpha = flagged ? 0.32 : 0.13;
+        ctx.beginPath();
+        ctx.moveTo(ax, ay);
+        ctx.lineTo(bx, by);
+        ctx.stroke();
+      }
+
+      // Strands.
+      ctx.lineWidth = 1.4;
+      for (let strand = 0; strand < 2; strand++) {
+        ctx.beginPath();
+        ctx.globalAlpha = 0.35;
+        ctx.strokeStyle = c.ink;
+        const sign = strand === 0 ? 1 : -1;
+        for (let s = 0; s <= length; s += 4) {
+          const phase = (s / wavelen) * Math.PI * 2 + t * 0.6;
+          const ox = Math.sin(phase) * amp * sign;
+          const cx = originX + dx * s;
+          const cy = originY + dy * s;
+          const x = cx + nx * ox;
+          const y = cy + ny * ox;
+          if (s === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+      ctx.globalAlpha = 1;
+      requestAnimationFrame(frame);
+    }
+    requestAnimationFrame(frame);
+  })();
+</script>

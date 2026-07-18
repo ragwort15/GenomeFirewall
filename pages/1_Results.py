@@ -109,8 +109,9 @@ for a in antibiotics:
                 """, unsafe_allow_html=True)
 
 # ---- Patient / clinical context ----
-if "patient" in DATA:
-    render_patient_card(DATA["patient"], section_number=4)
+patient_data = st.session_state.get("patient") or DATA.get("patient")
+if patient_data:
+    render_patient_card(patient_data, section_number=4)
 
 # ---- Model performance (collapsible, secondary) ----
 with st.expander("Model performance on held-out test data"):
