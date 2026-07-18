@@ -1,0 +1,17 @@
+{
+  "query": "blaCTX-M-15 antimicrobial resistance Klebsiella pneumoniae",
+  "question": "How does blaCTX-M-15 confer antibiotic resistance in Klebsiella pneumoniae, and which antibiotics does it affect? Summarize the mechanism and clinical relevance.",
+  "answer": "I cannot answer.",
+  "n_pdfs": 3,
+  "citations": [
+    {
+      "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+      "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+      "doi": "10.64898/2026.01.27.701980",
+      "year": 2026,
+      "score": 5,
+      "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+    }
+  ],
+  "determinant": "blaCTX-M-15"
+}
