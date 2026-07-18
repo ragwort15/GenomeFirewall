@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Genome Firewall — Antibiotic Response Report (MOCK)</title>
+<style>
+  :root{
+    --navy:#0f2a43; --navy2:#163a5c; --teal:#1f8a8a; --teal-d:#136b6b;
+    --fail:#c0392b; --fail-bg:#fdecea; --fail-br:#f3b6ae;
+    --work:#1e7e46; --work-bg:#e9f7ef; --work-br:#a7dcbd;
+    --nocall:#8a6d00; --nocall-bg:#fbf4dd; --nocall-br:#ecd98a;
+    --ink:#20313f; --muted:#6b7c8a; --line:#e3e9ef; --bg:#f4f7fa;
+    --chip:#eef3f7; --shadow:0 1px 3px rgba(16,42,67,.08),0 4px 14px rgba(16,42,67,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    color:var(--ink);background:var(--bg);line-height:1.45;font-size:14.5px}
+  header.top{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:16px 26px;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand .logo{font-size:26px}
+  .brand h1{font-size:19px;margin:0;letter-spacing:.3px}
+  .brand .sub{font-size:12px;opacity:.8;margin-top:2px}
+  .demo-tag{background:#ffcf33;color:#402c00;font-weight:700;font-size:11px;padding:4px 9px;border-radius:20px;letter-spacing:.4px}
+  .wrap{max-width:1180px;margin:0 auto;padding:22px}
+
+  /* Safety banner */
+  .safety{background:#fff3cd;border:1px solid #f0d98a;border-left:6px solid #e0a800;color:#5c4700;
+    padding:12px 16px;border-radius:10px;margin-bottom:18px;display:flex;gap:12px;align-items:flex-start}
+  .safety b{color:#3f3200}
+  .safety .i{font-size:20px;line-height:1}
+
+  /* Upload / input */
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:18px 20px;margin-bottom:18px}
+  .card h2{font-size:15px;margin:0 0 12px;color:var(--navy);display:flex;align-items:center;gap:8px}
+  .drop{border:2px dashed #b9cbd8;border-radius:12px;padding:22px;text-align:center;color:var(--muted);
+    background:#fbfdff;cursor:pointer;transition:.15s}
+  .drop:hover{border-color:var(--teal);color:var(--teal-d);background:#f2fbfb}
+  .drop .fn{color:var(--navy);font-weight:600}
+  .row{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-end;margin-top:14px}
+  .field{display:flex;flex-direction:column;gap:4px}
+  .field label{font-size:11.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.4px}
+  .field input,.field select{padding:8px 10px;border:1px solid var(--line);border-radius:8px;font-size:14px;min-width:190px;background:#fff}
+  .btn{background:var(--teal);color:#fff;border:none;padding:10px 20px;border-radius:9px;font-size:14px;font-weight:600;cursor:pointer}
+  .btn:hover{background:var(--teal-d)}
+
+  /* Summary strip */
+  .strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:18px}
+  .stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+  .stat .n{font-size:26px;font-weight:700;line-height:1}
+  .stat .l{font-size:12px;color:var(--muted);margin-top:5px}
+  .stat.fail .n{color:var(--fail)} .stat.work .n{color:var(--work)} .stat.nc .n{color:var(--nocall)}
+
+  /* two-column main */
+  .grid2{display:grid;grid-template-columns:1.55fr 1fr;gap:18px;align-items:start}
+  @media(max-width:960px){.grid2{grid-template-columns:1fr}}
+
+  /* recommendation summary */
+  .rec{display:flex;flex-direction:column;gap:8px}
+  .rec .line{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .rec .lbl{font-size:12px;color:var(--muted);min-width:110px}
+  .pill{padding:4px 11px;border-radius:20px;font-size:12.5px;font-weight:600;border:1px solid}
+  .pill.work{background:var(--work-bg);color:var(--work);border-color:var(--work-br)}
+  .pill.fail{background:var(--fail-bg);color:var(--fail);border-color:var(--fail-br)}
+  .pill.nc{background:var(--nocall-bg);color:var(--nocall);border-color:var(--nocall-br)}
+
+  /* drug cards */
+  .drug{border:1px solid var(--line);border-radius:12px;margin-bottom:11px;overflow:hidden;background:#fff}
+  .drug .hd{display:flex;align-items:center;gap:12px;padding:12px 15px;cursor:pointer}
+  .drug .hd:hover{background:#fafcfe}
+  .verdict{font-weight:700;font-size:12.5px;padding:4px 10px;border-radius:7px;white-space:nowrap;border:1px solid}
+  .verdict.fail{background:var(--fail-bg);color:var(--fail);border-color:var(--fail-br)}
+  .verdict.work{background:var(--work-bg);color:var(--work);border-color:var(--work-br)}
+  .verdict.nc{background:var(--nocall-bg);color:var(--nocall);border-color:var(--nocall-br)}
+  .drug .name{font-weight:650;font-size:15px;flex:1}
+  .drug .name small{display:block;color:var(--muted);font-weight:400;font-size:11.5px}
+  .conf{min-width:130px}
+  .conf .bar{height:8px;background:#eef2f6;border-radius:6px;overflow:hidden}
+  .conf .fill{height:100%;border-radius:6px}
+  .conf .txt{font-size:11px;color:var(--muted);margin-top:3px;text-align:right}
+  .cat{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px;background:var(--chip);color:var(--navy);white-space:nowrap}
+  .cat.i{background:#e7eefc;color:#274b9a}
+  .cat.ii{background:#f3ecfb;color:#6b3ea6}
+  .cat.iii{background:#eef3f7;color:#4a6172}
+  .chev{color:var(--muted);transition:.15s}
+  .drug.open .chev{transform:rotate(90deg)}
+  .body{display:none;padding:4px 16px 16px;border-top:1px solid var(--line);background:#fbfdff}
+  .drug.open .body{display:block}
+  .body h4{margin:14px 0 7px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+  .chips{display:flex;gap:6px;flex-wrap:wrap}
+  .gchip{background:#fff;border:1px solid var(--line);border-radius:16px;padding:3px 10px;font-size:12px;font-family:ui-monospace,Menlo,Consolas,monospace}
+  .gchip.res{border-color:var(--fail-br);background:var(--fail-bg);color:var(--fail)}
+  .gchip.tgt{border-color:#bcd;background:#eef6ff;color:#2b5c86}
+
+  /* model votes table */
+  table.votes{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+  table.votes th,table.votes td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+  table.votes th{color:var(--muted);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.3px}
+  .mtype{font-size:10px;padding:2px 6px;border-radius:5px;background:var(--chip);color:var(--muted)}
+  .mtype.rule{background:#e7eefc;color:#274b9a}
+  .mtype.ml{background:#f3ecfb;color:#6b3ea6}
+  .callmini{font-weight:700}
+  .callmini.R{color:var(--fail)} .callmini.S{color:var(--work)} .callmini.U{color:var(--nocall)}
+  .agree{font-size:12px;color:var(--muted);margin-top:8px}
+
+  .gate{font-size:12.5px;padding:8px 11px;border-radius:8px;background:#eef6ff;border:1px solid #cfe2f2;color:#2b5c86;margin-top:4px}
+  .gate.miss{background:#fbf4dd;border-color:#ecd98a;color:#7a6200}
+
+  /* literature */
+  .lit .ref{border-left:3px solid var(--teal);padding:9px 12px;background:#fff;border-radius:0 8px 8px 0;margin-bottom:10px;border:1px solid var(--line);border-left-width:3px}
+  .lit .ref .t{font-weight:600;font-size:13px}
+  .lit .ref .m{font-size:11.5px;color:var(--muted);margin:3px 0}
+  .lit .ref .q{font-size:12.5px;color:#3a4b58;font-style:italic}
+  .lit .ref a{color:var(--teal-d);text-decoration:none;font-size:11.5px}
+  .lit .ref a:hover{text-decoration:underline}
+  .evbadge{display:inline-block;font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;background:#e7eefc;color:#274b9a;margin-left:6px}
+
+  /* clinical context */
+  .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px}
+  .kv .k{color:var(--muted)}
+  .note{font-size:12px;color:var(--muted);margin-top:10px}
+  .legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:6px}
+  .legend .sw{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+  details.disc summary{cursor:pointer;font-weight:600;color:var(--navy)}
+  .coverage{font-size:13px}
+  .coverage .yes{color:var(--work);font-weight:600}
+  .coverage .no{color:var(--fail);font-weight:600}
+  footer{max-width:1180px;margin:10px auto 40px;padding:0 22px;color:var(--muted);font-size:12px}
+  .miniplot{display:flex;align-items:flex-end;gap:3px;height:60px}
+  .miniplot .b{flex:1;background:var(--teal);border-radius:2px 2px 0 0;opacity:.75}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div class="logo">🧬🛡️</div>
+    <div>
+      <h1>Genome Firewall</h1>
+      <div class="sub">Genome-to-antibiotic-response decision support · <i>Klebsiella pneumoniae</i></div>
+    </div>
+  </div>
+  <div class="demo-tag">DEMO DATA — ILLUSTRATIVE ONLY</div>
+</header>
+
+<div class="wrap">
+
+  <!-- MANDATORY SAFETY BANNER -->
+  <div class="safety">
+    <span class="i">⚠️</span>
+    <div><b>Research prototype — every result must be confirmed by standard laboratory testing.</b>
+    These predictions are decision support only. They do not replace culture-based antimicrobial
+    susceptibility testing and must be reviewed by a trained clinician or laboratory professional
+    before any treatment decision. The system predicts and explains <i>existing</i> resistance only.</div>
+  </div>
+
+  <!-- INPUT -->
+  <div class="card">
+    <h2>1 · Genome input</h2>
+    <div class="drop" onclick="analyze()">
+      <div style="font-size:26px">📄⬆️</div>
+      <div>Drop a quality-checked assembly <b>FASTA</b> here, or click to load the demo sample</div>
+      <div class="fn" id="fname">KP_demo_isolate_4417.fasta &nbsp;·&nbsp; 5.42 Mb &nbsp;·&nbsp; 187 contigs</div>
+    </div>
+    <div class="row">
+      <div class="field"><label>Sample / isolate ID</label><input value="KP-4417 (ICU-2026-0731)"/></div>
+      <div class="field"><label>Species (fixed)</label><input value="Klebsiella pneumoniae" disabled/></div>
+      <div class="field"><label>Genome QC</label><input value="PASS · N50 218 kb · 99.1% complete" disabled/></div>
+      <button class="btn" onclick="analyze()">Run analysis ▸</button>
+    </div>
+    <div class="note">Annotation: AMRFinderPlus 3.12 + Kleborate · Models: 4 (WGS_to_AMR, PhenotypeSeeker, Kover, AMR-GNN) · Literature: paper-qa over PubMed + bioRxiv</div>
+  </div>
+
+  <!-- SUMMARY STRIP -->
+  <div class="strip">
+    <div class="stat"><div class="n">11</div><div class="l">Antibiotics evaluated</div></div>
+    <div class="stat fail"><div class="n">7</div><div class="l">Likely to FAIL (resistant)</div></div>
+    <div class="stat work"><div class="n">1</div><div class="l">Likely to WORK (susceptible)</div></div>
+    <div class="stat nc"><div class="n">3</div><div class="l">NO-CALL (uncertain)</div></div>
+    <div class="stat"><div class="n">KPC-2</div><div class="l">Key resistance determinant</div></div>
+  </div>
+
+  <!-- RECOMMENDATION SUMMARY -->
+  <div class="card">
+    <h2>2 · Clinician summary</h2>
+    <div class="rec">
+      <div class="line"><span class="lbl">Predicted effective</span>
+        <span class="pill work">Amikacin</span></div>
+      <div class="line"><span class="lbl">Uncertain — no call</span>
+        <span class="pill nc">Gentamicin</span><span class="pill nc">Fosfomycin</span><span class="pill nc">Tobramycin</span></div>
+      <div class="line"><span class="lbl">Predicted to fail</span>
+        <span class="pill fail">Meropenem</span><span class="pill fail">Imipenem</span><span class="pill fail">Ceftazidime</span>
+        <span class="pill fail">Cefepime</span><span class="pill fail">Aztreonam</span><span class="pill fail">Ciprofloxacin</span>
+        <span class="pill fail">Pip/tazo</span></div>
+    </div>
+    <p class="note">Interpretation: this isolate carries a <b>blaKPC-2</b> carbapenemase plus an ESBL (<b>blaCTX-M-15</b>) and
+    fluoroquinolone determinants — consistent with a carbapenem-resistant Enterobacterales (CRE) profile. Amikacin is the only
+    tested agent with a well-supported "likely to work" signal. Confirm with AST before acting; consider agents outside this panel
+    (e.g., ceftazidime-avibactam) in consultation with infectious diseases / antimicrobial stewardship.</p>
+  </div>
+
+  <!-- MAIN TWO-COLUMN -->
+  <div class="grid2">
+
+    <!-- LEFT: per-drug model output -->
+    <div class="card">
+      <h2>3 · Per-antibiotic prediction &amp; model evidence</h2>
+      <div class="legend">
+        <span><span class="sw" style="background:var(--fail)"></span>Likely to fail</span>
+        <span><span class="sw" style="background:var(--work)"></span>Likely to work</span>
+        <span><span class="sw" style="background:var(--nocall)"></span>No-call</span>
+        <span>Evidence: <b>i</b>=known gene/mutation · <b>ii</b>=statistical assoc. · <b>iii</b>=no known signal</span>
+      </div>
+      <div id="drugs" style="margin-top:12px"></div>
+    </div>
+
+    <!-- RIGHT: clinical research + context -->
+    <div>
+      <div class="card">
+        <h2>4 · Patient / clinical context</h2>
+        <div class="kv">
+          <div class="k">Age / sex</div><div>58 · Female</div>
+          <div class="k">Setting</div><div>ICU, day 6</div>
+          <div class="k">Suspected source</div><div>Catheter-associated UTI → bacteremia</div>
+          <div class="k">Prior antibiotics</div><div>Ceftriaxone (5 d), meropenem (2 d)</div>
+          <div class="k">Allergies</div><div>Penicillin (rash)</div>
+          <div class="k">Renal function</div><div>eGFR 44 (dose-adjust aminoglycosides)</div>
+        </div>
+        <p class="note">Clinical context is shown to aid interpretation and prioritization. It is <b>not</b> used to compute the
+        genomic probabilities and does not change model output.</p>
+      </div>
+
+      <div class="card lit">
+        <h2>5 · Literature &amp; clinical research</h2>
+        <p class="note" style="margin-top:0">Evidence retrieved by paper-qa for the detected determinants × drugs. Citations are illustrative in this mock.</p>
+
+        <div class="ref">
+          <div class="t">Carbapenem resistance in KPC-producing <i>K. pneumoniae</i> <span class="evbadge">blaKPC-2 → meropenem/imipenem</span></div>
+          <div class="m">Munoz-Price LS et al. · Lancet Infect Dis · 2013 · PMID 23969216</div>
+          <div class="q">"KPC-type carbapenemases hydrolyze virtually all β-lactams including carbapenems; detection reliably predicts phenotypic carbapenem resistance."</div>
+          <a href="#">View source ↗</a>
+        </div>
+
+        <div class="ref">
+          <div class="t">CTX-M-15 ESBL and cephalosporin failure <span class="evbadge">blaCTX-M-15 → ceftazidime/cefepime</span></div>
+          <div class="m">Cantón R et al. · Front Microbiol · 2012 · PMID 22509176</div>
+          <div class="q">"CTX-M-15 confers high-level resistance to third-generation cephalosporins and aztreonam."</div>
+          <a href="#">View source ↗</a>
+        </div>
+
+        <div class="ref">
+          <div class="t">Discordance of piperacillin/tazobactam prediction from AMR genes <span class="evbadge">context</span></div>
+          <div class="m">Jordi S et al. (WGS_to_AMR) · bioRxiv · 2024 · doi:10.1101/2024.12.10.627815</div>
+          <div class="q">"Rule-based methods underperform for piperacillin/tazobactam; aac(6')-Ib-cr, fosA and blaOXA-1 explain several rule-based errors."</div>
+          <a href="#">View source ↗</a>
+        </div>
+
+        <div class="ref">
+          <div class="t">Aminoglycoside activity: amikacin often retained despite AAC(6')-Ib-cr <span class="evbadge">amikacin → likely to work</span></div>
+          <div class="m">Ramirez MS, Tolmasky ME · Drug Resist Updat · 2010 · PMID 20833577</div>
+          <div class="q">"AAC(6')-Ib-cr modifies tobramycin/kanamycin but confers limited amikacin resistance; amikacin frequently remains susceptible."</div>
+          <a href="#">View source ↗</a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h2>6 · Confidence calibration</h2>
+        <div class="miniplot" title="reliability: predicted vs observed">
+          <div class="b" style="height:18%"></div><div class="b" style="height:30%"></div>
+          <div class="b" style="height:44%"></div><div class="b" style="height:58%"></div>
+          <div class="b" style="height:71%"></div><div class="b" style="height:83%"></div>
+          <div class="b" style="height:95%"></div>
+        </div>
+        <p class="note">Reliability curve (calibration split): confidence scores track observed accuracy (Brier 0.11).
+        No-call is returned when evidence is weak, models conflict, or the genome is unlike the training data.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- COVERAGE / LIMITS -->
+  <div class="card coverage">
+    <h2>7 · Coverage &amp; limitations</h2>
+    <p><span class="yes">✔ Covered:</span> <i>Klebsiella pneumoniae</i> · 11 antibiotics
+    (amikacin, aztreonam, ceftazidime, ciprofloxacin, cefepime, fosfomycin, gentamicin, imipenem, meropenem, tobramycin, piperacillin/tazobactam).</p>
+    <p><span class="no">✘ Not covered:</span> other species, antibiotics outside this panel, sample→genome steps (isolation, sequencing, assembly, species ID), mixed/polymicrobial samples.</p>
+    <details class="disc"><summary>Honest-explanation note (how to read "evidence")</summary>
+      <p class="note">Evidence category <b>(i)</b> means a known resistance gene or DNA change was detected (mechanistic).
+      Category <b>(ii)</b> means the models found only a statistical association — a feature-importance / SHAP value does
+      <b>not</b> prove a biological cause. Category <b>(iii)</b> means no known resistance signal was found (absence of markers
+      is weaker evidence than mechanism, and is gated on the drug's molecular target being present).</p>
+    </details>
+  </div>
+
+</div>
+
+<footer>
+  Genome Firewall · Hack-Nation Challenge 06 (defensive biosecurity prototype). Predicts and explains existing resistance only;
+  never designs or modifies organisms. Not a medical device. Every antibiotic-response report must be confirmed with standard
+  laboratory testing. Demo data shown for layout review.
+</footer>
+
+<script>
+// ---- MOCK DATA (illustrative) ----
+// call: R=resistant(fail), S=susceptible(work), U=uncertain
+const M = ['AMRFinderPlus','Kleborate','WGS_to_AMR','PhenotypeSeeker','Kover','AMR-GNN'];
+const MT = {'AMRFinderPlus':'rule','Kleborate':'rule','WGS_to_AMR':'ml','PhenotypeSeeker':'ml','Kover':'ml','AMR-GNN':'ml'};
+const drugs = [
+ {name:'Meropenem', cls:'Carbapenem', verdict:'fail', conf:0.94, cat:'i',
+  genes:['blaKPC-2'], target:{present:true,txt:'PBP targets present — β-lactam applicable'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.96],'PhenotypeSeeker':['R',0.93],'Kover':['R',0.95],'AMR-GNN':['R',0.92]},
+  agree:'6/6 models agree · mechanism confirmed'},
+ {name:'Imipenem', cls:'Carbapenem', verdict:'fail', conf:0.96, cat:'i',
+  genes:['blaKPC-2'], target:{present:true,txt:'PBP targets present — β-lactam applicable'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.97],'PhenotypeSeeker':['R',0.94],'Kover':['R',0.96],'AMR-GNN':['R',0.95]},
+  agree:'6/6 models agree · mechanism confirmed'},
+ {name:'Ceftazidime', cls:'3rd-gen cephalosporin', verdict:'fail', conf:0.95, cat:'i',
+  genes:['blaCTX-M-15','blaKPC-2'], target:{present:true,txt:'PBP targets present'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.95],'PhenotypeSeeker':['R',0.92],'Kover':['R',0.97],'AMR-GNN':['R',0.93]},
+  agree:'6/6 models agree'},
+ {name:'Cefepime', cls:'4th-gen cephalosporin', verdict:'fail', conf:0.90, cat:'i',
+  genes:['blaCTX-M-15','blaKPC-2'], target:{present:true,txt:'PBP targets present'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.91],'PhenotypeSeeker':['R',0.86],'Kover':['R',0.90],'AMR-GNN':['R',0.89]},
+  agree:'6/6 models agree'},
+ {name:'Aztreonam', cls:'Monobactam', verdict:'fail', conf:0.91, cat:'i',
+  genes:['blaCTX-M-15'], target:{present:true,txt:'PBP3 target present'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.92],'PhenotypeSeeker':['R',0.88],'Kover':['R',0.90],'AMR-GNN':['R',0.91]},
+  agree:'6/6 models agree'},
+ {name:'Ciprofloxacin', cls:'Fluoroquinolone', verdict:'fail', conf:0.93, cat:'i',
+  genes:['gyrA S83I','qnrB1','aac(6\')-Ib-cr'], target:{present:true,txt:'gyrA/parC targets present'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.94],'PhenotypeSeeker':['R',0.91],'Kover':['R',0.93],'AMR-GNN':['R',0.92]},
+  agree:'6/6 models agree · target mutation + PMQR'},
+ {name:'Piperacillin/tazobactam', cls:'β-lactam/inhibitor', verdict:'fail', conf:0.89, cat:'i',
+  genes:['blaKPC-2','blaOXA-1'], target:{present:true,txt:'PBP targets present'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.90],'PhenotypeSeeker':['R',0.84],'Kover':['R',0.88],'AMR-GNN':['R',0.90]},
+  agree:'6/6 models agree (note: known hard case — see literature)'},
+ {name:'Tobramycin', cls:'Aminoglycoside', verdict:'nc', conf:null, cat:'ii',
+  genes:['aac(6\')-Ib-cr'], target:{present:true,txt:'30S ribosomal target present'},
+  votes:{'AMRFinderPlus':['R',null],'Kleborate':['R',null],'WGS_to_AMR':['R',0.71],'PhenotypeSeeker':['U',0.55],'Kover':['S',0.42],'AMR-GNN':['R',0.66]},
+  agree:'Models conflict (rule=R, ML mixed) → no-call'},
+ {name:'Gentamicin', cls:'Aminoglycoside', verdict:'nc', conf:null, cat:'ii',
+  genes:[], target:{present:true,txt:'30S ribosomal target present'},
+  votes:{'AMRFinderPlus':['S',null],'Kleborate':['S',null],'WGS_to_AMR':['U',0.52],'PhenotypeSeeker':['R',0.61],'Kover':['S',0.39],'AMR-GNN':['U',0.50]},
+  agree:'No dominant signal; ML disagreement → no-call'},
+ {name:'Fosfomycin', cls:'Phosphonic acid', verdict:'nc', conf:null, cat:'ii',
+  genes:['fosA (intrinsic)'], target:{present:true,txt:'MurA target present'},
+  votes:{'AMRFinderPlus':['S',null],'Kleborate':['R',null],'WGS_to_AMR':['U',0.58],'PhenotypeSeeker':['U',0.54],'Kover':['R',0.63],'AMR-GNN':['U',0.49]},
+  agree:'Intrinsic fosA + weak/uncertain ML → no-call'},
+ {name:'Amikacin', cls:'Aminoglycoside', verdict:'work', conf:0.88, cat:'iii',
+  genes:[], target:{present:true,txt:'30S ribosomal target present (no 16S methyltransferase e.g. armA/rmtB detected)'},
+  votes:{'AMRFinderPlus':['S',null],'Kleborate':['S',null],'WGS_to_AMR':['S',0.12],'PhenotypeSeeker':['S',0.18],'Kover':['S',0.10],'AMR-GNN':['S',0.15]},
+  agree:'6/6 models agree · no known resistance signal'},
+];
+
+function pct(x){return Math.round(x*100)}
+function color(v){return v==='fail'?'var(--fail)':v==='work'?'var(--work)':'var(--nocall)'}
+function vlabel(v){return v==='fail'?'LIKELY TO FAIL':v==='work'?'LIKELY TO WORK':'NO-CALL'}
+
+function render(){
+  const el=document.getElementById('drugs'); el.innerHTML='';
+  drugs.forEach((d,idx)=>{
+    // confidence bar (for no-call show muted)
+    let confHtml;
+    if(d.conf===null){
+      confHtml=`<div class="bar"><div class="fill" style="width:100%;background:#e0d9b0"></div></div><div class="txt">insufficient / conflicting</div>`;
+    }else{
+      confHtml=`<div class="bar"><div class="fill" style="width:${pct(d.conf)}%;background:${color(d.verdict)}"></div></div><div class="txt">${pct(d.conf)}% confidence</div>`;
+    }
+    // genes
+    const gchips = d.genes.length
+      ? d.genes.map(g=>`<span class="gchip res">${g}</span>`).join('')
+      : `<span class="gchip">none detected</span>`;
+    // votes table
+    const rows = M.map(m=>{
+      const v=d.votes[m]; if(!v) return '';
+      const prob = v[1]===null? '—' : (v[0]==='S'? (1-v[1]).toFixed(2)+' (P_R)' : v[1].toFixed(2)+' (P_R)');
+      const callTxt = v[0]==='R'?'Resistant':v[0]==='S'?'Susceptible':'Uncertain';
+      return `<tr><td>${m}</td><td><span class="mtype ${MT[m]}">${MT[m]==='rule'?'rule-based':'ML'}</span></td>
+              <td><span class="callmini ${v[0]}">${callTxt}</span></td><td>${prob}</td></tr>`;
+    }).join('');
+    const gate = d.target.present
+      ? `<div class="gate">🎯 Target gate: ${d.target.txt}</div>`
+      : `<div class="gate miss">🎯 Target gate: molecular target ABSENT — drug not applicable</div>`;
+
+    el.insertAdjacentHTML('beforeend',`
+      <div class="drug" id="drug${idx}">
+        <div class="hd" onclick="document.getElementById('drug${idx}').classList.toggle('open')">
+          <span class="verdict ${d.verdict}">${vlabel(d.verdict)}</span>
+          <div class="name">${d.name}<small>${d.cls}</small></div>
+          <div class="conf">${confHtml}</div>
+          <span class="cat ${d.cat}">evidence ${d.cat}</span>
+          <span class="chev">▸</span>
+        </div>
+        <div class="body">
+          ${gate}
+          <h4>Supporting genes / DNA changes</h4>
+          <div class="chips">${gchips}</div>
+          <h4>Per-model output (ensemble)</h4>
+          <table class="votes">
+            <tr><th>Model</th><th>Type</th><th>Call</th><th>Resistance prob.</th></tr>
+            ${rows}
+          </table>
+          <div class="agree">🧩 ${d.agree}</div>
+        </div>
+      </div>`);
+  });
+}
+function analyze(){ document.getElementById('fname').textContent='KP_demo_isolate_4417.fasta · analyzed ✓'; render();
+  document.getElementById('drug0').scrollIntoView({behavior:'smooth',block:'center'});}
+render(); // pre-render for preview
+</script>
+</body>
+</html>
