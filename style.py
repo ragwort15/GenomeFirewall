@@ -149,6 +149,50 @@ GLOBAL_CSS = """
   .perf-metric .val { color:#a8c8d8; font-size:1.05rem; font-weight:700; }
   .perf-metric .lbl { color:#5c7a89; font-size:0.65rem; text-transform:uppercase; letter-spacing:0.06em; margin-top:0.25rem; }
 
+  /* ---- patient summary bar (shown on upload step) ---- */
+  .patient-summary-bar {
+    background: rgba(0,229,255,0.05);
+    border: 1px solid rgba(127,220,255,0.25);
+    border-radius: 999px;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    color: #b8d4e3;
+    margin: 0.5rem 0;
+  }
+  .patient-summary-bar .ps-label {
+    color: #7fdcff; font-weight: 700; text-transform: uppercase;
+    font-size: 0.7rem; letter-spacing: 0.15em; margin-right: 0.5rem;
+  }
+  .patient-summary-bar .ps-value { color: #ffffff; }
+
+  /* ---- patient / clinical context card ---- */
+  .patient-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(127,220,255,0.2);
+    border-radius: 16px; padding: 1.5rem 1.75rem;
+    backdrop-filter: blur(10px);
+    margin: 1.25rem 0;
+  }
+  .patient-card .patient-title {
+    color:#ffffff; font-weight:700; font-size:1.05rem;
+    margin: 0 0 1rem 0;
+  }
+  .patient-card .patient-title .patient-num { color:#7fdcff; margin-right:0.35rem; }
+  .patient-grid {
+    display: grid;
+    grid-template-columns: 170px 1fr;
+    row-gap: 0.55rem; column-gap: 1rem;
+    font-size: 0.92rem; line-height: 1.4;
+  }
+  .patient-grid .k { color:#8fb3c4; }
+  .patient-grid .v { color:#ffffff; }
+  .patient-note {
+    color:#8fb3c4; font-size:0.82rem; line-height:1.55;
+    margin-top: 1rem; padding-top: 0.9rem;
+    border-top: 1px solid rgba(127,220,255,0.12);
+  }
+  .patient-note b { color:#ffd479; font-weight:700; }
+
   div[data-testid="stExpander"] {
     background: rgba(255,255,255,0.03);
     border: 1px solid rgba(127,220,255,0.2);
@@ -208,6 +252,32 @@ VERDICT_META = {
 
 def inject_global_css():
     st.markdown(GLOBAL_CSS, unsafe_allow_html=True)
+
+
+def render_patient_card(patient: dict, section_number: int = 4):
+    """Render a patient / clinical-context card. `patient` dict keys are optional."""
+    rows = [
+        ("Age / sex",          patient.get("age_sex")),
+        ("Setting",            patient.get("setting")),
+        ("Suspected source",   patient.get("suspected_source")),
+        ("Prior antibiotics",  patient.get("prior_antibiotics")),
+        ("Allergies",          patient.get("allergies")),
+        ("Renal function",     patient.get("renal_function")),
+    ]
+    grid_html = "".join(
+        f"<div class='k'>{k}</div><div class='v'>{v}</div>"
+        for k, v in rows if v
+    )
+    st.markdown(f"""
+    <div class="patient-card">
+      <div class="patient-title"><span class="patient-num">{section_number} ·</span>Patient / clinical context</div>
+      <div class="patient-grid">{grid_html}</div>
+      <div class="patient-note">
+        Clinical context is shown to aid interpretation and prioritization. It is
+        <b>not</b> used to compute the genomic probabilities and does not change model output.
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
 
 
 def render_signed_in_header(user, on_sign_out_page="app.py", right_content=None):

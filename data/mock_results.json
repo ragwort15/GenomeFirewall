@@ -1,4 +1,12 @@
 {
+  "patient": {
+    "age_sex": "58 · Female",
+    "setting": "ICU, day 6",
+    "suspected_source": "Catheter-associated UTI → bacteremia",
+    "prior_antibiotics": "Ceftriaxone (5 d), meropenem (2 d)",
+    "allergies": "Penicillin (rash)",
+    "renal_function": "eGFR 44 (dose-adjust aminoglycosides)"
+  },
   "coverage": {
     "species": "Escherichia coli",
     "antibiotics": ["ciprofloxacin", "amoxicillin", "gentamicin", "meropenem"]
