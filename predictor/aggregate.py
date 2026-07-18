@@ -32,6 +32,21 @@ LO = 0.35
 HI = 0.65
 SPREAD = 0.40   # max-min across ML probs above this => models disagree
 
+# When rule models conflict and no ML breaks the tie, defer to the most
+# drug-specific / curated caller. Kleborate is Klebsiella-specific and
+# distinguishes a true carbapenemase from a mere ESBL, whereas AMRFinderPlus
+# maps any beta-lactam gene to every beta-lactam (it over-calls carbapenems).
+RULE_PRIORITY = ("Kleborate", "AMRFinderPlus")
+
+
+def _primary_rule_call(rules: pd.DataFrame):
+    """Call of the highest-priority rule model that has an R/S opinion here."""
+    by_model = {row["model"]: row["call"] for _, row in rules.iterrows()}
+    for m in RULE_PRIORITY:
+        if by_model.get(m) in (CALL_RESISTANT, CALL_SUSCEPTIBLE):
+            return m, by_model[m]
+    return None, None
+
 
 @dataclass
 class DrugVerdict:
@@ -63,72 +78,89 @@ def _confidence(verdict, mean_p, rule_hit):
 
 def aggregate_drug(group: pd.DataFrame, target_present=True, target_note="",
                    ood=False) -> DrugVerdict:
+    """Reconcile rule-based + ML calls into one verdict.
+
+    Rule policy is CONSENSUS-based (not "any R wins"): a confident mechanistic
+    FAIL requires the rule models to AGREE. When they conflict (e.g. AMRFinderPlus
+    flags an intrinsic blaSHV/fosA but Kleborate calls susceptible) we defer to a
+    decisive ML probability, else return no-call — this is what stops the system
+    over-calling resistance on wild-type isolates.
+    """
     drug = group["drug"].iloc[0]
     votes = group[["model", "call", "prob", "evidence_type"]].to_dict("records")
 
     rules = group[group["evidence_type"] == EVIDENCE_RULE]
     mls = group[group["evidence_type"] == EVIDENCE_ML]
-
-    rule_hit = bool((rules["call"] == CALL_RESISTANT).any())
     determinants = sorted({g for lst in group["genes"] for g in (lst or [])})
+
+    rule_calls = [c for c in rules["call"].tolist() if c in (CALL_RESISTANT, CALL_SUSCEPTIBLE)]
+    rule_R = rule_calls.count(CALL_RESISTANT)
+    rule_S = rule_calls.count(CALL_SUSCEPTIBLE)
 
     ml_probs = [p for p in mls["prob"].tolist() if p is not None]
     mean_p = sum(ml_probs) / len(ml_probs) if ml_probs else None
     spread = (max(ml_probs) - min(ml_probs)) if len(ml_probs) >= 2 else 0.0
 
+    def mk(verdict, cat, conf, reason):
+        return DrugVerdict(drug, verdict, cat, conf, determinants,
+                           target_present=target_present, target_note=target_note,
+                           reason=reason, votes=votes)
+
     # --- target gate first ---
     if not target_present:
-        return DrugVerdict(drug, NOCALL, "iii", None, determinants,
-                           target_present=False, target_note=target_note,
-                           reason="molecular target absent — drug not applicable",
-                           votes=votes)
-
-    # --- OOD ---
+        return mk(NOCALL, "iii", None, "molecular target absent — drug not applicable")
+    # --- out-of-distribution genome ---
     if ood:
-        return DrugVerdict(drug, NOCALL, "ii", None, determinants,
-                           target_note=target_note,
-                           reason="genome unlike training data (out-of-distribution)",
-                           votes=votes)
+        return mk(NOCALL, "ii", None, "genome unlike training data (out-of-distribution)")
 
-    # --- rule-based mechanism ---
-    if rule_hit:
-        # if ML strongly disagrees, flag but keep mechanism (report the tension)
-        note = "known resistance determinant detected"
+    # --- 1) rule models UNANIMOUS resistant -> mechanistic FAIL (category i) ---
+    if rule_R and rule_S == 0:
+        conf = round(max(0.85, mean_p), 3) if mean_p is not None else 0.9
+        reason = f"{rule_R} rule model(s) agree on a known resistance determinant"
         if mean_p is not None and mean_p < LO:
-            note += "; note: ML models predict susceptible (possible non-functional allele)"
-        v = DrugVerdict(drug, FAIL, "i", None, determinants,
-                        target_note=target_note, reason=note, votes=votes)
-        v.confidence = _confidence(FAIL, mean_p, rule_hit=True)
-        return v
+            reason += "; note: ML predicts susceptible (possible intrinsic / non-functional allele)"
+        return mk(FAIL, "i", conf, reason)
 
-    # --- ML-driven ---
-    if mean_p is None:
-        return DrugVerdict(drug, NOCALL, "iii", None, determinants,
-                           target_note=target_note,
-                           reason="no rule determinant and no ML probability",
-                           votes=votes)
+    # --- 2) rule models CONFLICT -> decisive ML, else defer to the most
+    #        drug-specific rule caller (Kleborate), else no-call ---
+    if rule_R and rule_S:
+        if mean_p is not None and mean_p >= HI:
+            return mk(FAIL, "ii", round(mean_p, 3),
+                      f"rule models conflict (R:{rule_R}/S:{rule_S}); ML resolves resistant (P={mean_p:.2f})")
+        if mean_p is not None and mean_p <= LO:
+            return mk(WORK, "ii", round(1 - mean_p, 3),
+                      f"rule models conflict (R:{rule_R}/S:{rule_S}); ML resolves susceptible")
+        pm, pc = _primary_rule_call(rules)
+        if pc == CALL_RESISTANT:
+            return mk(FAIL, "i", 0.8,
+                      f"rule models conflict; deferring to {pm} (Klebsiella-specific) → resistant")
+        if pc == CALL_SUSCEPTIBLE:
+            return mk(WORK, "iii" if not determinants else "ii", 0.7,
+                      f"rule models conflict; deferring to {pm} (Klebsiella-specific) → susceptible "
+                      f"(other caller flagged an intrinsic/expected gene)")
+        return mk(NOCALL, "ii", None,
+                  f"rule models conflict (R:{rule_R}/S:{rule_S}); no decisive signal")
 
-    if spread > SPREAD:
-        return DrugVerdict(drug, NOCALL, "ii", None, determinants,
-                           target_note=target_note,
-                           reason=f"ML models disagree (prob spread {spread:.2f})",
-                           votes=votes)
-
-    if mean_p >= HI:
-        return DrugVerdict(drug, FAIL, "ii", _confidence(FAIL, mean_p, False),
-                           determinants, target_note=target_note,
-                           reason="statistical association (no known determinant)",
-                           votes=votes)
-    if mean_p <= LO:
+    # --- 3) rule models UNANIMOUS susceptible ---
+    if rule_S and rule_R == 0:
+        if mean_p is not None and mean_p >= HI:
+            return mk(NOCALL, "ii", None,
+                      f"no known determinant but ML predicts resistant (P={mean_p:.2f})")
+        conf = round(1 - mean_p, 3) if mean_p is not None else 0.75
         cat = "iii" if not determinants else "ii"
-        return DrugVerdict(drug, WORK, cat, _confidence(WORK, mean_p, False),
-                           determinants, target_note=target_note,
-                           reason="no known resistance signal; models predict susceptible",
-                           votes=votes)
-    return DrugVerdict(drug, NOCALL, "ii", None, determinants,
-                       target_note=target_note,
-                       reason=f"evidence weak/uncertain (mean P_resistant {mean_p:.2f})",
-                       votes=votes)
+        return mk(WORK, cat, conf, "no known resistance determinant; predicted susceptible")
+
+    # --- 4) no rule information -> ML-only band logic ---
+    if mean_p is None:
+        return mk(NOCALL, "iii", None, "no rule determinant and no ML probability")
+    if spread > SPREAD:
+        return mk(NOCALL, "ii", None, f"ML models disagree (prob spread {spread:.2f})")
+    if mean_p >= HI:
+        return mk(FAIL, "ii", round(mean_p, 3), "statistical association (no rule determinant)")
+    if mean_p <= LO:
+        return mk(WORK, "iii" if not determinants else "ii", round(1 - mean_p, 3),
+                  "no known resistance signal; predicted susceptible")
+    return mk(NOCALL, "ii", None, f"evidence weak/uncertain (mean P_resistant {mean_p:.2f})")
 
 
 def aggregate(long_df: pd.DataFrame, target_fn=None, ood_drugs=None) -> pd.DataFrame:

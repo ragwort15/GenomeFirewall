@@ -6,27 +6,57 @@
     "n_clusters": 153,
     "coverage": {
       "n": 1419,
-      "no_call_rate": 0.072,
-      "called_accuracy": 0.576
+      "no_call_rate": 0.0,
+      "called_accuracy": 0.747
     },
     "macro_pooled": {
-      "balanced_acc": 0.5,
-      "recall_R": 1.0,
-      "recall_S": 0.0,
-      "f1": 0.707,
-      "auroc": 0.5,
-      "pr_auc": 0.57,
-      "no_call_rate": 0.064
+      "balanced_acc": 0.744,
+      "recall_R": 0.858,
+      "recall_S": 0.629,
+      "f1": 0.713,
+      "auroc": 0.746,
+      "pr_auc": 0.692,
+      "no_call_rate": 0.0
     },
     "macro_cluster_dedup": {
-      "balanced_acc": 0.5,
-      "recall_R": 1.0,
-      "recall_S": 0.0,
-      "f1": 0.679,
-      "auroc": 0.5,
-      "pr_auc": 0.539,
-      "no_call_rate": 0.078
+      "balanced_acc": 0.765,
+      "recall_R": 0.856,
+      "recall_S": 0.674,
+      "f1": 0.708,
+      "auroc": 0.768,
+      "pr_auc": 0.68,
+      "no_call_rate": 0.0
     },
-    "brier_macro": 0.3539
+    "brier_macro": 0.2184
+  },
+  {
+    "system": "llm",
+    "n_labels": 170,
+    "n_genomes": 20,
+    "n_clusters": 17,
+    "coverage": {
+      "n": 170,
+      "no_call_rate": 0.006,
+      "called_accuracy": 0.74
+    },
+    "macro_pooled": {
+      "balanced_acc": 0.762,
+      "recall_R": 0.983,
+      "recall_S": 0.541,
+      "f1": 0.832,
+      "auroc": 0.893,
+      "pr_auc": 0.853,
+      "no_call_rate": 0.006
+    },
+    "macro_cluster_dedup": {
+      "balanced_acc": 0.786,
+      "recall_R": 0.978,
+      "recall_S": 0.593,
+      "f1": 0.851,
+      "auroc": 0.923,
+      "pr_auc": 0.925,
+      "no_call_rate": 0.007
+    },
+    "brier_macro": 0.1961
   }
 ]
