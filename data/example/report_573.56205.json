@@ -1,0 +1,585 @@
+{
+  "sample_id": "KP-573.56205-BVBRC",
+  "species": "Klebsiella pneumoniae",
+  "generated_utc": "2026-07-18T22:59:29.377565+00:00",
+  "disclaimer": "Research prototype \u2014 every result must be confirmed by standard laboratory testing. Decision support only; not a medical device. Predicts and explains existing resistance only.",
+  "summary": {
+    "n_drugs": 12,
+    "n_likely_to_fail": 11,
+    "n_likely_to_work": 1,
+    "n_no_call": 0
+  },
+  "models_used": [
+    "AMRFinderPlus",
+    "Kleborate",
+    "WGS_to_AMR"
+  ],
+  "genome_features": {
+    "genes": [
+      "aac(6')-Ib-cr5",
+      "aadA16",
+      "arr-3",
+      "blaCTX-M-15",
+      "blaOXA-1",
+      "blaOXA-181",
+      "blaSHV",
+      "catA1",
+      "catB3",
+      "dfrA27",
+      "emrD",
+      "fosA",
+      "oqxA",
+      "oqxB",
+      "qnrS1",
+      "sul1",
+      "tet(D)"
+    ],
+    "point_mutations": [
+      "blaSHV_C-112A",
+      "gyrA_S83I",
+      "parC_S80I"
+    ],
+    "n_amr_elements": 20
+  },
+  "clinical_context": {},
+  "coverage": {
+    "species_covered": [
+      "Klebsiella pneumoniae"
+    ],
+    "not_covered": [
+      "other species",
+      "antibiotics outside the panel",
+      "sample\u2192genome steps",
+      "polymicrobial samples"
+    ]
+  },
+  "drugs": [
+    {
+      "drug": "amikacin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "aac(6')-Ib-cr.v2",
+        "aac(6')-Ib-cr5",
+        "aadA16",
+        "aadA16*"
+      ],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant; note: ML predicts susceptible (possible intrinsic / non-functional allele)",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.165029391646385,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "gentamicin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "aac(6')-Ib-cr.v2",
+        "aac(6')-Ib-cr5",
+        "aadA16",
+        "aadA16*"
+      ],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.472850173711777,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "tobramycin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.997,
+      "supporting_genes": [
+        "aac(6')-Ib-cr.v2",
+        "aac(6')-Ib-cr5",
+        "aadA16",
+        "aadA16*"
+      ],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.9972043633461,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "ciprofloxacin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.874,
+      "supporting_genes": [
+        "GyrA:p.Ser83Ile",
+        "ParC:p.Ser80Ile",
+        "aac(6')-Ib-cr.v2",
+        "aac(6')-Ib-cr5",
+        "gyrA_S83I",
+        "oqxA",
+        "oqxB",
+        "parC_S80I",
+        "qnrS1"
+      ],
+      "target_present": true,
+      "target_note": "DNA gyrase (gyrA) / topoisomerase IV (parC) present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.874126672744751,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "ceftazidime",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.936,
+      "supporting_genes": [
+        "CTX-M-15",
+        "OXA-181",
+        "blaCTX-M-15",
+        "blaOXA-1",
+        "blaOXA-181",
+        "blaSHV",
+        "blaSHV_C-112A"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.936195015907288,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+          "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+          "doi": "10.64898/2026.01.27.701980",
+          "year": 2026,
+          "score": 5,
+          "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+        }
+      ]
+    },
+    {
+      "drug": "cefepime",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.95,
+      "supporting_genes": [
+        "CTX-M-15",
+        "OXA-181",
+        "blaCTX-M-15",
+        "blaOXA-1",
+        "blaOXA-181",
+        "blaSHV",
+        "blaSHV_C-112A"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.950478732585907,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+          "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+          "doi": "10.64898/2026.01.27.701980",
+          "year": 2026,
+          "score": 5,
+          "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+        }
+      ]
+    },
+    {
+      "drug": "aztreonam",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.958,
+      "supporting_genes": [
+        "CTX-M-15",
+        "blaCTX-M-15",
+        "blaOXA-1",
+        "blaOXA-181",
+        "blaSHV",
+        "blaSHV_C-112A"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding protein 3 present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.958220362663269,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+          "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+          "doi": "10.64898/2026.01.27.701980",
+          "year": 2026,
+          "score": 5,
+          "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+        }
+      ]
+    },
+    {
+      "drug": "imipenem",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "OXA-181",
+        "blaCTX-M-15",
+        "blaOXA-1",
+        "blaOXA-181",
+        "blaSHV",
+        "blaSHV_C-112A"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant; note: ML predicts susceptible (possible intrinsic / non-functional allele)",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.0493700876832008,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+          "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+          "doi": "10.64898/2026.01.27.701980",
+          "year": 2026,
+          "score": 5,
+          "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+        }
+      ]
+    },
+    {
+      "drug": "meropenem",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.85,
+      "supporting_genes": [
+        "OXA-181",
+        "blaCTX-M-15",
+        "blaOXA-1",
+        "blaOXA-181",
+        "blaSHV",
+        "blaSHV_C-112A"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.375401765108109,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+          "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+          "doi": "10.64898/2026.01.27.701980",
+          "year": 2026,
+          "score": 5,
+          "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+        }
+      ]
+    },
+    {
+      "drug": "piperacillin/tazobactam",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene / DNA change detected",
+      "confidence": 0.962,
+      "supporting_genes": [
+        "OXA-1",
+        "OXA-181",
+        "blaCTX-M-15",
+        "blaOXA-1",
+        "blaOXA-181",
+        "blaSHV",
+        "blaSHV_C-112A"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.961526572704315,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+          "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+          "doi": "10.64898/2026.01.27.701980",
+          "year": 2026,
+          "score": 5,
+          "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+        }
+      ]
+    },
+    {
+      "drug": "fosfomycin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.7,
+      "supporting_genes": [
+        "fosA"
+      ],
+      "target_present": true,
+      "target_note": "MurA (UDP-GlcNAc enolpyruvyl transferase) present (core gene assumed intact)",
+      "reason": "rule models conflict; deferring to Kleborate (Klebsiella-specific) \u2192 susceptible (other caller flagged an intrinsic/expected gene)",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.618459701538086,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "levofloxacin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.855,
+      "supporting_genes": [],
+      "target_present": true,
+      "target_note": "unknown target present (core gene assumed intact)",
+      "reason": "statistical association (no rule determinant)",
+      "model_votes": [
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.854688107967377,
+          "evidence_type": "ml"
+        }
+      ],
+      "literature": []
+    }
+  ],
+  "literature": {
+    "query": "blaCTX-M-15 antimicrobial resistance Klebsiella pneumoniae",
+    "question": "How does blaCTX-M-15 confer antibiotic resistance in Klebsiella pneumoniae, and which antibiotics does it affect? Summarize the mechanism and clinical relevance.",
+    "answer": "I cannot answer.",
+    "n_pdfs": 3,
+    "citations": [
+      {
+        "title": "Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blaNDM carbapenemase producing Enterobacterales",
+        "citation": "Caitlin Duggan, Daire Cantillon, David Lawrie, Timothy Neal, James Cruise, Fabrice E. Graf, Victoria Owen, Alice J. Fraser, Joseph M. Lewis, Charlotte Brookfield, Eva Heinz, and Thomas Edwards. Comparison of multiple cefiderocol susceptibility testing methods against genomic determinants of resistance in blandm carbapenemase producing enterobacterales. bioRxiv, Jan 2026. URL: https://doi.org/10.64898/2026.01.27.701980, doi:10.64898/2026.01.27.701980.",
+        "doi": "10.64898/2026.01.27.701980",
+        "year": 2026,
+        "score": 5,
+        "excerpt": "The excerpt discusses the identification of beta-lactamase genes, including blaCTX-M-15, in various bacterial isolates. It notes that all isolates carrying blaCTX-M-15 were resistant, but it does not specify the mechanism by which blaCTX-M-15 confers antibiotic resistance or the "
+      }
+    ],
+    "determinant": "blaCTX-M-15"
+  }
+}

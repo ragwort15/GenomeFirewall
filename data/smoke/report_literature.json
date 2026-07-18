@@ -1,0 +1,25 @@
+{
+  "query": "blaKPC-2 antimicrobial resistance Klebsiella pneumoniae",
+  "question": "How does blaKPC-2 confer antibiotic resistance in Klebsiella pneumoniae, and which antibiotics does it affect? Summarize the mechanism and clinical relevance.",
+  "answer": "The blaKPC-2 gene confers antibiotic resistance in Klebsiella pneumoniae by encoding a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, rendering them ineffective (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). This enzyme activity is a significant mechanism of resistance, particularly in nosocomial settings where carbapenems are frequently used as last-resort antibiotics. The presence of blaKPC-2 is associated with high-level resistance to \u03b2-lactam antibiotics, including ceftazidime/avibactam and carbapenems, due to increased gene expression and copy number (hamza2025emergingresistanceto pages 23-24). Additionally, the stress induced by carbapenem antibiotics can further increase the relative copy number of the blaKPC-2 gene, enhancing resistance levels (hamza2025emergingresistanceto pages 23-24).\n\nThe clinical relevance of blaKPC-2 is profound, as it complicates the treatment of infections caused by Klebsiella pneumoniae, a major nosocomial pathogen. The high prevalence of this gene in Klebsiella pneumoniae, as well as its presence in other species like Kluyvera spp and Serratia marcescens, suggests a potential for these species to act as reservoirs for resistance genes, further complicating infection control and treatment strategies (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The emergence of novel KPC variants, such as KPC-109 and KPC-31, further underscores the challenge in treating infections with \u03b2-lactam antibiotics (hamza2025emergingresistanceto pages 20-22).",
+  "n_pdfs": 3,
+  "citations": [
+    {
+      "title": "Emerging Resistance to Novel \u03b2-Lactam \u03b2-Lactamase Inhibitor Combinations in Klebsiella pneumoniae bearing KPC Variants",
+      "citation": "Mase Hamza, German M M Traglia, Lucia Maccari, Sonia Gomez, Maria Belen Sanz, Usman Akhtar, Vyanka Mezcord, Jenny Escalante, Alejandra Corso, Cecilia Rodriguez, Christopher R. Bethel, Gauri G. Rao, Marcelo E. Tolmasky, David Paterson, Robert A. Bonomo, Fernando Pasteran, and Maria Soledad Ramirez. Emerging resistance to novel \u03b2-lactam \u03b2-lactamase inhibitor combinations in klebsiella pneumoniae bearing kpc variants. bioRxiv, 44:297-305, Apr 2025. URL: https://doi.org/10.1101/2025.04.14.648765, doi:10.1101/2025.04.14.648765.",
+      "doi": "10.1101/2025.04.14.648765",
+      "year": 2025,
+      "score": 9,
+      "excerpt": "The excerpt discusses various studies related to antibiotic resistance in Klebsiella pneumoniae, particularly focusing on resistance mechanisms involving bla(KPC) variants. It mentions that increased gene expression and copy number of mutated bla(KPC) can lead to high-level resis"
+    },
+    {
+      "title": "Carbapenem-resistant Enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis",
+      "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
+      "doi": "10.1038/s41598-024-64992-8",
+      "year": 2024,
+      "score": 9,
+      "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
+    }
+  ],
+  "determinant": "blaKPC-2"
+}
