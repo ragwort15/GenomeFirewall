@@ -1,0 +1,45 @@
+{
+  "coverage": {
+    "species": "Escherichia coli",
+    "antibiotics": ["ciprofloxacin", "amoxicillin", "gentamicin", "meropenem"]
+  },
+  "model_performance": {
+    "balanced_accuracy": 0.873,
+    "recall_resistant": 0.841,
+    "recall_susceptible": 0.905,
+    "f1": 0.86,
+    "auroc": 0.93,
+    "pr_auc": 0.88,
+    "no_call_rate": 0.094
+  },
+  "antibiotics": [
+    {
+      "drug": "Ciprofloxacin",
+      "verdict": "fail",
+      "confidence": 0.94,
+      "evidence": "known resistance gene",
+      "detail": "gyrA S83L and parC S80I mutations detected — classic fluoroquinolone resistance signature."
+    },
+    {
+      "drug": "Amoxicillin",
+      "verdict": "fail",
+      "confidence": 0.89,
+      "evidence": "known resistance gene",
+      "detail": "blaTEM-1 beta-lactamase gene detected, consistent with beta-lactam resistance."
+    },
+    {
+      "drug": "Gentamicin",
+      "verdict": "work",
+      "confidence": 0.76,
+      "evidence": "statistical association only",
+      "detail": "No aminoglycoside-modifying enzyme genes found; genomic background associated with susceptibility."
+    },
+    {
+      "drug": "Meropenem",
+      "verdict": "nocall",
+      "confidence": 0.52,
+      "evidence": "no signal found",
+      "detail": "Insufficient marker coverage near carbapenemase loci in this assembly — confidence too low to call."
+    }
+  ]
+}
