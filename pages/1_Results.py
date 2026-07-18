@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 import streamlit as st
-from style import inject_global_css, render_signed_in_header, VERDICT_META
+from style import inject_global_css, render_signed_in_header, render_patient_card, VERDICT_META
 
 st.set_page_config(page_title="Genome Firewall — Results", page_icon="🧬", layout="centered")
 
@@ -107,6 +107,10 @@ for a in antibiotics:
                   <a class="lit-link" href="{ref['url']}" target="_blank" rel="noopener">View source ↗</a>
                 </div>
                 """, unsafe_allow_html=True)
+
+# ---- Patient / clinical context ----
+if "patient" in DATA:
+    render_patient_card(DATA["patient"], section_number=4)
 
 # ---- Model performance (collapsible, secondary) ----
 with st.expander("Model performance on held-out test data"):
