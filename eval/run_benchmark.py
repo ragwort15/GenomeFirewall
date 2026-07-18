@@ -77,6 +77,34 @@ def det_rows(report: dict) -> list[dict]:
     return out
 
 
+def reaggregate_rows(report: dict) -> list[dict]:
+    """Re-run the CURRENT aggregate.py fusion over the report's stored model votes,
+    so the deterministic arm reflects the latest reconciliation policy without
+    re-running AMRFinderPlus. (Model calls are already saved in model_votes.)"""
+    from predictor import aggregate as AGG
+    gid = report["sample_id"]
+    tp, recs = {}, []
+    for d in report.get("drugs", []):
+        tp[d["drug"]] = d.get("target_present", True)
+        genes = d.get("supporting_genes", [])
+        for i, v in enumerate(d.get("model_votes", [])):
+            recs.append({"model": v["model"], "drug": d["drug"], "call": v["call"],
+                         "prob": v.get("prob"), "evidence_type": v.get("evidence_type"),
+                         "genes": genes if i == 0 else []})
+    if not recs:
+        return []
+    verdicts = AGG.aggregate(pd.DataFrame(recs),
+                             target_fn=lambda drug: (tp.get(drug, True), ""))
+    out = []
+    for _, r in verdicts.iterrows():
+        vd = {"verdict": r["verdict"], "confidence": r["confidence"],
+              "model_votes": r["votes"]}
+        out.append({"genome_id": gid, "drug": r["drug"],
+                    "y_pred": VERDICT2CALL.get(r["verdict"], "no_call"),
+                    "prob": reconstruct_prob(vd)})
+    return out
+
+
 def llm_rows(gid: str, decisions: dict) -> list[dict]:
     return [{"genome_id": gid, "drug": drug, "y_pred": dec["call"], "prob": dec["prob"]}
             for drug, dec in decisions.items()]
@@ -266,8 +294,8 @@ def main():
         cl = pd.read_csv(cf, sep="\t", dtype={"genome_id": str})
         clusters = dict(zip(cl["genome_id"], cl["cluster_id"]))
 
-    # deterministic system
-    det_tidy = build_tidy([r for rep in reports for r in det_rows(rep)], y)
+    # deterministic system (re-aggregated with the current fusion policy)
+    det_tidy = build_tidy([r for rep in reports for r in reaggregate_rows(rep)], y)
     det_tidy.to_csv(outdir / "tidy__deterministic.csv", index=False)
     summaries = [score_system(det_tidy, clusters, "deterministic", outdir)]
     per_drug_paths = [outdir / "per_drug_metrics__deterministic.csv"]

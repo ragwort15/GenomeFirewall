@@ -1,0 +1,30 @@
+{
+  "AMRFinderPlus": {
+    "balanced_acc": 0.577,
+    "recall_R": 1.0,
+    "recall_S": 0.154,
+    "f1": 0.702,
+    "auroc": NaN
+  },
+  "Kleborate": {
+    "balanced_acc": 0.886,
+    "recall_R": 0.951,
+    "recall_S": 0.821,
+    "f1": 0.872,
+    "auroc": NaN
+  },
+  "Combined (aggregate)": {
+    "balanced_acc": 0.886,
+    "recall_R": 0.951,
+    "recall_S": 0.821,
+    "f1": 0.872,
+    "auroc": 0.891
+  },
+  "LLM+Literature": {
+    "balanced_acc": 0.762,
+    "recall_R": 0.983,
+    "recall_S": 0.541,
+    "f1": 0.832,
+    "auroc": 0.893
+  }
+}

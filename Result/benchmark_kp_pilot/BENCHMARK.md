@@ -8,12 +8,15 @@
 
 | system | scope | balanced_acc | recall_R | recall_S | f1 | auroc | pr_auc | no_call | brier |
 |---|---|---|---|---|---|---|---|---|---|
-| deterministic | pooled | 0.5 | 1.0 | 0.0 | 0.707 | 0.5 | 0.57 | 0.064 | 0.3539 |
-| deterministic | cluster-dedup | 0.5 | 1.0 | 0.0 | 0.679 | 0.5 | 0.539 | 0.078 | - |
+| deterministic | pooled | 0.744 | 0.858 | 0.629 | 0.713 | 0.746 | 0.692 | 0.0 | 0.2184 |
+| deterministic | cluster-dedup | 0.765 | 0.856 | 0.674 | 0.708 | 0.768 | 0.68 | 0.0 | - |
+| llm | pooled | 0.762 | 0.983 | 0.541 | 0.832 | 0.893 | 0.853 | 0.006 | 0.1961 |
+| llm | cluster-dedup | 0.786 | 0.978 | 0.593 | 0.851 | 0.923 | 0.925 | 0.007 | - |
 
 ## Per-drug tables
 
 - `per_drug_metrics__deterministic.csv`
+- `per_drug_metrics__llm.csv`
 
 ## Generalization by genetic group
 - Per-cluster breakdown: `by_group.csv` (153 clusters; largest = 14 genomes)
