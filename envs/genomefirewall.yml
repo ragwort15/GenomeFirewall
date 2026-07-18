@@ -1,0 +1,40 @@
+name: genomefirewall
+# One env for everything Genome Firewall does itself:
+#   Module 1 (genome annotation), Module 2 aggregation/calibration,
+#   Module 3 agent + literature (paper-qa) + Streamlit demo, and eval.
+# NOTE: the 3 external published-model repos (WGS_to_AMR, PhenotypeSeeker,
+#       Kover, AMR-GNN) keep their OWN envs (pinned/conflicting deps); our
+#       adapters shell out to them. This env does NOT contain torch/PyG.
+channels:
+  - conda-forge
+  - bioconda
+dependencies:
+  - python=3.11
+  - pip
+  # --- Module 1: genome annotation (rule-based AMR) ---
+  - ncbi-amrfinderplus>=3.12
+  - kleborate
+  # --- homology clustering for the genetic-relatedness (grouped) split ---
+  - mash
+  - sourmash
+  # --- ML / data / plotting ---
+  - scikit-learn
+  - pandas
+  - numpy
+  - scipy
+  - matplotlib
+  - seaborn
+  - biopython
+  - pyyaml
+  - tqdm
+  # --- agent + LLM + demo (conda-forge wheels; avoids pip source builds) ---
+  - openai
+  - streamlit
+  - pyarrow
+  - python-dotenv
+  - requests
+  - pip:
+      - arxiv
+  # NOTE: paper-qa is NOT installed here — it needs a Rust toolchain (libcst) and
+  # heavy source builds. The literature layer reuses the existing `geneqa` env
+  # (Tools/AGeneTic); agent/tools/literature_tool.py targets that install.
