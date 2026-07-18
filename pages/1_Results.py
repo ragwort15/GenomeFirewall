@@ -16,7 +16,6 @@ with open(DATA_PATH, encoding="utf-8") as f:
     DATA = json.load(f)
 
 antibiotics = DATA["antibiotics"]
-perf = DATA["model_performance"]
 coverage = DATA["coverage"]
 
 filename = st.session_state.uploaded_filename
@@ -107,27 +106,6 @@ for a in antibiotics:
                   <a class="lit-link" href="{ref['url']}" target="_blank" rel="noopener">View source ↗</a>
                 </div>
                 """, unsafe_allow_html=True)
-
-# ---- Model performance (collapsible, secondary) ----
-with st.expander("Model performance on held-out test data"):
-    perf_items = [
-        ("Balanced accuracy", f"{perf['balanced_accuracy']*100:.1f}%"),
-        ("Recall (resistant)", f"{perf['recall_resistant']*100:.1f}%"),
-        ("Recall (susceptible)", f"{perf['recall_susceptible']*100:.1f}%"),
-        ("F1 score", f"{perf['f1']:.2f}"),
-        ("AUROC", f"{perf['auroc']:.2f}"),
-        ("PR-AUC", f"{perf['pr_auc']:.2f}"),
-        ("No-call rate", f"{perf['no_call_rate']*100:.1f}%"),
-    ]
-    perf_cols = st.columns(4)
-    for i, (label, value) in enumerate(perf_items):
-        with perf_cols[i % 4]:
-            st.markdown(f"""
-            <div class="perf-metric">
-              <div class="val">{value}</div>
-              <div class="lbl">{label}</div>
-            </div>
-            """, unsafe_allow_html=True)
 
 # ---- Coverage footer ----
 st.markdown(f"""
