@@ -25,11 +25,11 @@ KNOWN_EXAMPLES: dict[str, tuple[Path, Path | None]] = {
     ),
     "kp_esbl_demo.fna": (
         EXAMPLE_DIR / "report_kp_esbl.json",
-        None,
+        EXAMPLE_DIR / "report_kp_esbl_literature.json",
     ),
     "kp_carbapenem_demo.fna": (
         EXAMPLE_DIR / "report_kp_carbapenem.json",
-        None,
+        EXAMPLE_DIR / "report_kp_carbapenem_literature.json",
     ),
 }
 

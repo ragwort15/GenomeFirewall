@@ -1,0 +1,32 @@
+{
+  "query": "blaCTX-M-15 ESBL cephalosporin resistance Klebsiella pneumoniae",
+  "question": "How does blaCTX-M-15 confer resistance in Klebsiella pneumoniae, which antibiotics are affected, and what are the recommended treatment implications?",
+  "answer": "The blaCTX-M-15 gene encodes an extended-spectrum β-lactamase (ESBL) that has become the globally dominant ESBL variant in Enterobacterales, including Klebsiella pneumoniae (cantón2012ctxmenzymesorigin pages 3-5). CTX-M-15 efficiently hydrolyzes third-generation cephalosporins such as ceftriaxone, cefotaxime, and ceftazidime, and confers clinically significant resistance to cefepime (peirano2019extendedspectrumbetalactamaseproducing pages 12-14). Aminopenicillins and their β-lactamase-inhibitor combinations (amoxicillin-clavulanate, ampicillin-sulbactam) frequently fail in CTX-M-15-producing K. pneumoniae because clavulanate inhibition is often insufficient in Klebsiella species (livermore2008ctxmchangingthe pages 4-6).\n\nCurrently accepted clinical practice for serious infections caused by ESBL-producing Enterobacterales prioritizes carbapenems (meropenem or ertapenem) as first-line therapy, based on the MERINO trial and subsequent guidance from the IDSA (harris2018meropenemversuspiperacillin pages 1-4, tamma2023infectiousdiseasessociety pages 8-12). Piperacillin-tazobactam is now discouraged for CTX-M-producing bloodstream infections due to inferior mortality outcomes. When carbapenem-sparing therapy is desired, aminoglycosides retaining susceptibility (typically amikacin) may play a role in urinary sources.",
+  "n_pdfs": 3,
+  "citations": [
+    {
+      "title": "CTX-M Enzymes: Origin and Diffusion",
+      "citation": "Rafael Cantón, José María González-Alba, and Juan Carlos Galán. CTX-M enzymes: origin and diffusion. Frontiers in Microbiology, 3:110, 2012.",
+      "doi": "10.3389/fmicb.2012.00110",
+      "year": 2012,
+      "score": 9,
+      "excerpt": "CTX-M-15 has become the most widely distributed ESBL globally, disseminating through both hospital and community reservoirs, and now dominates the ESBL landscape in Enterobacterales including Klebsiella pneumoniae and Escherichia coli."
+    },
+    {
+      "title": "Effect of Piperacillin-Tazobactam vs Meropenem on 30-Day Mortality for Patients With E coli or Klebsiella pneumoniae Bloodstream Infection and Ceftriaxone Resistance",
+      "citation": "Patrick N. A. Harris et al. Effect of piperacillin-tazobactam vs meropenem on 30-day mortality for patients with E coli or Klebsiella pneumoniae bloodstream infection and ceftriaxone resistance: the MERINO randomized clinical trial. JAMA, 320(10):984-994, 2018.",
+      "doi": "10.1001/jama.2018.12163",
+      "year": 2018,
+      "score": 10,
+      "excerpt": "In patients with ceftriaxone-resistant E. coli or K. pneumoniae bloodstream infection, piperacillin-tazobactam did not meet criteria for noninferiority compared with meropenem; carbapenems remain the preferred definitive therapy."
+    },
+    {
+      "title": "Infectious Diseases Society of America 2023 Guidance on the Treatment of Antimicrobial Resistant Gram-Negative Infections",
+      "citation": "Pranita D. Tamma et al. Infectious Diseases Society of America 2023 guidance on the treatment of antimicrobial resistant gram-negative infections. Clinical Infectious Diseases, ciad428, 2023.",
+      "doi": "10.1093/cid/ciad428",
+      "year": 2023,
+      "score": 10,
+      "excerpt": "For ESBL-producing Enterobacterales causing bloodstream or serious infections, a carbapenem (meropenem or ertapenem) is the preferred treatment; piperacillin-tazobactam is no longer recommended as first-line therapy."
+    }
+  ]
+}

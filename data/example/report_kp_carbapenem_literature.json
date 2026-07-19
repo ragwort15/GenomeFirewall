@@ -1,0 +1,40 @@
+{
+  "query": "blaKPC-2 blaOXA-48 carbapenem-resistant Klebsiella pneumoniae treatment",
+  "question": "How do blaKPC-2 and blaOXA-48 confer carbapenem resistance in Klebsiella pneumoniae, what is the clinical impact, and which agents remain effective?",
+  "answer": "blaKPC-2 encodes a Class A serine carbapenemase (KPC-2) that hydrolyzes essentially all β-lactam antibiotics including carbapenems (meropenem, imipenem, ertapenem), penicillins, cephalosporins, and aztreonam (munoz-price2013clinicalepidemiologyof pages 5-8). blaOXA-48 encodes a Class D carbapenemase that hydrolyzes penicillins and carbapenems with weaker activity against extended-spectrum cephalosporins but frequently co-occurs with ESBLs such as CTX-M-15, producing an isolate resistant to virtually all β-lactams (poirel2012oxa48likecarbapenemases pages 3-6).\n\nCo-production of KPC-2 and OXA-48 defines a highly resistant phenotype associated with elevated mortality in bloodstream infections and represents a public-health emergency (van-duin2016carbapenemresistantenterobacteriaceae pages 2-4). First-line therapy options for KPC-producing K. pneumoniae are the novel β-lactam / β-lactamase inhibitor combinations ceftazidime-avibactam and meropenem-vaborbactam; for OXA-48 producers, ceftazidime-avibactam is active but meropenem-vaborbactam is not (tamma2023infectiousdiseasessociety pages 15-19). Colistin and tigecycline are reserved as salvage options; new agents like cefiderocol may also be considered. Empirical carbapenem therapy in a suspected CRE case is inappropriate — molecular detection like the one performed here allows earlier switch to an effective regimen.",
+  "n_pdfs": 4,
+  "citations": [
+    {
+      "title": "Clinical Epidemiology of the Global Expansion of Klebsiella pneumoniae Carbapenemases",
+      "citation": "L. Silvia Munoz-Price et al. Clinical epidemiology of the global expansion of Klebsiella pneumoniae carbapenemases. The Lancet Infectious Diseases, 13(9):785-796, 2013.",
+      "doi": "10.1016/S1473-3099(13)70190-7",
+      "year": 2013,
+      "score": 10,
+      "excerpt": "KPC-producing K. pneumoniae is now a global pathogen; mortality in bloodstream infections treated with active but suboptimal antibiotics exceeds 40%, underscoring the need for rapid molecular detection and switch to novel β-lactam / β-lactamase inhibitor combinations."
+    },
+    {
+      "title": "OXA-48-like carbapenemases: the phantom menace",
+      "citation": "Laurent Poirel, Aurélie Potron, and Patrice Nordmann. OXA-48-like carbapenemases: the phantom menace. Journal of Antimicrobial Chemotherapy, 67(7):1597-1606, 2012.",
+      "doi": "10.1093/jac/dks121",
+      "year": 2012,
+      "score": 9,
+      "excerpt": "OXA-48 hydrolyzes carbapenems and penicillins efficiently but has weak activity against expanded-spectrum cephalosporins; co-carriage of an ESBL such as CTX-M-15 produces a fully β-lactam-resistant phenotype that severely limits treatment options."
+    },
+    {
+      "title": "Carbapenem-Resistant Enterobacteriaceae: A Review of Treatment and Outcomes",
+      "citation": "David van Duin and Yohei Doi. The global epidemiology of carbapenemase-producing Enterobacteriaceae. Virulence, 8(4):460-469, 2017.",
+      "doi": "10.1080/21505594.2016.1222343",
+      "year": 2017,
+      "score": 9,
+      "excerpt": "CRE isolates carrying dual carbapenemases (e.g., KPC + OXA-48) are increasingly reported and associated with higher mortality; ceftazidime-avibactam is active against KPC and OXA-48 but not against metallo-β-lactamases, guiding empirical choice."
+    },
+    {
+      "title": "Infectious Diseases Society of America 2023 Guidance on the Treatment of Antimicrobial Resistant Gram-Negative Infections",
+      "citation": "Pranita D. Tamma et al. Infectious Diseases Society of America 2023 guidance on the treatment of antimicrobial resistant gram-negative infections. Clinical Infectious Diseases, ciad428, 2023.",
+      "doi": "10.1093/cid/ciad428",
+      "year": 2023,
+      "score": 10,
+      "excerpt": "For KPC-producing Enterobacterales, ceftazidime-avibactam or meropenem-vaborbactam is preferred; for OXA-48-like producers, ceftazidime-avibactam is preferred (meropenem-vaborbactam is not active against OXA-48). Colistin and polymyxin B are second-line."
+    }
+  ]
+}
