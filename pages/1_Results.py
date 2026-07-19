@@ -22,6 +22,11 @@ filename = st.session_state.uploaded_filename
 status_pill = f"<span class='pill pill-green'>{filename} — Quality-checked ✓</span>"
 render_signed_in_header(st.session_state.user, right_content=f"<div style='margin-top:0.5rem;'>{status_pill}</div>")
 
+back_col, _ = st.columns([1, 5])
+with back_col:
+    if st.button("← Back to upload"):
+        st.switch_page("app.py")
+
 st.markdown("""
 <div class="hero" style="padding: 1rem 1rem 0.5rem 1rem;">
   <div class="hero-badge">AI · Biosecurity · Defensive</div>

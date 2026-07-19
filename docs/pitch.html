@@ -410,6 +410,95 @@
     .challenges li { grid-template-columns: 1fr; gap: 0.35rem; }
   }
 
+  /* Team strip (top of page) */
+  .team-strip {
+    display: flex; align-items: center; gap: 0.9rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--line);
+    flex-wrap: wrap;
+  }
+  .team-strip-label {
+    font-family: var(--display);
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--fg);
+  }
+  .team-list {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-wrap: wrap; gap: 0.6rem;
+  }
+  .team-list li {
+    border: 1px solid var(--line);
+    padding: 0.5rem 0.95rem;
+    border-radius: 10px;
+    background: var(--bg-alt);
+    display: flex; flex-direction: column; gap: 0.15rem;
+    min-width: 0;
+  }
+  .team-list .tm-name {
+    font-family: var(--display);
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--fg);
+    letter-spacing: -0.01em;
+    line-height: 1.15;
+  }
+  .team-list .tm-affil {
+    font-family: var(--mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--fg-quiet);
+    line-height: 1.3;
+  }
+
+  /* Architecture diagram — breaks out of the reading measure to be wider */
+  .arch {
+    margin: 2.5rem 0 1rem 0;
+    padding: 2rem 1.5rem;
+    border: 1px solid var(--line);
+    background: var(--bg-alt);
+    border-radius: 10px;
+    overflow-x: auto;
+    /* Escape the .section-body max-width (var(--measure)) constraint */
+    width: calc(100vw - 3rem);
+    max-width: 1180px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+    position: relative;
+    left: 0;
+  }
+  @media (max-width: 720px) {
+    .arch { width: calc(100vw - 2rem); }
+  }
+  .arch svg { width: 100%; height: auto; min-width: 900px; display: block; }
+  .arch text {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 0.04em;
+    fill: var(--fg-soft);
+  }
+  .arch text.title {
+    font-family: var(--display);
+    font-weight: 700; font-size: 17px;
+    letter-spacing: -0.01em;
+    fill: var(--fg);
+  }
+  .arch text.small { font-size: 12px; fill: var(--fg-quiet); letter-spacing: 0.14em; text-transform: uppercase; }
+  .arch .box { fill: var(--bg); stroke: var(--fg-quiet); stroke-width: 1; }
+  .arch .box-accent { fill: var(--bg); stroke: var(--coral); stroke-width: 1.4; }
+  .arch .box-highlight { fill: var(--bg); stroke: var(--highlight); stroke-width: 1.4; }
+  .arch .arrow { stroke: var(--fg-quiet); stroke-width: 1.2; fill: none; }
+  .arch .arrow-accent { stroke: var(--coral); stroke-width: 1.4; fill: none; }
+  .arch .dash { stroke-dasharray: 4 3; }
+  .arch .tick { fill: var(--fg-quiet); }
+  .arch .caption {
+    font-family: var(--mono); font-size: 0.68rem;
+    letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--fg-quiet); text-align: center; margin-top: 0.75rem;
+  }
+
   /* Sequence strip */
   .seq {
     font-family: var(--mono);
@@ -465,6 +554,23 @@
       </a>
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">Theme</button>
     </div>
+  </div>
+  <div class="team-strip" aria-label="Team">
+    <span class="team-strip-label">Team · Genome Firewall</span>
+    <ul class="team-list">
+      <li>
+        <span class="tm-name">Amina</span>
+        <span class="tm-affil">San Jose State University · Computer Engineering</span>
+      </li>
+      <li>
+        <span class="tm-name">Anupama</span>
+        <span class="tm-affil">San Jose State University · Software Engineering</span>
+      </li>
+      <li>
+        <span class="tm-name">Alex</span>
+        <span class="tm-affil">Stanford University · Genetics</span>
+      </li>
+    </ul>
   </div>
 </div>
 
@@ -556,6 +662,7 @@
             <div class="step-d">Verdict, confidence, evidence type, and supporting genes — plus a mandatory “confirm with standard lab testing” banner.</div>
           </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -627,6 +734,81 @@
           memorize near-duplicate assemblies. Held-out test set is grouped by
           genetic relatedness — no siblings straddling the split.
         </p>
+
+        <div class="arch" role="figure" aria-label="Pipeline architecture diagram">
+          <svg viewBox="0 0 1000 560" xmlns="http://www.w3.org/2000/svg" role="img">
+            <defs>
+              <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0 0 L10 5 L0 10 z" class="tick"/>
+              </marker>
+              <marker id="ahc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                <path d="M0 0 L10 5 L0 10 z" fill="#C64A2C"/>
+              </marker>
+            </defs>
+
+            <!-- Row 1: Input -->
+            <text class="small" x="120" y="30" text-anchor="middle">Input</text>
+            <rect class="box" x="40" y="45" width="160" height="70" rx="6"/>
+            <text class="title" x="120" y="78" text-anchor="middle">FASTA (.fna)</text>
+            <text x="120" y="98" text-anchor="middle">Quality-checked assembly</text>
+
+            <path class="arrow" d="M200 80 H260" marker-end="url(#ah)"/>
+
+            <!-- Row 1: Genome Reader -->
+            <text class="small" x="410" y="30" text-anchor="middle">01 · Genome Reader</text>
+            <rect class="box" x="260" y="45" width="300" height="200" rx="6"/>
+            <rect class="box-highlight" x="280" y="70" width="260" height="55" rx="4"/>
+            <text class="title" x="410" y="94" text-anchor="middle">AMRFinderPlus</text>
+            <text x="410" y="112" text-anchor="middle">known AMR genes · mutations</text>
+            <rect class="box-highlight" x="280" y="140" width="260" height="55" rx="4"/>
+            <text class="title" x="410" y="164" text-anchor="middle">Kleborate</text>
+            <text x="410" y="182" text-anchor="middle">species-specific loci · MLST</text>
+            <text class="small" x="410" y="222" text-anchor="middle">→ Feature matrix</text>
+            <text x="410" y="237" text-anchor="middle">gene / mutation presence</text>
+
+            <path class="arrow" d="M560 145 H620" marker-end="url(#ah)"/>
+
+            <!-- Row 1: Predictor -->
+            <text class="small" x="770" y="30" text-anchor="middle">02 · Predictor</text>
+            <rect class="box-accent" x="620" y="70" width="300" height="150" rx="6"/>
+            <text class="title" x="770" y="108" text-anchor="middle">WGS_to_AMR</text>
+            <text x="770" y="132" text-anchor="middle">per-drug classifier</text>
+            <text x="770" y="155" text-anchor="middle">calibrated probability</text>
+            <text x="770" y="178" text-anchor="middle">p(resistant | genome)</text>
+            <text class="small" x="770" y="205" text-anchor="middle">→ probability + evidence</text>
+
+            <path class="arrow-accent" d="M770 220 V285" marker-end="url(#ahc)"/>
+
+            <text class="small" x="500" y="300" text-anchor="middle">03 · Safety layer  ·  overrides the model</text>
+
+            <!-- Row 2: Gate 1 -->
+            <rect class="box-accent" x="260" y="315" width="300" height="130" rx="6"/>
+            <text class="title" x="410" y="350" text-anchor="middle">Target-presence gate</text>
+            <text x="410" y="375" text-anchor="middle">Is the drug's target encoded</text>
+            <text x="410" y="395" text-anchor="middle">in the genome?</text>
+            <text x="410" y="422" text-anchor="middle" fill="#C64A2C">no target → force LIKELY FAIL</text>
+
+            <!-- Row 2: Gate 2 -->
+            <rect class="box-accent" x="620" y="315" width="300" height="130" rx="6"/>
+            <text class="title" x="770" y="350" text-anchor="middle">No-call threshold</text>
+            <text x="770" y="375" text-anchor="middle">Is the probability inside the</text>
+            <text x="770" y="395" text-anchor="middle">low-confidence band?</text>
+            <text x="770" y="422" text-anchor="middle" fill="#C64A2C">weak signal → NO-CALL</text>
+
+            <path class="arrow-accent" d="M770 285 H410 V315" marker-end="url(#ahc)"/>
+            <path class="arrow-accent" d="M770 285 V315" marker-end="url(#ahc)"/>
+
+            <path class="arrow" d="M410 445 V495" marker-end="url(#ah)"/>
+            <path class="arrow" d="M770 445 V495" marker-end="url(#ah)"/>
+
+            <!-- Row 3: Decision Report -->
+            <text class="small" x="500" y="485" text-anchor="middle">04 · Decision report</text>
+            <rect class="box" x="200" y="495" width="600" height="50" rx="6"/>
+            <text class="title" x="500" y="520" text-anchor="middle">Verdict  ·  Confidence  ·  Evidence  ·  Lab-confirm banner</text>
+            <text x="500" y="537" text-anchor="middle">work / fail / no-call  ·  calibrated %  ·  supporting genes</text>
+          </svg>
+          <div class="caption">Coral = the safety layer that can override the model</div>
+        </div>
       </div>
     </div>
   </div>
@@ -692,10 +874,6 @@
           <li>
             <div class="label">Calibration</div>
             <div class="desc">A 0.9 probability must mean roughly 90% correct across the dataset. We check with Brier scores and reliability plots, and tune the no-call threshold on a held-out calibration set.</div>
-          </li>
-          <li>
-            <div class="label">Honest attribution</div>
-            <div class="desc">A high SHAP value doesn't prove causation. We split “known mechanism detected” from “model saw a statistical pattern” so the evidence never overstates itself.</div>
           </li>
           <li>
             <div class="label">Dual-use guardrails</div>

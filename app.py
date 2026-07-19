@@ -65,39 +65,64 @@ else:
             st.session_state.pop("patient", None)
             st.rerun()
 
+    # Show patient form when: no patient yet, OR the user pressed Back/Edit.
+    show_patient_form = ("patient" not in st.session_state) or st.session_state.get("editing_patient", False)
+
     # ---- Step 1: patient intake ----
-    if "patient" not in st.session_state:
+    if show_patient_form:
+        # Pre-fill from previous values if editing.
+        prev = st.session_state.get("patient", {})
+        prev_age, prev_sex = 58, "Female"
+        if prev.get("age_sex") and "·" in prev["age_sex"]:
+            a, s = [p.strip() for p in prev["age_sex"].split("·", 1)]
+            try:
+                prev_age = int(a)
+            except ValueError:
+                pass
+            prev_sex = s
+        prev_egfr = 44
+        if prev.get("renal_function", "").startswith("eGFR "):
+            try:
+                prev_egfr = int(prev["renal_function"].split()[1])
+            except (ValueError, IndexError):
+                pass
+
         st.markdown("""
         <div style="text-align:center; padding: 1rem 0 0.5rem 0;">
-          <h2 style="color:#ffffff; margin-bottom:0.25rem;">Patient / Clinical Context</h2>
+          <h2 style="color:#ffffff; margin-bottom:0.25rem;">Patient Details</h2>
           <p style="color:#b8d4e3; margin:0;">Enter the patient details for this isolate. Context aids interpretation — it does <b>not</b> change the genomic probabilities.</p>
         </div>
         """, unsafe_allow_html=True)
 
         with st.form("patient_form", clear_on_submit=False):
+            name = st.text_input("Patient's Name", value=prev.get("name", "Jane Doe"))
+
             c1, c2 = st.columns(2)
             with c1:
-                age = st.number_input("Age", min_value=0, max_value=120, value=58, step=1)
+                age = st.number_input("Age", min_value=0, max_value=120, value=prev_age, step=1)
             with c2:
-                sex = st.selectbox("Sex", ["Female", "Male", "Other / prefer not to say"])
+                sex_options = ["Female", "Male", "Other / prefer not to say"]
+                sex_index = sex_options.index(prev_sex) if prev_sex in sex_options else 0
+                sex = st.selectbox("Sex", sex_options, index=sex_index)
 
             c3, c4 = st.columns(2)
             with c3:
-                setting = st.text_input("Care setting", value="ICU, day 6",
+                setting = st.text_input("Care setting", value=prev.get("setting", "ICU, day 6"),
                                         help="e.g. ICU day 6, general ward, outpatient")
             with c4:
-                egfr = st.number_input("eGFR (mL/min/1.73m²)", min_value=0, max_value=200, value=44, step=1)
+                egfr = st.number_input("eGFR (mL/min/1.73m²)", min_value=0, max_value=200, value=prev_egfr, step=1)
 
             source = st.text_input("Suspected infection source",
-                                   value="Catheter-associated UTI → bacteremia")
+                                   value=prev.get("suspected_source", "Catheter-associated UTI → bacteremia"))
             prior_abx = st.text_input("Prior antibiotics (last 30 days)",
-                                      value="Ceftriaxone (5 d), meropenem (2 d)")
+                                      value=prev.get("prior_antibiotics", "Ceftriaxone (5 d), meropenem (2 d)"))
             allergies = st.text_input("Known drug allergies",
-                                      value="Penicillin (rash)")
+                                      value=prev.get("allergies", "Penicillin (rash)"))
 
             submitted_patient = st.form_submit_button("Continue to genome upload →", type="primary")
             if submitted_patient:
                 st.session_state.patient = {
+                    "name": name,
                     "age_sex": f"{age} · {sex}",
                     "setting": setting,
                     "suspected_source": source,
@@ -105,24 +130,24 @@ else:
                     "allergies": allergies,
                     "renal_function": f"eGFR {egfr}" + (" (dose-adjust aminoglycosides)" if egfr < 60 else ""),
                 }
+                st.session_state.editing_patient = False
                 st.rerun()
 
     # ---- Step 2: FASTA upload ----
     else:
-        patient_summary = f"{st.session_state.patient['age_sex']} · {st.session_state.patient['setting']}"
-        edit_col1, edit_col2 = st.columns([4, 1])
-        with edit_col1:
+        back_col, sum_col = st.columns([1, 5])
+        with back_col:
+            if st.button("← Back"):
+                st.session_state.editing_patient = True
+                st.rerun()
+        with sum_col:
+            patient_summary = f"{st.session_state.patient.get('name', '')} · {st.session_state.patient['age_sex']} · {st.session_state.patient['setting']}"
             st.markdown(f"""
             <div class="patient-summary-bar">
               <span class="ps-label">Patient:</span>
               <span class="ps-value">{patient_summary}</span>
             </div>
             """, unsafe_allow_html=True)
-        with edit_col2:
-            if st.button("Edit"):
-                st.session_state.pop("patient", None)
-                st.session_state.pop("uploaded_filename", None)
-                st.rerun()
 
         st.markdown("""
         <div style="text-align:center; padding: 1rem 0 0.5rem 0;">

@@ -178,6 +178,11 @@ GLOBAL_CSS = """
     margin: 0 0 1rem 0;
   }
   .patient-card .patient-title .patient-num { color:#7fdcff; margin-right:0.35rem; }
+  .patient-card .patient-name {
+    color:#ffffff; font-size:1.6rem; font-weight:700;
+    line-height:1.15; letter-spacing:-0.01em;
+    margin: 0 0 1rem 0;
+  }
   .patient-grid {
     display: grid;
     grid-template-columns: 170px 1fr;
@@ -258,7 +263,7 @@ def render_patient_card(patient: dict, section_number: int = 4):
     """Render a patient / clinical-context card. `patient` dict keys are optional."""
     rows = [
         ("Age / sex",          patient.get("age_sex")),
-        ("Setting",            patient.get("setting")),
+        ("Setting",             patient.get("setting")),
         ("Suspected source",   patient.get("suspected_source")),
         ("Prior antibiotics",  patient.get("prior_antibiotics")),
         ("Allergies",          patient.get("allergies")),
@@ -268,9 +273,11 @@ def render_patient_card(patient: dict, section_number: int = 4):
         f"<div class='k'>{k}</div><div class='v'>{v}</div>"
         for k, v in rows if v
     )
+    name = patient.get("name") or "Unnamed patient"
     st.markdown(f"""
     <div class="patient-card">
-      <div class="patient-title"><span class="patient-num">{section_number} ·</span>Patient / clinical context</div>
+      <div class="patient-title"><span class="patient-num">{section_number} ·</span>Patient details</div>
+      <div class="patient-name">{name}</div>
       <div class="patient-grid">{grid_html}</div>
       <div class="patient-note">
         Clinical context is shown to aid interpretation and prioritization. It is
