@@ -10,6 +10,71 @@ genes/DNA changes — with a doctor-facing report and literature citations.
 designs, modifies, or optimizes an organism. Every result must be confirmed by
 standard laboratory testing.
 
+## Quick start — run the demo locally
+
+The clinician-facing demo (`app.py`) is a Streamlit app that walks through
+sign-in → patient details → FASTA upload → antibiotic-response report. It runs
+against a mock results file, so no annotation tools or GPUs are required.
+
+1. **Clone the repo**
+   ```bash
+   git clone https://github.com/ragwort15/GenomeFirewall.git
+   cd GenomeFirewall
+   ```
+
+2. **Create a virtual environment**
+   ```bash
+   python3 -m venv .venv
+   source .venv/bin/activate          # Windows: .venv\Scripts\activate
+   ```
+
+3. **Install dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. **Add your OpenAI API key** (only needed for the LLM/literature layer;
+   the demo runs without it)
+   ```bash
+   cp .env.example .env 2>/dev/null || true
+   echo 'OPENAI_API_KEY=sk-...your-key...' > .env
+   ```
+
+5. **Launch the app**
+   ```bash
+   streamlit run app.py
+   ```
+   Streamlit prints a local URL (usually http://localhost:8501). Open it.
+
+6. **Sign in** with a demo clinician account:
+   | Username    | Password       |
+   |-------------|----------------|
+   | `demo`      | `demo`         |
+   | `dr.smith`  | `genome123`    |
+   | `dr.patel`  | `firewall456`  |
+
+7. **Enter patient details** (name, age/sex, care setting, prior antibiotics,
+   allergies, eGFR) and click **Continue to genome upload →**.
+
+8. **Upload a bacterial FASTA** (`.fna` / `.fa` / `.fasta`). A sample assembly
+   ships with the repo:
+   ```
+   data/smoke/GCF_000240185.1_ASM24018v2.fna
+   ```
+
+9. **Click *Analyze genome →*** to view the per-antibiotic report with
+   calibrated confidences, evidence categories, patient context, and the
+   mandatory "confirm with standard lab testing" banner.
+
+Use **← Back** at any step to revise previous inputs — all entered data is
+preserved in session state.
+
+**Project presentation:** open `docs/pitch.html` in a browser for the
+one-page overview (problem → solution → safety layer → stack → architecture →
+what's new → hard parts → team).
+
+---
+
 ## Pipeline
 ```
 FASTA ─► Module 1  Genome Reader   (AMRFinderPlus → genes/mutations + target gate)
