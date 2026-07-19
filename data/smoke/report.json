@@ -1,12 +1,12 @@
 {
   "sample_id": "KP-HS11286",
   "species": "Klebsiella pneumoniae",
-  "generated_utc": "2026-07-18T20:44:02.978230+00:00",
+  "generated_utc": "2026-07-18T22:50:47.959336+00:00",
   "disclaimer": "Research prototype \u2014 every result must be confirmed by standard laboratory testing. Decision support only; not a medical device. Predicts and explains existing resistance only.",
   "summary": {
     "n_drugs": 12,
-    "n_likely_to_fail": 12,
-    "n_likely_to_work": 0,
+    "n_likely_to_fail": 11,
+    "n_likely_to_work": 1,
     "n_no_call": 0
   },
   "models_used": [
@@ -75,7 +75,7 @@
       ],
       "target_present": true,
       "target_note": "30S ribosomal subunit present (core gene assumed intact)",
-      "reason": "known resistance determinant detected; note: ML models predict susceptible (possible non-functional allele)",
+      "reason": "2 rule model(s) agree on a known resistance determinant; note: ML predicts susceptible (possible intrinsic / non-functional allele)",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -118,7 +118,7 @@
       ],
       "target_present": true,
       "target_note": "30S ribosomal subunit present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -161,7 +161,7 @@
       ],
       "target_present": true,
       "target_note": "30S ribosomal subunit present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -199,7 +199,7 @@
       ],
       "target_present": true,
       "target_note": "DNA gyrase (gyrA) / topoisomerase IV (parC) present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -241,7 +241,7 @@
       ],
       "target_present": true,
       "target_note": "penicillin-binding proteins present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -276,8 +276,8 @@
           "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
           "doi": "10.1038/s41598-024-64992-8",
           "year": 2024,
-          "score": 8,
-          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+          "score": 9,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
         }
       ]
     },
@@ -300,7 +300,7 @@
       ],
       "target_present": true,
       "target_note": "penicillin-binding proteins present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -335,8 +335,8 @@
           "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
           "doi": "10.1038/s41598-024-64992-8",
           "year": 2024,
-          "score": 8,
-          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+          "score": 9,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
         }
       ]
     },
@@ -358,7 +358,7 @@
       ],
       "target_present": true,
       "target_note": "penicillin-binding protein 3 present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -393,8 +393,8 @@
           "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
           "doi": "10.1038/s41598-024-64992-8",
           "year": 2024,
-          "score": 8,
-          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+          "score": 9,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
         }
       ]
     },
@@ -416,7 +416,7 @@
       ],
       "target_present": true,
       "target_note": "penicillin-binding proteins present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -451,8 +451,8 @@
           "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
           "doi": "10.1038/s41598-024-64992-8",
           "year": 2024,
-          "score": 8,
-          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+          "score": 9,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
         }
       ]
     },
@@ -474,7 +474,7 @@
       ],
       "target_present": true,
       "target_note": "penicillin-binding proteins present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -509,8 +509,8 @@
           "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
           "doi": "10.1038/s41598-024-64992-8",
           "year": 2024,
-          "score": 8,
-          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+          "score": 9,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
         }
       ]
     },
@@ -533,7 +533,7 @@
       ],
       "target_present": true,
       "target_note": "penicillin-binding proteins present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "2 rule model(s) agree on a known resistance determinant",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -568,24 +568,24 @@
           "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
           "doi": "10.1038/s41598-024-64992-8",
           "year": 2024,
-          "score": 8,
-          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+          "score": 9,
+          "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
         }
       ]
     },
     {
       "drug": "fosfomycin",
-      "verdict": "likely_to_fail",
-      "verdict_label": "Likely to FAIL (resistant)",
-      "evidence_category": "i",
-      "evidence_label": "known resistance gene / DNA change detected",
-      "confidence": 0.85,
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.7,
       "supporting_genes": [
         "fosA"
       ],
       "target_present": true,
       "target_note": "MurA (UDP-GlcNAc enolpyruvyl transferase) present (core gene assumed intact)",
-      "reason": "known resistance determinant detected",
+      "reason": "rule models conflict; deferring to Kleborate (Klebsiella-specific) \u2192 susceptible (other caller flagged an intrinsic/expected gene)",
       "model_votes": [
         {
           "model": "AMRFinderPlus",
@@ -618,7 +618,7 @@
       "supporting_genes": [],
       "target_present": true,
       "target_note": "unknown target present (core gene assumed intact)",
-      "reason": "statistical association (no known determinant)",
+      "reason": "statistical association (no rule determinant)",
       "model_votes": [
         {
           "model": "WGS_to_AMR",
@@ -633,7 +633,7 @@
   "literature": {
     "query": "blaKPC-2 antimicrobial resistance Klebsiella pneumoniae",
     "question": "How does blaKPC-2 confer antibiotic resistance in Klebsiella pneumoniae, and which antibiotics does it affect? Summarize the mechanism and clinical relevance.",
-    "answer": "The blaKPC-2 gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance in Klebsiella pneumoniae. This enzyme deactivates the antibiotic by breaking the \u03b2-lactam ring, a critical structure for the antibiotic's bactericidal activity (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The blaKPC-2 gene's expression and copy number can increase under antibiotic stress, further enhancing resistance levels (hamza2025emergingresistanceto pages 23-24). This gene is primarily associated with resistance to \u03b2-lactam antibiotics, including carbapenems and ceftazidime/avibactam, a combination that includes a \u03b2-lactamase inhibitor (hamza2025emergingresistanceto pages 23-24, hamza2025emergingresistanceto pages 20-22).\n\nClinically, the presence of blaKPC-2 in Klebsiella pneumoniae poses significant challenges in treating infections, as it limits the efficacy of critical antibiotics used in severe infections, particularly in healthcare settings where carbapenems are frequently employed (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The gene's ability to spread to other bacterial species, such as Kluyvera spp, Serratia marcescens, and Enterobacter cloacae, further complicates infection control and necessitates robust antimicrobial stewardship strategies (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The emergence of novel KPC variants, such as KPC-109 and KPC-31, which confer resistance to avibactam-based combinations, underscores the ongoing evolution of resistance mechanisms and the need for continuous surveillance and development of new therapeutic options (hamza2025emergingresistanceto pages 20-22).",
+    "answer": "The blaKPC-2 gene confers antibiotic resistance in Klebsiella pneumoniae by encoding a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, rendering them ineffective (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). This enzyme activity is a significant mechanism of resistance, particularly in nosocomial settings where carbapenems are frequently used as last-resort antibiotics. The presence of blaKPC-2 is associated with high-level resistance to \u03b2-lactam antibiotics, including ceftazidime/avibactam and carbapenems, due to increased gene expression and copy number (hamza2025emergingresistanceto pages 23-24). Additionally, the stress induced by carbapenem antibiotics can further increase the relative copy number of the blaKPC-2 gene, enhancing resistance levels (hamza2025emergingresistanceto pages 23-24).\n\nThe clinical relevance of blaKPC-2 is profound, as it complicates the treatment of infections caused by Klebsiella pneumoniae, a major nosocomial pathogen. The high prevalence of this gene in Klebsiella pneumoniae, as well as its presence in other species like Kluyvera spp and Serratia marcescens, suggests a potential for these species to act as reservoirs for resistance genes, further complicating infection control and treatment strategies (tuhamize2024carbapenemresistantenterobacteriaceaein pages 12-13). The emergence of novel KPC variants, such as KPC-109 and KPC-31, further underscores the challenge in treating infections with \u03b2-lactam antibiotics (hamza2025emergingresistanceto pages 20-22).",
     "n_pdfs": 3,
     "citations": [
       {
@@ -649,8 +649,8 @@
         "citation": "Barbra Tuhamize and Joel Bazira. Carbapenem-resistant enterobacteriaceae in the livestock, humans and environmental samples around the globe: a systematic review and meta-analysis. Scientific Reports, Jul 2024. URL: https://doi.org/10.1038/s41598-024-64992-8, doi:10.1038/s41598-024-64992-8.",
         "doi": "10.1038/s41598-024-64992-8",
         "year": 2024,
-        "score": 8,
-        "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. This gene encodes a carbapenemase enzyme that hydrolyzes carbapenem antibiotics, leading to resistance. The high prevalence of blaKPC-2 in Klebsi"
+        "score": 9,
+        "excerpt": "The blaKPC-2 gene is a significant genetic determinant of carbapenem resistance in Klebsiella pneumoniae, a major nosocomial pathogen. The presence of this gene in Klebsiella pneumoniae is associated with challenging therapeutic outcomes due to its high prevalence (59%) in this s"
       }
     ],
     "determinant": "blaKPC-2"

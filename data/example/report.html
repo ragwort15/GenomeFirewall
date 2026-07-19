@@ -1,0 +1,310 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Genome Firewall — KP-573.12861-BVBRC</title>
+<style>
+:root{--navy:#0f2a43;--teal:#1f8a8a;--ink:#20313f;--muted:#6b7c8a;--line:#e3e9ef;--bg:#f4f7fa}
+*{box-sizing:border-box} body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:14.5px;line-height:1.45}
+header{background:linear-gradient(135deg,#0f2a43,#163a5c);color:#fff;padding:16px 26px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+header h1{font-size:19px;margin:0} header .sub{font-size:12px;opacity:.85}
+.tag{background:#1f8a8a;color:#fff;font-size:11px;font-weight:700;padding:4px 9px;border-radius:20px}
+.wrap{max-width:1180px;margin:0 auto;padding:22px}
+.safety{background:#fff3cd;border-left:6px solid #e0a800;color:#5c4700;padding:12px 16px;border-radius:10px;margin-bottom:18px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 1px 3px rgba(16,42,67,.08);padding:18px 20px;margin-bottom:18px}
+.card h2{font-size:15px;margin:0 0 12px;color:var(--navy)}
+.strip{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:18px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.stat .n{font-size:26px;font-weight:700} .stat .l{font-size:12px;color:var(--muted);margin-top:4px}
+.fail .n{color:#c0392b} .work .n{color:#1e7e46} .nc .n{color:#8a6d00}
+.grid2{display:grid;grid-template-columns:1.55fr 1fr;gap:18px;align-items:start}
+@media(max-width:960px){.grid2{grid-template-columns:1fr}}
+.rl{margin:6px 0} .rl .lbl{font-size:12px;color:var(--muted);margin-right:8px}
+.muted{color:var(--muted);font-size:12.5px}
+.empty{padding:14px;border:1px dashed #c7d3dd;border-radius:10px;background:#fbfdff;color:#54677a;font-size:13px}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:13px} .kv .k{color:var(--muted)}
+.drug{border:1px solid var(--line);border-radius:12px;margin-bottom:11px;overflow:hidden}
+.hd{display:flex;align-items:center;gap:12px;padding:12px 15px;cursor:pointer} .hd:hover{background:#fafcfe}
+.verdict{font-weight:700;font-size:12px;padding:4px 10px;border-radius:7px;white-space:nowrap}
+.name{font-weight:650;font-size:15px;flex:1}
+.conf{min-width:120px} .bar{height:8px;background:#eef2f6;border-radius:6px;overflow:hidden} .fill{height:100%}
+.ct{font-size:11px;color:var(--muted);text-align:right;margin-top:3px}
+.cat{font-size:10.5px;font-weight:700;padding:3px 8px;border-radius:6px}
+.chev{color:var(--muted)} .drug.open .chev{transform:rotate(90deg)}
+.body{display:none;padding:6px 16px 16px;border-top:1px solid var(--line);background:#fbfdff} .drug.open .body{display:block}
+.body h4{margin:13px 0 7px;font-size:11.5px;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.gate{font-size:12.5px;padding:8px 11px;border-radius:8px;background:#eef6ff;border:1px solid #cfe2f2;color:#2b5c86;margin-top:6px}
+.reason{font-size:13px} .chips{display:flex;gap:6px;flex-wrap:wrap}
+.g{background:#fff;border:1px solid var(--line);border-radius:16px;padding:3px 10px;font-size:12px;font-family:ui-monospace,Menlo,monospace}
+table.v{width:100%;border-collapse:collapse;font-size:12.5px} table.v th,table.v td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line)}
+table.v th{color:var(--muted);font-size:11px;text-transform:uppercase}
+.lit .ref{border-left:3px solid var(--teal);padding:8px 11px;background:#fff;border:1px solid var(--line);border-left-width:3px;border-radius:0 8px 8px 0;margin-bottom:9px}
+.lit .ref .t{font-weight:600;font-size:13px} .lit .ref .m{font-size:11.5px;color:var(--muted);margin:3px 0}
+.lit .ref .q{font-size:12px;color:#3a4b58;font-style:italic} .lit .ans{font-size:12.5px;background:#f2fbfb;border-radius:8px;padding:9px 11px}
+.lit a{color:var(--teal);text-decoration:none} .lit a:hover{text-decoration:underline}
+.ref .t{font-weight:600}
+.mono{font-family:ui-monospace,Menlo,monospace;font-size:11.5px;color:#3a4b58;word-break:break-word}
+footer{max-width:1180px;margin:8px auto 40px;padding:0 22px;color:var(--muted);font-size:12px}
+</style></head><body>
+<header><div><h1>🧬🛡️ Genome Firewall</h1>
+  <div class="sub">Antibiotic-response report · <i>Klebsiella pneumoniae</i> · sample KP-573.12861-BVBRC · 2026-07-18T22:55:10Z</div></div>
+  <div class="tag">MODELS: AMRFinderPlus, Kleborate, WGS_to_AMR</div></header>
+<div class="wrap">
+  <div class="strip">
+    <div class="stat"><div class="n">12</div><div class="l">Antibiotics</div></div>
+    <div class="stat fail"><div class="n">1</div><div class="l">Likely to FAIL</div></div>
+    <div class="stat work"><div class="n">11</div><div class="l">Likely to WORK</div></div>
+    <div class="stat nc"><div class="n">0</div><div class="l">NO-CALL</div></div>
+    <div class="stat"><div class="n">5</div><div class="l">AMR elements</div></div>
+  </div>
+  <div class="card"><h2>Clinician summary</h2><div class='rl'><span class='lbl'>Predicted effective</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>amikacin</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>gentamicin</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>tobramycin</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>ciprofloxacin</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>ceftazidime</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>cefepime</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>aztreonam</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>imipenem</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>meropenem</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>fosfomycin</span><span style='background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>levofloxacin</span></div><div class='rl'><span class='lbl'>Predicted to fail</span><span style='background:#fdecea;color:#c0392b;border:1px solid #f3b6ae;padding:3px 10px;border-radius:16px;font-size:12.5px;font-weight:600;margin:2px;display:inline-block'>piperacillin/tazobactam</span></div></div>
+
+  <div class="grid2">
+    <div class="card"><h2>Per-antibiotic prediction &amp; model evidence</h2>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">amikacin</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:100%;background:#1e7e46"></div></div>
+          <div class="ct">100% confidence</div></div>
+        <span class="cat" style="background:#eef3f7;color:#4a6172">evidence iii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: 30S ribosomal subunit present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> no known resistance determinant; predicted susceptible<br>
+           <b>Evidence (iii):</b> no known resistance signal found</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g' style='opacity:.6'>none detected</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.00</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">gentamicin</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:74%;background:#1e7e46"></div></div>
+          <div class="ct">74% confidence</div></div>
+        <span class="cat" style="background:#eef3f7;color:#4a6172">evidence iii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: 30S ribosomal subunit present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> no known resistance determinant; predicted susceptible<br>
+           <b>Evidence (iii):</b> no known resistance signal found</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g' style='opacity:.6'>none detected</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.26</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">tobramycin</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:100%;background:#1e7e46"></div></div>
+          <div class="ct">100% confidence</div></div>
+        <span class="cat" style="background:#eef3f7;color:#4a6172">evidence iii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: 30S ribosomal subunit present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> no known resistance determinant; predicted susceptible<br>
+           <b>Evidence (iii):</b> no known resistance signal found</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g' style='opacity:.6'>none detected</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.00</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">ciprofloxacin</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:81%;background:#1e7e46"></div></div>
+          <div class="ct">81% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: DNA gyrase (gyrA) / topoisomerase IV (parC) present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict (R:1/S:1); ML resolves susceptible<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>oqxA</span><span class='g'>oqxB25</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.19</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">ceftazidime</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:91%;background:#1e7e46"></div></div>
+          <div class="ct">91% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: penicillin-binding proteins present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict (R:1/S:1); ML resolves susceptible<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>blaSHV-1</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.09</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        <h4>Literature (paper-qa)</h4><div class='ref'><b>Prevalence of Extended-Spectrum β-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals</b> <span class='mono'>10.1007/s44197-023-00096-2</span></div><div class='ref'><b>Strain-dependent contribution of the AcrAB-TolC efflux pump to
+                  &lt;i&gt;Klebsiella pneumoniae&lt;/i&gt;
+                  physiology</b> <span class='mono'>10.1101/2025.09.26.678718</span></div>
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">cefepime</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:95%;background:#1e7e46"></div></div>
+          <div class="ct">95% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: penicillin-binding proteins present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict (R:1/S:1); ML resolves susceptible<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>blaSHV-1</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.05</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        <h4>Literature (paper-qa)</h4><div class='ref'><b>Prevalence of Extended-Spectrum β-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals</b> <span class='mono'>10.1007/s44197-023-00096-2</span></div><div class='ref'><b>Strain-dependent contribution of the AcrAB-TolC efflux pump to
+                  &lt;i&gt;Klebsiella pneumoniae&lt;/i&gt;
+                  physiology</b> <span class='mono'>10.1101/2025.09.26.678718</span></div>
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">aztreonam</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:94%;background:#1e7e46"></div></div>
+          <div class="ct">94% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: penicillin-binding protein 3 present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict (R:1/S:1); ML resolves susceptible<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>blaSHV-1</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.06</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        <h4>Literature (paper-qa)</h4><div class='ref'><b>Prevalence of Extended-Spectrum β-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals</b> <span class='mono'>10.1007/s44197-023-00096-2</span></div><div class='ref'><b>Strain-dependent contribution of the AcrAB-TolC efflux pump to
+                  &lt;i&gt;Klebsiella pneumoniae&lt;/i&gt;
+                  physiology</b> <span class='mono'>10.1101/2025.09.26.678718</span></div>
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">imipenem</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:97%;background:#1e7e46"></div></div>
+          <div class="ct">97% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: penicillin-binding proteins present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict (R:1/S:1); ML resolves susceptible<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>blaSHV-1</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.03</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        <h4>Literature (paper-qa)</h4><div class='ref'><b>Prevalence of Extended-Spectrum β-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals</b> <span class='mono'>10.1007/s44197-023-00096-2</span></div><div class='ref'><b>Strain-dependent contribution of the AcrAB-TolC efflux pump to
+                  &lt;i&gt;Klebsiella pneumoniae&lt;/i&gt;
+                  physiology</b> <span class='mono'>10.1101/2025.09.26.678718</span></div>
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">meropenem</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:70%;background:#1e7e46"></div></div>
+          <div class="ct">70% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: penicillin-binding proteins present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict; deferring to Kleborate (Klebsiella-specific) → susceptible (other caller flagged an intrinsic/expected gene)<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>blaSHV-1</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.38</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        <h4>Literature (paper-qa)</h4><div class='ref'><b>Prevalence of Extended-Spectrum β-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals</b> <span class='mono'>10.1007/s44197-023-00096-2</span></div><div class='ref'><b>Strain-dependent contribution of the AcrAB-TolC efflux pump to
+                  &lt;i&gt;Klebsiella pneumoniae&lt;/i&gt;
+                  physiology</b> <span class='mono'>10.1101/2025.09.26.678718</span></div>
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#fdecea;color:#c0392b;border:1px solid #f3b6ae">LIKELY TO FAIL</span>
+        <div class="name">piperacillin/tazobactam</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:73%;background:#c0392b"></div></div>
+          <div class="ct">73% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: penicillin-binding proteins present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict (R:1/S:1); ML resolves resistant (P=0.73)<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>blaSHV-1</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>0.73</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        <h4>Literature (paper-qa)</h4><div class='ref'><b>Prevalence of Extended-Spectrum β-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals</b> <span class='mono'>10.1007/s44197-023-00096-2</span></div><div class='ref'><b>Strain-dependent contribution of the AcrAB-TolC efflux pump to
+                  &lt;i&gt;Klebsiella pneumoniae&lt;/i&gt;
+                  physiology</b> <span class='mono'>10.1101/2025.09.26.678718</span></div>
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">fosfomycin</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:70%;background:#1e7e46"></div></div>
+          <div class="ct">70% confidence</div></div>
+        <span class="cat" style="background:#f3ecfb;color:#6b3ea6">evidence ii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: MurA (UDP-GlcNAc enolpyruvyl transferase) present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> rule models conflict; deferring to Kleborate (Klebsiella-specific) → susceptible (other caller flagged an intrinsic/expected gene)<br>
+           <b>Evidence (ii):</b> statistical association only (not proof of biological cause)</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g'>fosA</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>AMRFinderPlus</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>—</td></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#c0392b'>Resistant</td><td>0.38</td></tr><tr><td>Kleborate</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#e7eefc;color:#274b9a'>rule</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>—</td></tr></table>
+        
+      </div>
+    </div>
+    <div class="drug">
+      <div class="hd" onclick="this.parentElement.classList.toggle('open')">
+        <span class="verdict" style="background:#e9f7ef;color:#1e7e46;border:1px solid #a7dcbd">LIKELY TO WORK</span>
+        <div class="name">levofloxacin</div>
+        <div class="conf"><div class="bar"><div class="fill" style="width:76%;background:#1e7e46"></div></div>
+          <div class="ct">76% confidence</div></div>
+        <span class="cat" style="background:#eef3f7;color:#4a6172">evidence iii</span>
+        <span class="chev">▸</span>
+      </div>
+      <div class="body">
+        <div class="gate">🎯 Target gate: unknown target present (core gene assumed intact)</div>
+        <p class="reason"><b>Reason:</b> no known resistance signal; predicted susceptible<br>
+           <b>Evidence (iii):</b> no known resistance signal found</p>
+        <h4>Supporting genes / DNA changes</h4><div class="chips"><span class='g' style='opacity:.6'>none detected</span></div>
+        <h4>Per-model output (ensemble)</h4><table class='v'><tr><th>Model</th><th>Type</th><th>Call</th><th>P(res)</th></tr><tr><td>WGS_to_AMR</td><td><span style='font-size:10px;padding:2px 6px;border-radius:5px;background:#f3ecfb;color:#6b3ea6'>ML</span></td><td style='font-weight:700;color:#1e7e46'>Susceptible</td><td>0.23</td></tr></table>
+        
+      </div>
+    </div></div>
+    <div>
+      <div class='card'><h2>Patient / clinical context</h2><div class='empty'>No clinical record provided — genomic prediction only.<br><span class='muted'>Clinical context (infection site, prior antibiotics, allergies, renal function) can be added later; it informs interpretation only, never the genomic probability.</span></div></div>
+      <div class='card lit'><h2>Literature &amp; clinical research</h2><p class='muted'>paper-qa over 3 open-access PDF(s) for <b>blaSHV-1</b>.</p><p class='ans'>The blaSHV-1 gene encodes a β-lactamase enzyme that confers antibiotic resistance in Klebsiella pneumoniae by hydrolyzing β-lactam antibiotics, thereby rendering them ineffective (alsheboul2023prevalenceofextendedspectrum pages 2-3, bhogal2025straindependentcontributionof pages 38-40). This enzyme primarily affects penicillins, cephalosporins, and monobactams, which are classes of β-lactam antibiotics (alsheboul2023prevalenceofextendedspectrum pages 2-3). The mechanism involves the enzymatic breakdown of the β-lactam ring, a critical structural component of these antibiotics, which is essentia</p><div class='ref'><div class='t'>Prevalence of Extended-Spectrum β-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals</div><div class='m'>Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum β-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2. <a href='https://doi.org/10.1007/s44197-023-00096-2'>doi:10.1007/s44197-023-00096-2</a></div><div class='q'>The blaSHV-1 gene is a chromosomal-mediated variant that encodes β-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down β-lactam antibiotics, rende</div></div><div class='ref'><div class='t'>Strain-dependent contribution of the AcrAB-TolC efflux pump to
+                  &lt;i&gt;Klebsiella pneumoniae&lt;/i&gt;
+                  physiology</div><div class='m'>Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to &lt;i&gt;klebsiella pneumoniae&lt;/i&gt; physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718. <a href='https://doi.org/10.1101/2025.09.26.678718'>doi:10.1101/2025.09.26.678718</a></div><div class='q'>The excerpt references SHV-1 β-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 β-lactamase hydrolyzes broad-spectrum cephalosporins an</div></div></div>
+    </div>
+  </div>
+
+  <div class="card"><h2>Genome features (Module 1 · AMRFinderPlus)</h2>
+    <p class="mono"><b>Point mutations:</b> none</p>
+    <p class="mono"><b>Acquired genes:</b> blaSHV-1, emrD, fosA, oqxA, oqxB25</p></div>
+  <div class="card"><h2>Coverage &amp; limitations</h2>
+    <p><b style="color:#1e7e46">✔ Covered:</b> Klebsiella pneumoniae · 12 antibiotics</p>
+    <p><b style="color:#c0392b">✘ Not covered:</b> other species, antibiotics outside the panel, sample→genome steps, polymicrobial samples</p>
+    <p class="muted">Evidence (i)=known gene/DNA change (mechanistic) · (ii)=statistical association
+    only (a feature-importance/SHAP value is not proof of biological cause) · (iii)=no known
+    resistance signal (gated on target presence).</p></div>
+</div>
+<footer>Genome Firewall · defensive biosecurity prototype — predicts/explains existing resistance
+only, never designs organisms. Not a medical device. Confirm every result with standard laboratory testing.</footer>
+</body></html>

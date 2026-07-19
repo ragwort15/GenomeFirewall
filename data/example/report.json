@@ -1,0 +1,570 @@
+{
+  "sample_id": "KP-573.12861-BVBRC",
+  "species": "Klebsiella pneumoniae",
+  "generated_utc": "2026-07-18T22:55:10.636554+00:00",
+  "disclaimer": "Research prototype \u2014 every result must be confirmed by standard laboratory testing. Decision support only; not a medical device. Predicts and explains existing resistance only.",
+  "summary": {
+    "n_drugs": 12,
+    "n_likely_to_fail": 1,
+    "n_likely_to_work": 11,
+    "n_no_call": 0
+  },
+  "models_used": [
+    "AMRFinderPlus",
+    "Kleborate",
+    "WGS_to_AMR"
+  ],
+  "genome_features": {
+    "genes": [
+      "blaSHV-1",
+      "emrD",
+      "fosA",
+      "oqxA",
+      "oqxB25"
+    ],
+    "point_mutations": [],
+    "n_amr_elements": 5
+  },
+  "clinical_context": {},
+  "coverage": {
+    "species_covered": [
+      "Klebsiella pneumoniae"
+    ],
+    "not_covered": [
+      "other species",
+      "antibiotics outside the panel",
+      "sample\u2192genome steps",
+      "polymicrobial samples"
+    ]
+  },
+  "drugs": [
+    {
+      "drug": "amikacin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "iii",
+      "evidence_label": "no known resistance signal found",
+      "confidence": 0.996,
+      "supporting_genes": [],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "no known resistance determinant; predicted susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.003839285345748,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "gentamicin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "iii",
+      "evidence_label": "no known resistance signal found",
+      "confidence": 0.739,
+      "supporting_genes": [],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "no known resistance determinant; predicted susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.260579735040665,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "tobramycin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "iii",
+      "evidence_label": "no known resistance signal found",
+      "confidence": 0.995,
+      "supporting_genes": [],
+      "target_present": true,
+      "target_note": "30S ribosomal subunit present (core gene assumed intact)",
+      "reason": "no known resistance determinant; predicted susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.0047842571511864,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "ciprofloxacin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.806,
+      "supporting_genes": [
+        "oqxA",
+        "oqxB25"
+      ],
+      "target_present": true,
+      "target_note": "DNA gyrase (gyrA) / topoisomerase IV (parC) present (core gene assumed intact)",
+      "reason": "rule models conflict (R:1/S:1); ML resolves susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.194153666496277,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "ceftazidime",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.908,
+      "supporting_genes": [
+        "blaSHV-1"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "rule models conflict (R:1/S:1); ML resolves susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.0923875197768211,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Prevalence of Extended-Spectrum \u03b2-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals",
+          "citation": "Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum \u03b2-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2.",
+          "doi": "10.1007/s44197-023-00096-2",
+          "year": 2023,
+          "score": 9,
+          "excerpt": "The blaSHV-1 gene is a chromosomal-mediated variant that encodes \u03b2-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down \u03b2-lactam antibiotics, rendering them ineffective. The blaSHV-1 gene, along with other v"
+        },
+        {
+          "title": "Strain-dependent contribution of the AcrAB-TolC efflux pump to\n                  <i>Klebsiella pneumoniae</i>\n                  physiology",
+          "citation": "Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to <i>klebsiella pneumoniae</i> physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718.",
+          "doi": "10.1101/2025.09.26.678718",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt references SHV-1 \u03b2-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 \u03b2-lactamase hydrolyzes broad-spectrum cephalosporins and monobactams, contributing to the bacterium's resistance ag"
+        }
+      ]
+    },
+    {
+      "drug": "cefepime",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.95,
+      "supporting_genes": [
+        "blaSHV-1"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "rule models conflict (R:1/S:1); ML resolves susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.0503695867955685,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Prevalence of Extended-Spectrum \u03b2-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals",
+          "citation": "Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum \u03b2-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2.",
+          "doi": "10.1007/s44197-023-00096-2",
+          "year": 2023,
+          "score": 9,
+          "excerpt": "The blaSHV-1 gene is a chromosomal-mediated variant that encodes \u03b2-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down \u03b2-lactam antibiotics, rendering them ineffective. The blaSHV-1 gene, along with other v"
+        },
+        {
+          "title": "Strain-dependent contribution of the AcrAB-TolC efflux pump to\n                  <i>Klebsiella pneumoniae</i>\n                  physiology",
+          "citation": "Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to <i>klebsiella pneumoniae</i> physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718.",
+          "doi": "10.1101/2025.09.26.678718",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt references SHV-1 \u03b2-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 \u03b2-lactamase hydrolyzes broad-spectrum cephalosporins and monobactams, contributing to the bacterium's resistance ag"
+        }
+      ]
+    },
+    {
+      "drug": "aztreonam",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.941,
+      "supporting_genes": [
+        "blaSHV-1"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding protein 3 present (core gene assumed intact)",
+      "reason": "rule models conflict (R:1/S:1); ML resolves susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.0593419335782528,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Prevalence of Extended-Spectrum \u03b2-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals",
+          "citation": "Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum \u03b2-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2.",
+          "doi": "10.1007/s44197-023-00096-2",
+          "year": 2023,
+          "score": 9,
+          "excerpt": "The blaSHV-1 gene is a chromosomal-mediated variant that encodes \u03b2-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down \u03b2-lactam antibiotics, rendering them ineffective. The blaSHV-1 gene, along with other v"
+        },
+        {
+          "title": "Strain-dependent contribution of the AcrAB-TolC efflux pump to\n                  <i>Klebsiella pneumoniae</i>\n                  physiology",
+          "citation": "Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to <i>klebsiella pneumoniae</i> physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718.",
+          "doi": "10.1101/2025.09.26.678718",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt references SHV-1 \u03b2-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 \u03b2-lactamase hydrolyzes broad-spectrum cephalosporins and monobactams, contributing to the bacterium's resistance ag"
+        }
+      ]
+    },
+    {
+      "drug": "imipenem",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.966,
+      "supporting_genes": [
+        "blaSHV-1"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "rule models conflict (R:1/S:1); ML resolves susceptible",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.0342331863939762,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Prevalence of Extended-Spectrum \u03b2-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals",
+          "citation": "Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum \u03b2-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2.",
+          "doi": "10.1007/s44197-023-00096-2",
+          "year": 2023,
+          "score": 9,
+          "excerpt": "The blaSHV-1 gene is a chromosomal-mediated variant that encodes \u03b2-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down \u03b2-lactam antibiotics, rendering them ineffective. The blaSHV-1 gene, along with other v"
+        },
+        {
+          "title": "Strain-dependent contribution of the AcrAB-TolC efflux pump to\n                  <i>Klebsiella pneumoniae</i>\n                  physiology",
+          "citation": "Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to <i>klebsiella pneumoniae</i> physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718.",
+          "doi": "10.1101/2025.09.26.678718",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt references SHV-1 \u03b2-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 \u03b2-lactamase hydrolyzes broad-spectrum cephalosporins and monobactams, contributing to the bacterium's resistance ag"
+        }
+      ]
+    },
+    {
+      "drug": "meropenem",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.7,
+      "supporting_genes": [
+        "blaSHV-1"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "rule models conflict; deferring to Kleborate (Klebsiella-specific) \u2192 susceptible (other caller flagged an intrinsic/expected gene)",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.375401765108109,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Prevalence of Extended-Spectrum \u03b2-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals",
+          "citation": "Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum \u03b2-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2.",
+          "doi": "10.1007/s44197-023-00096-2",
+          "year": 2023,
+          "score": 9,
+          "excerpt": "The blaSHV-1 gene is a chromosomal-mediated variant that encodes \u03b2-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down \u03b2-lactam antibiotics, rendering them ineffective. The blaSHV-1 gene, along with other v"
+        },
+        {
+          "title": "Strain-dependent contribution of the AcrAB-TolC efflux pump to\n                  <i>Klebsiella pneumoniae</i>\n                  physiology",
+          "citation": "Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to <i>klebsiella pneumoniae</i> physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718.",
+          "doi": "10.1101/2025.09.26.678718",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt references SHV-1 \u03b2-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 \u03b2-lactamase hydrolyzes broad-spectrum cephalosporins and monobactams, contributing to the bacterium's resistance ag"
+        }
+      ]
+    },
+    {
+      "drug": "piperacillin/tazobactam",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.731,
+      "supporting_genes": [
+        "blaSHV-1"
+      ],
+      "target_present": true,
+      "target_note": "penicillin-binding proteins present (core gene assumed intact)",
+      "reason": "rule models conflict (R:1/S:1); ML resolves resistant (P=0.73)",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.73073399066925,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": [
+        {
+          "title": "Prevalence of Extended-Spectrum \u03b2-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals",
+          "citation": "Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum \u03b2-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2.",
+          "doi": "10.1007/s44197-023-00096-2",
+          "year": 2023,
+          "score": 9,
+          "excerpt": "The blaSHV-1 gene is a chromosomal-mediated variant that encodes \u03b2-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down \u03b2-lactam antibiotics, rendering them ineffective. The blaSHV-1 gene, along with other v"
+        },
+        {
+          "title": "Strain-dependent contribution of the AcrAB-TolC efflux pump to\n                  <i>Klebsiella pneumoniae</i>\n                  physiology",
+          "citation": "Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to <i>klebsiella pneumoniae</i> physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718.",
+          "doi": "10.1101/2025.09.26.678718",
+          "year": 2025,
+          "score": 9,
+          "excerpt": "The excerpt references SHV-1 \u03b2-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 \u03b2-lactamase hydrolyzes broad-spectrum cephalosporins and monobactams, contributing to the bacterium's resistance ag"
+        }
+      ]
+    },
+    {
+      "drug": "fosfomycin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association only (not proof of biological cause)",
+      "confidence": 0.7,
+      "supporting_genes": [
+        "fosA"
+      ],
+      "target_present": true,
+      "target_note": "MurA (UDP-GlcNAc enolpyruvyl transferase) present (core gene assumed intact)",
+      "reason": "rule models conflict; deferring to Kleborate (Klebsiella-specific) \u2192 susceptible (other caller flagged an intrinsic/expected gene)",
+      "model_votes": [
+        {
+          "model": "AMRFinderPlus",
+          "call": "R",
+          "prob": null,
+          "evidence_type": "rule"
+        },
+        {
+          "model": "WGS_to_AMR",
+          "call": "R",
+          "prob": 0.383575022220612,
+          "evidence_type": "ml"
+        },
+        {
+          "model": "Kleborate",
+          "call": "S",
+          "prob": null,
+          "evidence_type": "rule"
+        }
+      ],
+      "literature": []
+    },
+    {
+      "drug": "levofloxacin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "iii",
+      "evidence_label": "no known resistance signal found",
+      "confidence": 0.765,
+      "supporting_genes": [],
+      "target_present": true,
+      "target_note": "unknown target present (core gene assumed intact)",
+      "reason": "no known resistance signal; predicted susceptible",
+      "model_votes": [
+        {
+          "model": "WGS_to_AMR",
+          "call": "S",
+          "prob": 0.234721273183823,
+          "evidence_type": "ml"
+        }
+      ],
+      "literature": []
+    }
+  ],
+  "literature": {
+    "query": "blaSHV-1 antimicrobial resistance Klebsiella pneumoniae",
+    "question": "How does blaSHV-1 confer antibiotic resistance in Klebsiella pneumoniae, and which antibiotics does it affect? Summarize the mechanism and clinical relevance.",
+    "answer": "The blaSHV-1 gene encodes a \u03b2-lactamase enzyme that confers antibiotic resistance in Klebsiella pneumoniae by hydrolyzing \u03b2-lactam antibiotics, thereby rendering them ineffective (alsheboul2023prevalenceofextendedspectrum pages 2-3, bhogal2025straindependentcontributionof pages 38-40). This enzyme primarily affects penicillins, cephalosporins, and monobactams, which are classes of \u03b2-lactam antibiotics (alsheboul2023prevalenceofextendedspectrum pages 2-3). The mechanism involves the enzymatic breakdown of the \u03b2-lactam ring, a critical structural component of these antibiotics, which is essential for their antibacterial activity (bhogal2025straindependentcontributionof pages 38-40).\n\nClinically, the presence of blaSHV-1 is significant as it complicates the treatment of infections caused by Klebsiella pneumoniae, particularly in immunocompromised patients, such as those with hematologic malignancies (alsheboul2023prevalenceofextendedspectrum pages 2-3, alsheboul2023prevalenceofextendedspectrum pages 1-2). The prevalence of blaSHV-1 in these populations suggests a high level of resistance to multiple \u03b2-lactam antibiotics, except for carbapenems, which remain effective (alsheboul2023prevalenceofextendedspectrum pages 7-8). This resistance necessitates the use of alternative therapeutic strategies, including the use of \u03b2-lactamase inhibitors like clavulanic acid, tazobactam, and sulbactam, which can inhibit the activity of SHV-1 \u03b2-lactamase (alsheboul2023prevalenceofextendedspectrum pages 2-3). The widespread presence of blaSHV-1 underscores the need for ongoing surveillance and research to manage antibiotic resistance effectively (alsheboul2023prevalenceofextendedspectrum pages 8-9).",
+    "n_pdfs": 3,
+    "citations": [
+      {
+        "title": "Prevalence of Extended-Spectrum \u03b2-Lactamases in Multidrug-Resistant Klebsiella pneumoniae Isolates in Jordanian Hospitals",
+        "citation": "Suhaila A. Al-Sheboul, Ghina S. Al-Madi, Brent Brown, and Wail A. Hayajneh. Prevalence of extended-spectrum \u03b2-lactamases in multidrug-resistant klebsiella pneumoniae isolates in jordanian hospitals. Journal of Epidemiology and Global Health, 13:180-190, Apr 2023. URL: https://doi.org/10.1007/s44197-023-00096-2, doi:10.1007/s44197-023-00096-2.",
+        "doi": "10.1007/s44197-023-00096-2",
+        "year": 2023,
+        "score": 9,
+        "excerpt": "The blaSHV-1 gene is a chromosomal-mediated variant that encodes \u03b2-lactamases, which are enzymes that confer antibiotic resistance in Klebsiella pneumoniae. These enzymes work by breaking down \u03b2-lactam antibiotics, rendering them ineffective. The blaSHV-1 gene, along with other v"
+      },
+      {
+        "title": "Strain-dependent contribution of the AcrAB-TolC efflux pump to\n                  <i>Klebsiella pneumoniae</i>\n                  physiology",
+        "citation": "Kirandeep Bhogal, Barbara Clough, Charlotte Emmerson, Archie Organ, Yin Chen, Michelle MC Buckner, and Ilyas Alav. Strain-dependent contribution of the acrab-tolc efflux pump to <i>klebsiella pneumoniae</i> physiology. BioRxiv, Sep 2025. URL: https://doi.org/10.1101/2025.09.26.678718, doi:10.1101/2025.09.26.678718.",
+        "doi": "10.1101/2025.09.26.678718",
+        "year": 2025,
+        "score": 9,
+        "excerpt": "The excerpt references SHV-1 \u03b2-lactamase as a chromosomally encoded enzyme in Klebsiella pneumoniae, which is primarily responsible for antibiotic resistance. SHV-1 \u03b2-lactamase hydrolyzes broad-spectrum cephalosporins and monobactams, contributing to the bacterium's resistance ag"
+      }
+    ],
+    "determinant": "blaSHV-1"
+  }
+}
