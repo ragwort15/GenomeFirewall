@@ -12,6 +12,51 @@ DOCTORS = {
 
 inject_global_css()
 
+if "landing_seen" not in st.session_state:
+    st.session_state.landing_seen = False
+if "authed" not in st.session_state:
+    st.session_state.authed = False
+
+# ---- Step 0: scenario / landing page ----
+if not st.session_state.landing_seen:
+    st.markdown("""
+    <div class="scenario">
+      <div class="scenario-eyebrow">A scenario · imagine</div>
+      <h1 class="scenario-title">Someone you love is rushed to the ER.</h1>
+      <div class="scenario-body">
+        <p>
+          They have a serious bacterial infection. The doctor starts a broad-spectrum
+          antibiotic — a best guess — because the lab culture that identifies
+          <b>which</b> antibiotic will actually work takes <b>1 to 3 days</b>.
+        </p>
+        <p>
+          During that wait, every wrong dose gives the bacteria more time to spread,
+          more time to mutate, more time to become resistant. Every year, more than
+          <b>one million people die</b> because the antibiotic prescribed no longer works.
+        </p>
+        <p class="scenario-question">
+          What if we didn't have to wait?
+        </p>
+        <p>
+          <b>Genome Firewall</b> is an agentic AI system that reads the bacterium's
+          own DNA and predicts — in <b>minutes</b>, not days — which antibiotics will
+          work, which will fail, and where it's honestly not sure. With calibrated
+          confidence, real evidence, and safety rules the model isn't allowed to break.
+        </p>
+        <p class="scenario-cta-line">
+          The doctor gets to act sooner. Your loved one gets the right drug faster.
+        </p>
+      </div>
+    </div>
+    """, unsafe_allow_html=True)
+
+    _, mid, _ = st.columns([1, 1.4, 1])
+    with mid:
+        if st.button("Enter the clinician portal →", type="primary"):
+            st.session_state.landing_seen = True
+            st.rerun()
+    st.stop()
+
 st.markdown("""
 <div class="hero">
   <div class="dna">🧬</div>
@@ -23,9 +68,6 @@ st.markdown("""
   </p>
 </div>
 """, unsafe_allow_html=True)
-
-if "authed" not in st.session_state:
-    st.session_state.authed = False
 
 if not st.session_state.authed:
     st.markdown("""
@@ -241,10 +283,14 @@ else:
                 st.switch_page("pages/1_Results.py")
         else:
             st.markdown("""
-            <p style='text-align:center;color:#6b8a99;font-size:0.85rem;'>
-              All uploads are processed locally for this prototype.<br/>
-              For a matched real-pipeline demo, upload
-              <code style='color:#7fdcff;'>data/example/573.12861.fna</code>
-              or <code style='color:#7fdcff;'>data/example/573.56205.fna</code>.
+            <p style='text-align:center;color:#8fb3c4;font-size:0.85rem; margin-top:1rem;'>
+              <b style='color:#7fdcff;'>Try one of the demo genomes</b><br/>
+              from <code style='color:#7fdcff;'>data/example/</code>
             </p>
+            <div style='display:flex; flex-wrap:wrap; justify-content:center; gap:0.5rem; margin-top:0.5rem;'>
+              <span class='pill pill-green'>573.12861.fna — Susceptible</span>
+              <span class='pill pill-amber'>kp_esbl_demo.fna — ESBL</span>
+              <span class='pill pill-red'>kp_carbapenem_demo.fna — CRE (KPC-2 + OXA-48)</span>
+              <span class='pill pill-red'>573.56205.fna — MDR</span>
+            </div>
             """, unsafe_allow_html=True)

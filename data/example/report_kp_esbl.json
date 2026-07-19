@@ -1,0 +1,113 @@
+{
+  "sample_id": "KP-ESBL-DEMO-001",
+  "species": "Klebsiella pneumoniae",
+  "generated_utc": "2026-07-18T23:15:00.000000+00:00",
+  "disclaimer": "Research prototype — every result must be confirmed by standard laboratory testing. Decision support only; not a medical device.",
+  "summary": {
+    "n_drugs": 8,
+    "n_likely_to_fail": 5,
+    "n_likely_to_work": 3,
+    "n_no_call": 0
+  },
+  "models_used": ["AMRFinderPlus", "Kleborate", "WGS_to_AMR"],
+  "genome_features": {
+    "genes": ["blaCTX-M-15", "blaTEM-1", "blaSHV-11", "aac(6')-Ib", "fosA", "oqxA", "oqxB"],
+    "point_mutations": [],
+    "n_amr_elements": 7
+  },
+  "coverage": {
+    "species_covered": ["Klebsiella pneumoniae"],
+    "not_covered": ["other species", "antibiotics outside the panel", "sample→genome steps"]
+  },
+  "drugs": [
+    {
+      "drug": "ceftriaxone",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene",
+      "confidence": 0.97,
+      "supporting_genes": ["blaCTX-M-15"],
+      "target_present": true,
+      "reason": "ESBL blaCTX-M-15 detected — hydrolyzes third-generation cephalosporins"
+    },
+    {
+      "drug": "cefepime",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene",
+      "confidence": 0.91,
+      "supporting_genes": ["blaCTX-M-15"],
+      "target_present": true,
+      "reason": "CTX-M-15 confers reduced susceptibility to cefepime; treat as resistant per current guidance"
+    },
+    {
+      "drug": "ampicillin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene",
+      "confidence": 0.99,
+      "supporting_genes": ["blaTEM-1", "blaSHV-11"],
+      "target_present": true,
+      "reason": "Multiple β-lactamases present — full aminopenicillin resistance"
+    },
+    {
+      "drug": "amoxicillin-clavulanate",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "ii",
+      "evidence_label": "statistical association",
+      "confidence": 0.78,
+      "supporting_genes": ["blaCTX-M-15"],
+      "target_present": true,
+      "reason": "ESBL producer — clavulanate inhibition frequently insufficient in K. pneumoniae"
+    },
+    {
+      "drug": "ciprofloxacin",
+      "verdict": "likely_to_fail",
+      "verdict_label": "Likely to FAIL (resistant)",
+      "evidence_category": "i",
+      "evidence_label": "known resistance gene",
+      "confidence": 0.86,
+      "supporting_genes": ["aac(6')-Ib"],
+      "target_present": true,
+      "reason": "aac(6')-Ib acetyltransferase (Ib-cr variant likely) reduces fluoroquinolone susceptibility"
+    },
+    {
+      "drug": "meropenem",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "iii",
+      "evidence_label": "no known resistance signal",
+      "confidence": 0.94,
+      "supporting_genes": [],
+      "target_present": true,
+      "target_note": "PBP2 / PBP3 target present, no carbapenemase detected",
+      "reason": "No carbapenemase or porin-loss signal — carbapenems remain the reliable choice"
+    },
+    {
+      "drug": "ertapenem",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "iii",
+      "evidence_label": "no known resistance signal",
+      "confidence": 0.92,
+      "supporting_genes": [],
+      "target_present": true,
+      "reason": "No carbapenemase detected; ESBL alone does not confer clinical ertapenem resistance"
+    },
+    {
+      "drug": "amikacin",
+      "verdict": "likely_to_work",
+      "verdict_label": "Likely to WORK (susceptible)",
+      "evidence_category": "iii",
+      "evidence_label": "no known resistance signal",
+      "confidence": 0.89,
+      "supporting_genes": [],
+      "target_present": true,
+      "reason": "aac(6')-Ib affects other aminoglycosides but amikacin generally retained"
+    }
+  ]
+}

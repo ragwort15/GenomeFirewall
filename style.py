@@ -175,6 +175,54 @@ GLOBAL_CSS = """
     padding:1.5rem 1rem 0 1rem; max-width:640px; margin:1rem auto 0 auto;
   }
 
+  /* ---- Scenario / landing page (step 0) — LIGHT theme card ---- */
+  .scenario {
+    max-width: 720px; margin: 3rem auto 2rem auto;
+    padding: 2.75rem 2.25rem 2.25rem 2.25rem;
+    background: #f6f2ea;
+    border: 1px solid rgba(18,33,28,0.12);
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.35);
+  }
+  .scenario-eyebrow {
+    text-align: center;
+    color: #c64a2c;
+    font-size: 0.75rem; font-weight: 800;
+    letter-spacing: 0.24em; text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .scenario-title {
+    text-align: center;
+    color: #12211c;
+    font-size: 2.35rem; font-weight: 800;
+    line-height: 1.15; letter-spacing: -0.02em;
+    margin: 0 0 1.75rem 0;
+    text-wrap: balance;
+  }
+  .scenario-body p {
+    color: #2a3934;
+    font-size: 1.02rem;
+    line-height: 1.7;
+    margin: 0 0 1.1rem 0;
+  }
+  .scenario-body b { color: #12211c; font-weight: 700; }
+  .scenario-body .scenario-question {
+    color: #c64a2c; font-size: 1.4rem; font-weight: 800;
+    text-align: center;
+    padding: 1rem 0; margin: 1.5rem 0;
+    border-top: 1px solid rgba(18,33,28,0.15);
+    border-bottom: 1px solid rgba(18,33,28,0.15);
+    letter-spacing: -0.01em;
+    font-style: italic;
+  }
+  .scenario-body .scenario-cta-line {
+    color: #12211c; font-weight: 700; text-align: center;
+    margin-top: 1.5rem;
+    background: linear-gradient(180deg, transparent 62%, rgba(232,184,74,0.55) 62%, rgba(232,184,74,0.55) 92%, transparent 92%);
+    display: inline-block; padding: 0 0.25rem;
+  }
+  .scenario-body .scenario-cta-line-wrap { text-align: center; }
+
   .demo-creds {
     max-width: 320px; margin: 1.25rem auto 0 auto;
     padding: 0.9rem 1.1rem;

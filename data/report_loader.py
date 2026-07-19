@@ -14,7 +14,7 @@ EXAMPLE_DIR = ROOT / "data" / "example"
 MOCK_PATH = ROOT / "data" / "mock_results.json"
 
 # Map uploaded filename → (report JSON, literature JSON)
-KNOWN_EXAMPLES: dict[str, tuple[Path, Path]] = {
+KNOWN_EXAMPLES: dict[str, tuple[Path, Path | None]] = {
     "573.12861.fna": (
         EXAMPLE_DIR / "report.json",
         EXAMPLE_DIR / "report_literature.json",
@@ -22,6 +22,14 @@ KNOWN_EXAMPLES: dict[str, tuple[Path, Path]] = {
     "573.56205.fna": (
         EXAMPLE_DIR / "report_573.56205.json",
         EXAMPLE_DIR / "report_573.56205_literature.json",
+    ),
+    "kp_esbl_demo.fna": (
+        EXAMPLE_DIR / "report_kp_esbl.json",
+        None,
+    ),
+    "kp_carbapenem_demo.fna": (
+        EXAMPLE_DIR / "report_kp_carbapenem.json",
+        None,
     ),
 }
 
@@ -39,7 +47,7 @@ EVIDENCE_MAP = {
 }
 
 
-def _pick_example_paths(filename: str) -> tuple[Path, Path] | None:
+def _pick_example_paths(filename: str) -> tuple[Path, Path | None] | None:
     if filename in KNOWN_EXAMPLES:
         return KNOWN_EXAMPLES[filename]
     for key, paths in KNOWN_EXAMPLES.items():
@@ -76,11 +84,11 @@ def _shape_drug(d: dict[str, Any]) -> dict[str, Any]:
     }
 
 
-def _shape_real(report_path: Path, lit_path: Path) -> dict[str, Any]:
+def _shape_real(report_path: Path, lit_path: Path | None) -> dict[str, Any]:
     with open(report_path, encoding="utf-8") as f:
         raw = json.load(f)
     literature = None
-    if lit_path.exists():
+    if lit_path is not None and lit_path.exists():
         with open(lit_path, encoding="utf-8") as f:
             literature = json.load(f)
 
