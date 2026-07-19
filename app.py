@@ -30,7 +30,7 @@ if "authed" not in st.session_state:
 if not st.session_state.authed:
     st.markdown("""
     <div class="login-wrap">
-      <div class="login-note">Restricted Access</div>
+      <div class="login-note">🔒 Restricted Access</div>
       <div class="login-title">Clinician Sign-In</div>
     </div>
     """, unsafe_allow_html=True)
@@ -41,14 +41,22 @@ if not st.session_state.authed:
         pwd = st.text_input("Password", type="password")
         submitted = st.form_submit_button("Sign in")
         if submitted:
-            if DOCTORS.get(user) == pwd:
+            u = (user or "").strip().lower()
+            p = (pwd or "").strip()
+            if DOCTORS.get(u) == p:
                 st.session_state.authed = True
-                st.session_state.user = user
+                st.session_state.user = u
                 st.rerun()
             else:
-                st.error("Invalid credentials. This portal is restricted to verified clinicians.")
+                st.error(f"Invalid credentials for '{u}'. Try demo / demo.")
 
     st.markdown("""
+    <div class="demo-creds">
+      <div class="demo-creds-title">Demo access for judges</div>
+      <div class="demo-creds-row"><span class="k">Username</span><span class="v">demo</span></div>
+      <div class="demo-creds-row"><span class="k">Password</span><span class="v">demo</span></div>
+    </div>
+
     <div class="disclaimer">
       Access limited to licensed healthcare professionals. All activity is logged.
       Research prototype — every antibiotic-response report must be confirmed by standard laboratory testing.
@@ -87,6 +95,33 @@ else:
             except (ValueError, IndexError):
                 pass
 
+        BODY_SITES = [
+            "Bloodstream (bacteremia / sepsis)",
+            "Urinary tract",
+            "Lower respiratory (lungs / pneumonia)",
+            "Upper respiratory (sinus / throat)",
+            "Skin & soft tissue",
+            "Bone & joint",
+            "Central nervous system (meningitis)",
+            "Intra-abdominal",
+            "Surgical site",
+            "Catheter / indwelling device",
+            "Ear",
+            "Eye",
+            "Other / unspecified",
+        ]
+        COMORBIDITIES = [
+            "Diabetes mellitus",
+            "Chronic kidney disease",
+            "Immunosuppression",
+            "Solid organ transplant",
+            "Active malignancy",
+            "COPD / chronic lung disease",
+            "Liver cirrhosis",
+            "Recent hospitalization (< 90 d)",
+            "None documented",
+        ]
+
         st.markdown("""
         <div style="text-align:center; padding: 1rem 0 0.5rem 0;">
           <h2 style="color:#ffffff; margin-bottom:0.25rem;">Patient Details</h2>
@@ -112,8 +147,35 @@ else:
             with c4:
                 egfr = st.number_input("eGFR (mL/min/1.73m²)", min_value=0, max_value=200, value=prev_egfr, step=1)
 
-            source = st.text_input("Suspected infection source",
-                                   value=prev.get("suspected_source", "Catheter-associated UTI → bacteremia"))
+            prev_site = prev.get("body_site")
+            site_index = BODY_SITES.index(prev_site) if prev_site in BODY_SITES else 0
+            body_site = st.selectbox(
+                "Infected body site",
+                BODY_SITES,
+                index=site_index,
+                help="Where the infection is presenting clinically.",
+            )
+
+            c5, c6 = st.columns([2, 1])
+            with c5:
+                source = st.text_input(
+                    "Suspected infection source (free text)",
+                    value=prev.get("suspected_source", "Catheter-associated UTI → bacteremia"),
+                    help="Route or apparent origin, e.g. catheter → bacteremia.",
+                )
+            with c6:
+                onset = st.number_input(
+                    "Symptom onset (days ago)", min_value=0, max_value=365,
+                    value=int(prev.get("onset_days", 3)), step=1,
+                )
+
+            prev_comorbid = prev.get("comorbidities_list") or ["None documented"]
+            comorbidities = st.multiselect(
+                "Comorbidities / risk factors",
+                COMORBIDITIES,
+                default=[c for c in prev_comorbid if c in COMORBIDITIES] or ["None documented"],
+            )
+
             prior_abx = st.text_input("Prior antibiotics (last 30 days)",
                                       value=prev.get("prior_antibiotics", "Ceftriaxone (5 d), meropenem (2 d)"))
             allergies = st.text_input("Known drug allergies",
@@ -125,7 +187,12 @@ else:
                     "name": name,
                     "age_sex": f"{age} · {sex}",
                     "setting": setting,
+                    "body_site": body_site,
                     "suspected_source": source,
+                    "onset_days": onset,
+                    "onset": f"{onset} day(s) ago" if onset else "Today",
+                    "comorbidities": ", ".join(comorbidities) if comorbidities else "None documented",
+                    "comorbidities_list": comorbidities,
                     "prior_antibiotics": prior_abx,
                     "allergies": allergies,
                     "renal_function": f"eGFR {egfr}" + (" (dose-adjust aminoglycosides)" if egfr < 60 else ""),
@@ -141,7 +208,9 @@ else:
                 st.session_state.editing_patient = True
                 st.rerun()
         with sum_col:
-            patient_summary = f"{st.session_state.patient.get('name', '')} · {st.session_state.patient['age_sex']} · {st.session_state.patient['setting']}"
+            p = st.session_state.patient
+            parts = [p.get("name", ""), p.get("age_sex", ""), p.get("body_site", ""), p.get("setting", "")]
+            patient_summary = " · ".join(x for x in parts if x)
             st.markdown(f"""
             <div class="patient-summary-bar">
               <span class="ps-label">Patient:</span>
@@ -171,4 +240,11 @@ else:
             if st.button("Analyze genome →", type="primary"):
                 st.switch_page("pages/1_Results.py")
         else:
-            st.markdown("<p style='text-align:center;color:#6b8a99;font-size:0.85rem;'>All uploads are processed locally for this prototype.</p>", unsafe_allow_html=True)
+            st.markdown("""
+            <p style='text-align:center;color:#6b8a99;font-size:0.85rem;'>
+              All uploads are processed locally for this prototype.<br/>
+              For a matched real-pipeline demo, upload
+              <code style='color:#7fdcff;'>data/example/573.12861.fna</code>
+              or <code style='color:#7fdcff;'>data/example/573.56205.fna</code>.
+            </p>
+            """, unsafe_allow_html=True)

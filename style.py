@@ -58,20 +58,110 @@ GLOBAL_CSS = """
     font-size:1.05rem; margin-bottom:0.25rem;
   }
   .login-note {
-    color:#7fdcff; text-align:center; font-size:0.78rem;
-    letter-spacing:0.15em; text-transform:uppercase; margin-bottom:1rem;
+    color:#7fdcff; text-align:center; font-size:0.82rem;
+    font-weight:800;
+    letter-spacing:0.18em; text-transform:uppercase; margin-bottom:1rem;
   }
   .stTextInput label {
     color:#b8d4e3 !important; font-size:0.85rem !important;
     width:100%; text-align:center; display:block;
   }
-  .stTextInput input { text-align:center; }
   div[data-testid="stForm"] { text-align:center; }
   .stTextInput input {
-    background: rgba(0,0,0,0.25) !important;
-    color:#ffffff !important;
-    border:1px solid rgba(127,220,255,0.25) !important;
+    background: #f5f7f9 !important;
+    color: #12211C !important;
+    border: 1px solid rgba(127,220,255,0.3) !important;
+    text-align:left !important;
+    padding-left:0.9rem !important;
   }
+  .stTextInput input::placeholder {
+    color: rgba(18,33,28,0.45) !important;
+    text-align:left;
+  }
+  /* Hide Streamlit's "Press Enter to submit form" hint that overlaps the input */
+  div[data-testid="InputInstructions"],
+  .stTextInput [data-testid="InputInstructions"] {
+    display: none !important;
+  }
+
+  /* ---- Selectbox, multiselect, number input, textarea — dark theme ---- */
+  .stSelectbox label, .stMultiSelect label, .stNumberInput label, .stTextArea label,
+  .stDateInput label, .stTimeInput label, .stRadio label {
+    color: #b8d4e3 !important; font-size: 0.85rem !important; font-weight: 500;
+  }
+
+  /* Selectbox / multiselect base container — light bg, dark text */
+  .stSelectbox div[data-baseweb="select"] > div,
+  .stMultiSelect div[data-baseweb="select"] > div {
+    background: #f5f7f9 !important;
+    border: 1px solid rgba(127,220,255,0.3) !important;
+    color: #12211C !important;
+    min-height: 40px;
+  }
+  .stSelectbox div[data-baseweb="select"] span,
+  .stMultiSelect div[data-baseweb="select"] span,
+  .stSelectbox div[data-baseweb="select"] input,
+  .stMultiSelect div[data-baseweb="select"] input {
+    color: #12211C !important;
+  }
+  .stSelectbox div[data-baseweb="select"] [aria-hidden="true"],
+  .stMultiSelect div[data-baseweb="select"] [aria-hidden="true"] {
+    color: rgba(18,33,28,0.5) !important;
+  }
+  /* Multiselect chosen-tag pills — light with dark text */
+  .stMultiSelect [data-baseweb="tag"] {
+    background: #e6f4fa !important;
+    border: 1px solid #7fdcff !important;
+    color: #12211C !important;
+  }
+  .stMultiSelect [data-baseweb="tag"] span { color: #12211C !important; }
+  .stMultiSelect [data-baseweb="tag"] svg { fill: #12211C !important; }
+
+  /* Number input — light */
+  .stNumberInput input {
+    background: #f5f7f9 !important;
+    color: #12211C !important;
+    border: 1px solid rgba(127,220,255,0.3) !important;
+  }
+  .stNumberInput button {
+    background: #eef2f5 !important;
+    color: #12211C !important;
+    border: 1px solid rgba(127,220,255,0.3) !important;
+  }
+  .stNumberInput button svg { fill: #12211C !important; }
+
+  /* Dropdown chevron on selectbox */
+  .stSelectbox div[data-baseweb="select"] svg,
+  .stMultiSelect div[data-baseweb="select"] svg {
+    fill: #12211C !important;
+  }
+
+  /* Dropdown popover — light background, dark text */
+  div[data-baseweb="popover"],
+  div[data-baseweb="popover"] * {
+    background: #ffffff !important;
+    background-color: #ffffff !important;
+    color: #12211C !important;
+    border-color: rgba(127,220,255,0.35) !important;
+  }
+  div[data-baseweb="popover"] {
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35) !important;
+    border: 1px solid rgba(127,220,255,0.35) !important;
+  }
+  /* Hover / selected states — soft cyan */
+  div[data-baseweb="popover"] [role="option"]:hover,
+  div[data-baseweb="popover"] [role="option"]:hover *,
+  div[data-baseweb="popover"] li:hover,
+  div[data-baseweb="popover"] li:hover *,
+  div[data-baseweb="popover"] [aria-selected="true"],
+  div[data-baseweb="popover"] [aria-selected="true"] * {
+    background: #e6f4fa !important;
+    background-color: #e6f4fa !important;
+    color: #0f4a63 !important;
+  }
+
+  /* Help tooltip icon */
+  .stTooltipIcon svg { fill: #7fdcff !important; }
   .stButton button {
     width:100%; background: linear-gradient(90deg,#00e5ff,#0088cc);
     color:#001018; font-weight:700; border:none; border-radius:8px;
@@ -84,6 +174,27 @@ GLOBAL_CSS = """
     text-align:center; color:#6b8a99; font-size:0.78rem;
     padding:1.5rem 1rem 0 1rem; max-width:640px; margin:1rem auto 0 auto;
   }
+
+  .demo-creds {
+    max-width: 320px; margin: 1.25rem auto 0 auto;
+    padding: 0.9rem 1.1rem;
+    background: rgba(255,180,60,0.06);
+    border: 1px dashed rgba(255,180,60,0.4);
+    border-radius: 10px;
+  }
+  .demo-creds-title {
+    color: #ffd479; text-align:center;
+    font-size:0.7rem; font-weight:800;
+    letter-spacing:0.18em; text-transform:uppercase;
+    margin-bottom:0.55rem;
+  }
+  .demo-creds-row {
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding: 0.2rem 0.35rem;
+    font-size:0.88rem;
+  }
+  .demo-creds-row .k { color:#8fb3c4; }
+  .demo-creds-row .v { color:#ffffff; font-family: ui-monospace, "SF Mono", Menlo, monospace; font-weight:700; }
 
   /* ---- shared pill / card system (results dashboard) ---- */
   .pill {
@@ -264,7 +375,10 @@ def render_patient_card(patient: dict, section_number: int = 4):
     rows = [
         ("Age / sex",          patient.get("age_sex")),
         ("Setting",             patient.get("setting")),
+        ("Body site infected", patient.get("body_site")),
         ("Suspected source",   patient.get("suspected_source")),
+        ("Symptom onset",      patient.get("onset")),
+        ("Comorbidities",      patient.get("comorbidities")),
         ("Prior antibiotics",  patient.get("prior_antibiotics")),
         ("Allergies",          patient.get("allergies")),
         ("Renal function",     patient.get("renal_function")),

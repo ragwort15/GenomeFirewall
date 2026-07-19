@@ -1,8 +1,11 @@
-import json
+import sys
 from pathlib import Path
 
 import streamlit as st
 from style import inject_global_css, render_signed_in_header, render_patient_card, VERDICT_META
+
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
+from data.report_loader import load_report  # noqa: E402
 
 st.set_page_config(page_title="Genome Firewall — Results", page_icon="🧬", layout="centered")
 
@@ -11,16 +14,19 @@ inject_global_css()
 if not st.session_state.get("authed") or not st.session_state.get("uploaded_filename"):
     st.switch_page("app.py")
 
-DATA_PATH = Path(__file__).parent.parent / "data" / "mock_results.json"
-with open(DATA_PATH, encoding="utf-8") as f:
-    DATA = json.load(f)
+filename = st.session_state.uploaded_filename
+DATA = load_report(filename)
 
 antibiotics = DATA["antibiotics"]
 coverage = DATA["coverage"]
 
-filename = st.session_state.uploaded_filename
+source_badge = "pill-green" if DATA.get("source") == "backend" else "pill-cyan"
+source_pill = f"<span class='pill {source_badge}'>{DATA.get('source_label', '')}</span>"
 status_pill = f"<span class='pill pill-green'>{filename} — Quality-checked ✓</span>"
-render_signed_in_header(st.session_state.user, right_content=f"<div style='margin-top:0.5rem;'>{status_pill}</div>")
+render_signed_in_header(
+    st.session_state.user,
+    right_content=f"<div style='margin-top:0.5rem; display:flex; flex-direction:column; gap:0.35rem; align-items:flex-end;'>{status_pill}{source_pill}</div>",
+)
 
 back_col, _ = st.columns([1, 5])
 with back_col:
@@ -111,6 +117,51 @@ for a in antibiotics:
                   <a class="lit-link" href="{ref['url']}" target="_blank" rel="noopener">View source ↗</a>
                 </div>
                 """, unsafe_allow_html=True)
+
+# ---- Genome features (real reports) ----
+gf = DATA.get("genome_features") or {}
+if gf.get("genes") or gf.get("point_mutations"):
+    genes_html = "".join(f"<span class='chip'>{g}</span>" for g in gf.get("genes", []))
+    muts_html = "".join(f"<span class='chip'>{m}</span>" for m in gf.get("point_mutations", []))
+    models_html = " · ".join(DATA.get("models_used", [])) or "—"
+    st.markdown(f"""
+    <div class="section-title">Genome features detected</div>
+    <div class="section-sub">Signals extracted by the annotation stack ({models_html}).</div>
+    <div class="drug-card">
+      <div class="drug-meta-row"><div class="drug-meta">AMR elements: <b>{gf.get('n_amr_elements', len(gf.get('genes', [])))}</b></div></div>
+      <div style="margin-top:0.4rem;">{genes_html or "<i>none</i>"}</div>
+      {f"<div style='margin-top:0.5rem;'><div class='drug-meta'>Point mutations</div>{muts_html}</div>" if muts_html else ""}
+    </div>
+    """, unsafe_allow_html=True)
+
+# ---- Literature narrative (real reports) ----
+lit_block = DATA.get("literature_block")
+if lit_block:
+    st.markdown(f"""
+    <div class="section-title">Literature evidence</div>
+    <div class="section-sub">paper-qa synthesis for <b>{lit_block.get('query', '')}</b> · {lit_block.get('n_pdfs', 0)} sources.</div>
+    """, unsafe_allow_html=True)
+    with st.expander("View synthesized answer & citations", expanded=False):
+        st.markdown(
+            "<div class='lit-note'><b>Question:</b> " + lit_block.get("question", "") + "</div>",
+            unsafe_allow_html=True,
+        )
+        st.markdown(
+            "<div class='drug-detail' style='margin:0.75rem 0 1rem 0;'>"
+            + lit_block.get("answer", "").replace("\n", "<br/>")
+            + "</div>",
+            unsafe_allow_html=True,
+        )
+        for c in lit_block.get("citations", []):
+            doi_url = f"https://doi.org/{c.get('doi')}" if c.get("doi") else "#"
+            st.markdown(f"""
+            <div class="lit-ref">
+              <div class="lit-ref-title">{c.get('title', '')}<span class="lit-tag">score {c.get('score', '—')}</span></div>
+              <div class="lit-meta">{c.get('citation', '')}</div>
+              <div class="lit-quote">&ldquo;{c.get('excerpt', '')}&rdquo;</div>
+              <a class="lit-link" href="{doi_url}" target="_blank" rel="noopener">View source ↗</a>
+            </div>
+            """, unsafe_allow_html=True)
 
 # ---- Patient / clinical context ----
 patient_data = st.session_state.get("patient") or DATA.get("patient")
